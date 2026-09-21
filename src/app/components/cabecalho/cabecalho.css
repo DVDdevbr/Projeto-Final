@@ -1,0 +1,1013 @@
+/* =========================================================
+   CABEÇALHO — MEU MANTO
+========================================================= */
+
+:host {
+  display: block;
+
+  position: relative;
+
+  z-index: 1000;
+
+  --cabecalho: #13161b;
+}
+
+/* TEMA ESCURO */
+
+:host(.modo-escuro) {
+  --cabecalho: #090b0e;
+}
+
+/* =========================================================
+   TEMA VITÓRIA
+========================================================= */
+
+:host(.tema-vitoria) {
+  --cabecalho: #0b0b0b;
+}
+
+/* =========================================================
+   TEMA BAHIA
+========================================================= */
+
+:host(.tema-bahia) {
+  --cabecalho: #063b66;
+}
+
+/* =========================================================
+   ELEMENTOS GERAIS
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+
+  cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline:
+    3px solid var(--cor-principal);
+
+  outline-offset: 4px;
+}
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.cabecalho {
+  min-height: 88px;
+
+  padding:
+    12px 5%;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr auto 1fr;
+
+  align-items: center;
+
+  gap: 30px;
+
+  position: relative;
+
+  background-color:
+    var(--cabecalho);
+
+  color:
+    var(--cabecalho-texto);
+
+  box-shadow:
+    0 8px 30px
+    rgba(0, 0, 0, 0.12);
+}
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.marca {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+
+  justify-self: start;
+
+  text-decoration: none;
+}
+
+.marca img {
+  width: auto;
+  height: 62px;
+
+  display: block;
+
+  object-fit: contain;
+}
+
+/* =========================================================
+   NAVEGAÇÃO CENTRAL
+========================================================= */
+
+.navegacao {
+  position: relative;
+
+  justify-self: center;
+}
+
+.botao-menu {
+  min-width: 112px;
+  height: 44px;
+
+  padding:
+    0 17px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.13);
+
+  border-radius: 999px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  background:
+    rgba(255, 255, 255, 0.07);
+
+  color: #ffffff;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.botao-menu:hover {
+  transform:
+    translateY(-2px);
+
+  border-color:
+    rgba(255, 255, 255, 0.27);
+
+  background:
+    rgba(255, 255, 255, 0.12);
+}
+
+.texto-botao-menu {
+  font-size: 0.76rem;
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   ÍCONE HAMBÚRGUER
+========================================================= */
+
+.hamburguer {
+  width: 18px;
+  height: 14px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  position: relative;
+}
+
+.hamburguer span {
+  width: 100%;
+  height: 2px;
+
+  display: block;
+
+  border-radius: 999px;
+
+  background-color:
+    currentColor;
+
+  transform-origin: center;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+/* transforma ☰ em X */
+
+.hamburguer.aberto span:nth-child(1) {
+  transform:
+    translateY(6px)
+    rotate(45deg);
+}
+
+.hamburguer.aberto span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburguer.aberto span:nth-child(3) {
+  transform:
+    translateY(-6px)
+    rotate(-45deg);
+}
+
+/* =========================================================
+   PAINEL DO MENU PRINCIPAL
+========================================================= */
+
+.menu-principal {
+  width: 390px;
+
+  padding: 19px;
+
+  position: absolute;
+
+  top:
+    calc(100% + 16px);
+
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  border:
+    1px solid var(--borda);
+
+  border-radius: 20px;
+
+  background-color:
+    var(--fundo-secundario);
+
+  color:
+    var(--texto);
+
+  box-shadow:
+    0 25px 70px
+    rgba(0, 0, 0, 0.25);
+
+  animation:
+    abrir-menu 0.18s ease;
+}
+
+@keyframes abrir-menu {
+  from {
+    opacity: 0;
+
+    transform:
+      translateX(-50%)
+      translateY(-8px)
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      translateY(0)
+      scale(1);
+  }
+}
+
+/* =========================================================
+   TOPO DO MENU
+========================================================= */
+
+.topo-menu {
+  padding:
+    2px 3px 15px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 15px;
+
+  border-bottom:
+    1px solid var(--borda);
+}
+
+.topo-menu > div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.mini-titulo {
+  color:
+    var(--cor-principal);
+
+  font-size: 0.66rem;
+  font-weight: 900;
+
+  letter-spacing: 0.13em;
+
+  text-transform: uppercase;
+}
+
+.topo-menu strong {
+  font-size: 1rem;
+}
+
+.fechar-menu {
+  width: 30px;
+  height: 30px;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 50%;
+
+  display: grid;
+  place-items: center;
+
+  background-color:
+    var(--fundo-terciario);
+
+  color:
+    var(--texto-secundario);
+
+  font-size: 1.25rem;
+  line-height: 1;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.fechar-menu:hover {
+  background-color:
+    var(--cor-principal-suave);
+
+  color:
+    var(--cor-principal);
+}
+
+/* =========================================================
+   LINKS DO MENU
+========================================================= */
+
+.links-menu {
+  padding-top: 9px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.links-menu a {
+  min-height: 65px;
+
+  padding:
+    9px 10px;
+
+  border:
+    1px solid transparent;
+
+  border-radius: 13px;
+
+  display: grid;
+
+  grid-template-columns:
+    40px 1fr 20px;
+
+  align-items: center;
+
+  gap: 11px;
+
+  color:
+    var(--texto);
+
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.links-menu a:hover {
+  transform:
+    translateX(3px);
+
+  background-color:
+    var(--fundo-terciario);
+}
+
+/* rota atual */
+
+.links-menu a.ativo {
+  border-color:
+    var(--cor-principal);
+
+  background-color:
+    var(--cor-principal-suave);
+}
+
+/* =========================================================
+   ÍCONES DOS LINKS
+========================================================= */
+
+.icone-link {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 11px;
+
+  display: grid;
+  place-items: center;
+
+  background-color:
+    var(--fundo-terciario);
+
+  color:
+    var(--texto);
+
+  font-size: 0.76rem;
+  font-weight: 900;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.links-menu a.ativo .icone-link {
+  background-color:
+    var(--cor-principal);
+
+  color: #ffffff;
+}
+
+.conteudo-link {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.conteudo-link strong {
+  font-size: 0.84rem;
+}
+
+.conteudo-link small {
+  overflow: hidden;
+
+  color:
+    var(--texto-secundario);
+
+  font-size: 0.69rem;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.seta-link {
+  color:
+    var(--texto-secundario);
+
+  font-size: 0.9rem;
+
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.links-menu a:hover .seta-link,
+.links-menu a.ativo .seta-link {
+  transform:
+    translateX(2px);
+
+  color:
+    var(--cor-principal);
+}
+
+/* =========================================================
+   ÁREA DO USUÁRIO
+========================================================= */
+
+.area-usuario {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 18px;
+
+  justify-self: end;
+}
+
+.saudacao {
+  color:
+    rgba(255, 255, 255, 0.82);
+
+  font-size: 0.92rem;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   PERFIL
+========================================================= */
+
+.perfil {
+  position: relative;
+}
+
+.botao-perfil {
+  width: 46px;
+  height: 46px;
+
+  padding: 0;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.14);
+
+  border-radius: 50%;
+
+  display: grid;
+  place-items: center;
+
+  background:
+    rgba(255, 255, 255, 0.08);
+
+  color: #ffffff;
+
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.botao-perfil:hover {
+  transform:
+    translateY(-2px);
+
+  border-color:
+    rgba(255, 255, 255, 0.28);
+
+  background:
+    rgba(255, 255, 255, 0.14);
+}
+
+/* =========================================================
+   ÍCONE DE PERFIL
+========================================================= */
+
+.icone-perfil {
+  width: 23px;
+  height: 23px;
+
+  display: block;
+
+  position: relative;
+}
+
+.cabeca-perfil {
+  width: 8px;
+  height: 8px;
+
+  position: absolute;
+
+  top: 1px;
+  left: 50%;
+
+  border:
+    2px solid currentColor;
+
+  border-radius: 50%;
+
+  transform:
+    translateX(-50%);
+}
+
+.corpo-perfil {
+  width: 19px;
+  height: 10px;
+
+  position: absolute;
+
+  bottom: 1px;
+  left: 50%;
+
+  border:
+    2px solid currentColor;
+
+  border-bottom: 0;
+
+  border-radius:
+    12px 12px 0 0;
+
+  transform:
+    translateX(-50%);
+}
+
+/* =========================================================
+   MENU DO PERFIL
+========================================================= */
+
+.menu-perfil {
+  width: 310px;
+
+  padding: 18px;
+
+  position: absolute;
+
+  top:
+    calc(100% + 14px);
+
+  right: 0;
+
+  border:
+    1px solid var(--borda);
+
+  border-radius: 18px;
+
+  background-color:
+    var(--fundo-secundario);
+
+  color:
+    var(--texto);
+
+  box-shadow:
+    0 24px 70px
+    rgba(0, 0, 0, 0.22);
+
+  animation:
+    abrir-perfil 0.18s ease;
+}
+
+@keyframes abrir-perfil {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-8px)
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+/* =========================================================
+   TOPO DO PERFIL
+========================================================= */
+
+.topo-menu-perfil {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.topo-menu-perfil strong {
+  font-size: 1rem;
+}
+
+.topo-menu-perfil span {
+  color:
+    var(--texto-secundario);
+
+  font-size: 0.82rem;
+}
+
+.divisor-menu {
+  height: 1px;
+
+  margin:
+    15px 0;
+
+  background-color:
+    var(--borda);
+}
+
+/* =========================================================
+   TEMAS
+========================================================= */
+
+.secao-menu {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.titulo-menu {
+  margin-bottom: 3px;
+
+  color:
+    var(--texto-secundario);
+
+  font-size: 0.72rem;
+  font-weight: 800;
+
+  letter-spacing: 0.1em;
+
+  text-transform: uppercase;
+}
+
+.opcao-tema {
+  width: 100%;
+
+  padding: 10px;
+
+  border:
+    1px solid transparent;
+
+  border-radius: 12px;
+
+  display: grid;
+
+  grid-template-columns:
+    34px 1fr 20px;
+
+  align-items: center;
+
+  gap: 10px;
+
+  background-color:
+    transparent;
+
+  color:
+    var(--texto);
+
+  text-align: left;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.opcao-tema:hover {
+  background-color:
+    var(--fundo-terciario);
+}
+
+.opcao-tema.tema-ativo {
+  border-color:
+    var(--cor-principal);
+
+  background-color:
+    var(--cor-principal-suave);
+}
+
+/* =========================================================
+   AMOSTRAS DOS TEMAS
+========================================================= */
+
+.amostra-tema {
+  width: 30px;
+  height: 30px;
+
+  border:
+    2px solid var(--borda);
+
+  border-radius: 50%;
+}
+
+.tema-padrao {
+  background:
+    linear-gradient(
+      135deg,
+      #ff6b00 0 50%,
+      #171b24 50% 100%
+    );
+}
+
+.tema-escuro {
+  background:
+    linear-gradient(
+      135deg,
+      #111318 0 50%,
+      #ff6b00 50% 100%
+    );
+}
+
+.tema-bahia-amostra {
+  background:
+    linear-gradient(
+      135deg,
+      #0067b1 0 50%,
+      #d71920 50% 100%
+    );
+}
+
+.tema-vitoria-amostra {
+  background:
+    linear-gradient(
+      135deg,
+      #d71920 0 50%,
+      #111111 50% 100%
+    );
+}
+
+.texto-tema {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.texto-tema strong {
+  font-size: 0.86rem;
+}
+
+.texto-tema small {
+  color:
+    var(--texto-secundario);
+
+  font-size: 0.72rem;
+}
+
+.check-tema {
+  color:
+    var(--cor-principal);
+
+  font-weight: 900;
+
+  text-align: center;
+}
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.botao-sair-menu {
+  width: 100%;
+
+  padding:
+    10px 12px;
+
+  border: 0;
+
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  background-color:
+    transparent;
+
+  color: #d63b3b;
+
+  font-weight: 700;
+
+  text-align: left;
+
+  transition:
+    background-color 0.2s ease;
+}
+
+.botao-sair-menu:hover {
+  background-color:
+    rgba(214, 59, 59, 0.09);
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+  .cabecalho {
+    padding:
+      11px 4%;
+
+    gap: 15px;
+  }
+
+  .marca img {
+    height: 55px;
+  }
+
+  .saudacao {
+    display: none;
+  }
+}
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 600px) {
+  .cabecalho {
+    min-height: 74px;
+
+    grid-template-columns:
+      1fr auto 1fr;
+
+    padding:
+      9px 4%;
+  }
+
+  .marca img {
+    height: 48px;
+  }
+
+  .botao-menu {
+    min-width: 44px;
+    width: 44px;
+    height: 42px;
+
+    padding: 0;
+  }
+
+  /*
+    No celular mostramos somente
+    o hambúrguer.
+  */
+
+  .texto-botao-menu {
+    display: none;
+  }
+
+  .menu-principal {
+    width:
+      min(
+        370px,
+        calc(100vw - 24px)
+      );
+
+    top:
+      calc(100% + 14px);
+  }
+
+  .botao-perfil {
+    width: 42px;
+    height: 42px;
+  }
+
+  .menu-perfil {
+    width:
+      min(
+        300px,
+        calc(100vw - 24px)
+      );
+
+    right: -3px;
+  }
+}
+
+/* =========================================================
+   CELULARES PEQUENOS
+========================================================= */
+
+@media (max-width: 390px) {
+  .cabecalho {
+    gap: 8px;
+  }
+
+  .marca img {
+    height: 43px;
+  }
+
+  .menu-principal {
+    padding: 15px;
+  }
+
+  .links-menu a {
+    min-height: 61px;
+
+    grid-template-columns:
+      36px 1fr 18px;
+
+    padding:
+      8px;
+  }
+
+  .icone-link {
+    width: 34px;
+    height: 34px;
+  }
+}

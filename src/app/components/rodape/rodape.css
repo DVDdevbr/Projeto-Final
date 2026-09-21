@@ -1,0 +1,119 @@
+/* =========================================================
+   RODAPÉ — MEU MANTO
+========================================================= */
+
+:host {
+  display: block;
+  --cabecalho: #13161b;
+}
+
+/* TEMA ESCURO */
+
+:host(.modo-escuro) {
+  --cabecalho: #090b0e;
+}
+
+/* TEMA VITÓRIA */
+
+:host(.tema-vitoria) {
+  --cabecalho: #0b0b0b;
+}
+
+/* TEMA BAHIA */
+
+:host(.tema-bahia) {
+  --cabecalho: #063b66;
+}
+
+/* =========================================================
+   RODAPÉ
+========================================================= */
+
+.rodape {
+  width: 100%;
+
+  padding: 28px 5%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 8px;
+
+  background-color: var(--cabecalho);
+
+  color: #ffffff;
+
+  text-align: center;
+}
+
+/* =========================================================
+   MARCA
+========================================================= */
+
+.marca-rodape {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  color: #ffffff;
+
+  text-decoration: none;
+}
+
+.marca-rodape strong {
+  font-size: 0.88rem;
+  font-weight: 900;
+
+  letter-spacing: 0.12em;
+}
+
+.marca-rodape span {
+  color: var(--cor-principal);
+
+  font-size: 1rem;
+}
+
+/* =========================================================
+   TEXTO
+========================================================= */
+
+.rodape p {
+  margin: 0;
+
+  color: var(--texto-rodape);
+
+  font-size: 0.78rem;
+}
+
+.projeto {
+  margin-top: 4px;
+
+  color: rgba(255, 255, 255, 0.48);
+
+  font-size: 0.7rem;
+}
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 600px) {
+  .rodape {
+    padding:
+      24px 5%;
+  }
+
+  .marca-rodape strong {
+    font-size: 0.82rem;
+  }
+
+  .rodape p {
+    font-size: 0.74rem;
+  }
+
+  .projeto {
+    font-size: 0.66rem;
+  }
+}

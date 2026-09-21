@@ -1,0 +1,67 @@
+<main class="pagina-login">
+  <!-- Apresentação do site -->
+  <section class="apresentacao" aria-label="Meu Manto">
+    <img class="logo"src="img/logo-meu-manto.png"alt="Meu Manto"/>
+
+    <p class="destaque">SEU TIME. SEU MOMENTO.</p>
+
+    <h1>A próxima partida começa aqui.</h1>
+
+    <p class="descricao">Descubra onde assistir, organize sua ida ao estádio e encontre a torcida. Fique no ritmo do seu clube.</p>
+  </section>
+
+  <!-- Área de login -->
+  <section class="area-login" aria-labelledby="titulo-login">
+    <div class="caixa-login">
+      <p class="chamada">ENTRE PARA A TORCIDA</p>
+
+      <h2 id="titulo-login">Vista seu manto.</h2>
+
+      <p class="orientacao">Acesse sua conta para acompanhar seu time.</p>
+
+    <form
+      #formulario="ngForm"
+      (ngSubmit)="entrar(formulario)"
+      (input)="mensagemErro = ''">
+      <div class="campo">
+        <label for="email">E-mail</label>
+
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="voce@exemplo.com"
+          autocomplete="username"
+          [(ngModel)]="email"
+          required
+          email/>
+      </div>
+
+      <div class="campo">
+        <label for="senha">Senha</label>
+
+        <input
+          id="senha"
+          name="senha"
+          type="password"
+          placeholder="Digite sua senha"
+          autocomplete="current-password"
+          [(ngModel)]="senha"
+          required/>
+      </div>
+
+      <button type="submit">Entrar</button>
+
+      @if (mensagemErro) {
+        <p class="mensagem-erro" role="alert">{{ mensagemErro }}</p>
+      }
+
+      <p class="aviso">Use a conta criada nesta demonstração. Atualizar a página apaga os cadastros e a sessão.</p>
+  </form>
+
+      <p class="cadastro">Ainda não tem uma conta? <a routerLink="/cadastro">Cadastre-se</a></p>
+    </div>
+
+    <footer>Meu Manto · Projeto acadêmico</footer>
+  </section>
+</main>

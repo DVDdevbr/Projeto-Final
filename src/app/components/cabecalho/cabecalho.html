@@ -1,0 +1,401 @@
+<header class="cabecalho">
+  <!-- LOGO -->
+  <a
+    class="marca"
+    routerLink="/meu-time"
+    aria-label="Ir para Meu Time"
+    (click)="fecharMenus()"
+  >
+    <img
+      src="img/logo-meu-manto.png"
+      alt="Meu Manto"
+    />
+  </a>
+
+  <!-- MENU PRINCIPAL -->
+  <div class="navegacao">
+    <button
+      type="button"
+      class="botao-menu"
+      aria-label="Abrir menu principal"
+      [attr.aria-expanded]="menuAberto"
+      (click)="alternarMenu()"
+    >
+      <span
+        class="hamburguer"
+        [class.aberto]="menuAberto"
+        aria-hidden="true"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+
+      <span class="texto-botao-menu">
+        Menu
+      </span>
+    </button>
+
+    @if (menuAberto) {
+      <nav
+        class="menu-principal"
+        aria-label="Navegação principal"
+      >
+        <div class="topo-menu">
+          <div>
+            <span class="mini-titulo">
+              MEU MANTO
+            </span>
+
+            <strong>
+              Explore
+            </strong>
+          </div>
+
+          <button
+            type="button"
+            class="fechar-menu"
+            aria-label="Fechar menu"
+            (click)="fecharMenu()"
+          >
+            ×
+          </button>
+        </div>
+
+        <div class="links-menu">
+          <a
+            routerLink="/meu-time"
+            routerLinkActive="ativo"
+            [routerLinkActiveOptions]="{
+              exact: true
+            }"
+            (click)="fecharMenus()"
+          >
+            <span
+              class="icone-link"
+              aria-hidden="true"
+            >
+              ⚡
+            </span>
+
+            <span class="conteudo-link">
+              <strong>Meu Time</strong>
+
+              <small>
+                Jogos, agenda e onde acompanhar
+              </small>
+            </span>
+
+            <span
+              class="seta-link"
+              aria-hidden="true"
+            >
+              →
+            </span>
+          </a>
+
+          <a
+            routerLink="/noticias"
+            routerLinkActive="ativo"
+            (click)="fecharMenus()"
+          >
+            <span
+              class="icone-link"
+              aria-hidden="true"
+            >
+              N
+            </span>
+
+            <span class="conteudo-link">
+              <strong>Notícias</strong>
+
+              <small>
+                As novidades do seu clube
+              </small>
+            </span>
+
+            <span
+              class="seta-link"
+              aria-hidden="true"
+            >
+              →
+            </span>
+          </a>
+
+          <a
+            routerLink="/comunidade"
+            routerLinkActive="ativo"
+            (click)="fecharMenus()"
+          >
+            <span
+              class="icone-link"
+              aria-hidden="true"
+            >
+              C
+            </span>
+
+            <span class="conteudo-link">
+              <strong>Comunidade</strong>
+
+              <small>
+                Encontre outros torcedores
+              </small>
+            </span>
+
+            <span
+              class="seta-link"
+              aria-hidden="true"
+            >
+              →
+            </span>
+          </a>
+
+          <a
+            routerLink="/sobre"
+            routerLinkActive="ativo"
+            (click)="fecharMenus()"
+          >
+            <span
+              class="icone-link"
+              aria-hidden="true"
+            >
+              S
+            </span>
+
+            <span class="conteudo-link">
+              <strong>Sobre</strong>
+
+              <small>
+                Conheça melhor o seu clube
+              </small>
+            </span>
+
+            <span
+              class="seta-link"
+              aria-hidden="true"
+            >
+              →
+            </span>
+          </a>
+
+          <a
+            routerLink="/lojas"
+            routerLinkActive="ativo"
+            (click)="fecharMenus()"
+          >
+            <span class="icone-link" aria-hidden="true">
+              L
+            </span>
+
+            <span class="conteudo-link">
+              <strong>Lojas</strong>
+              <small>Lojas oficiais, ofertas e cupons</small>
+            </span>
+
+            <span class="seta-link" aria-hidden="true">
+              →
+            </span>
+          </a>
+
+          <a
+            routerLink="/feedback"
+            routerLinkActive="ativo"
+            (click)="fecharMenus()"
+          >
+            <span
+              class="icone-link"
+              aria-hidden="true"
+            >
+              F
+            </span>
+
+            <span class="conteudo-link">
+              <strong>Feedback</strong>
+
+              <small>
+                Ajude a melhorar o Meu Manto
+              </small>
+            </span>
+
+            <span
+              class="seta-link"
+              aria-hidden="true"
+            >
+              →
+            </span>
+          </a>
+        </div>
+      </nav>
+    }
+  </div>
+
+  <!-- USUÁRIO -->
+  <div class="area-usuario">
+    <span class="saudacao">
+      Olá, {{ usuario?.nome }}
+    </span>
+
+    <div class="perfil">
+      <button
+        type="button"
+        class="botao-perfil"
+        aria-label="Abrir menu do perfil"
+        [attr.aria-expanded]="menuPerfilAberto"
+        (click)="alternarMenuPerfil()"
+      >
+        <span
+          class="icone-perfil"
+          aria-hidden="true"
+        >
+          <span class="cabeca-perfil"></span>
+          <span class="corpo-perfil"></span>
+        </span>
+      </button>
+
+      @if (menuPerfilAberto) {
+        <div class="menu-perfil">
+          <div class="topo-menu-perfil">
+            <strong>
+              {{ usuario?.nome }}
+            </strong>
+
+            <span>
+              {{ nomeTime }}
+            </span>
+          </div>
+
+          <div class="divisor-menu"></div>
+
+          <!-- TEMAS -->
+          <div class="secao-menu">
+            <span class="titulo-menu">
+              Tema
+            </span>
+
+            <!-- PADRÃO -->
+            <button
+              type="button"
+              class="opcao-tema"
+              [class.tema-ativo]="
+                temaSelecionado === 'padrao'
+              "
+              (click)="selecionarTema('padrao')"
+            >
+              <span
+                class="
+                  amostra-tema
+                  tema-padrao
+                "
+              ></span>
+
+              <span class="texto-tema">
+                <strong>Meu Manto</strong>
+
+                <small>
+                  Tema padrão
+                </small>
+              </span>
+
+              @if (
+                temaSelecionado === 'padrao'
+              ) {
+                <span class="check-tema">
+                  ✓
+                </span>
+              }
+            </button>
+
+            <!-- ESCURO -->
+            <button
+              type="button"
+              class="opcao-tema"
+              [class.tema-ativo]="
+                temaSelecionado === 'escuro'
+              "
+              (click)="selecionarTema('escuro')"
+            >
+              <span
+                class="
+                  amostra-tema
+                  tema-escuro
+                "
+              ></span>
+
+              <span class="texto-tema">
+                <strong>Escuro</strong>
+
+                <small>
+                  Modo escuro
+                </small>
+              </span>
+
+              @if (
+                temaSelecionado === 'escuro'
+              ) {
+                <span class="check-tema">
+                  ✓
+                </span>
+              }
+            </button>
+
+            <!-- TEMA DO CLUBE -->
+            <button
+              type="button"
+              class="opcao-tema"
+              [class.tema-ativo]="
+                temaSelecionado === timeFavorito
+              "
+              (click)="
+                selecionarTema(timeFavorito)
+              "
+            >
+              <span
+                class="amostra-tema"
+                [class.tema-bahia-amostra]="
+                  timeFavorito === 'bahia'
+                "
+                [class.tema-vitoria-amostra]="
+                  timeFavorito === 'vitoria'
+                "
+              ></span>
+
+              <span class="texto-tema">
+                <strong>
+                  {{ nomeTime }}
+                </strong>
+
+                <small>
+                  Tema do seu time
+                </small>
+              </span>
+
+              @if (
+                temaSelecionado ===
+                timeFavorito
+              ) {
+                <span class="check-tema">
+                  ✓
+                </span>
+              }
+            </button>
+          </div>
+
+          <div class="divisor-menu"></div>
+
+          <!-- SAIR -->
+          <button
+            type="button"
+            class="botao-sair-menu"
+            (click)="sair()"
+          >
+            <span aria-hidden="true">
+              ↪
+            </span>
+
+            Sair da conta
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</header>

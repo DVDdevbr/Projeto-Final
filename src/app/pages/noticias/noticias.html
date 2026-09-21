@@ -1,0 +1,312 @@
+<app-cabecalho />
+
+<div
+  class="pagina"
+  [class.modo-escuro]="temaSelecionado === 'escuro'"
+  [class.tema-vitoria]="temaSelecionado === 'vitoria'"
+  [class.tema-bahia]="temaSelecionado === 'bahia'"
+>
+  <main class="conteudo">
+
+    <!-- INTRODUÇÃO -->
+    <section class="introducao">
+      <span class="mini-titulo">
+        CENTRAL DE NOTÍCIAS
+      </span>
+
+      <h1>
+        Tudo sobre o {{ nomeTime }}.
+      </h1>
+
+      <p>
+        Acompanhe as principais notícias do seu clube
+        e veja o que a torcida está comentando.
+      </p>
+    </section>
+
+    <!-- AVISO -->
+    <div class="aviso">
+      <span aria-hidden="true">ⓘ</span>
+
+      <p>
+        Notícias demonstrativas para apresentação do projeto.
+        Em uma versão completa, as matérias seriam obtidas
+        de fontes esportivas e canais oficiais.
+      </p>
+    </div>
+
+    <!-- FILTROS -->
+    <section class="filtros" aria-label="Filtros de notícias">
+      @for (categoria of categorias; track categoria.valor) {
+        <button
+          type="button"
+          [class.ativo]="categoriaSelecionada === categoria.valor"
+          (click)="selecionarCategoria(categoria.valor)"
+        >
+          {{ categoria.nome }}
+        </button>
+      }
+    </section>
+
+    <!-- DESTAQUE -->
+    @if (noticiaDestaque; as destaque) {
+      <section class="noticia-destaque">
+        <div class="conteudo-destaque">
+          <div class="meta">
+            <span class="categoria">
+              {{ destaque.categoria }}
+            </span>
+
+            <span>
+              {{ destaque.data }}
+            </span>
+          </div>
+
+          <h2>
+            {{ destaque.titulo }}
+          </h2>
+
+          <p>
+            {{ destaque.resumo }}
+          </p>
+
+          <div class="rodape-noticia">
+            <span>
+              Fonte: {{ destaque.fonte }}
+            </span>
+
+            <button
+              type="button"
+              class="botao-leitura"
+              (click)="abrirNoticia(destaque)"
+            >
+              Ler notícia completa
+              <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="marca-destaque" aria-hidden="true">
+          <span>MM</span>
+          <strong>{{ siglaTime }}</strong>
+        </div>
+      </section>
+    }
+
+    <!-- LISTAGEM -->
+    <section class="secao-noticias">
+      <div class="cabecalho-secao">
+        <div>
+          <span class="mini-titulo">
+            ÚLTIMAS ATUALIZAÇÕES
+          </span>
+
+          <h2>
+            Notícias
+          </h2>
+        </div>
+
+        <span class="quantidade">
+          {{ noticiasFiltradas.length }}
+          {{
+            noticiasFiltradas.length === 1
+              ? 'notícia'
+              : 'notícias'
+          }}
+        </span>
+      </div>
+
+      @if (noticiasFiltradas.length > 0) {
+        <div class="grade-noticias">
+          @for (
+            noticia of noticiasFiltradas;
+            track noticia.id
+          ) {
+            <article class="card-noticia">
+
+              <div class="topo-card">
+                <span class="categoria">
+                  {{ noticia.categoria }}
+                </span>
+
+                <span class="data">
+                  {{ noticia.data }}
+                </span>
+              </div>
+
+              <h3>
+                {{ noticia.titulo }}
+              </h3>
+
+              <p class="resumo">
+                {{ noticia.resumo }}
+              </p>
+
+              <div class="fonte">
+                <span>Fonte</span>
+                <strong>{{ noticia.fonte }}</strong>
+              </div>
+
+              <div class="acoes-noticia">
+                <button
+                  type="button"
+                  class="ler-mais"
+                  (click)="abrirNoticia(noticia)"
+                >
+                  Ler mais
+                  <span aria-hidden="true">↗</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="botao-comentarios"
+                  [class.aberto]="
+                    noticiaAberta === noticia.id
+                  "
+                  (click)="alternarComentarios(noticia.id)"
+                >
+                  <span aria-hidden="true">◯</span>
+
+                  {{ quantidadeComentarios(noticia.id) }}
+
+                  {{
+                    quantidadeComentarios(noticia.id) === 1
+                      ? 'comentário'
+                      : 'comentários'
+                  }}
+                </button>
+              </div>
+
+              <!-- COMENTÁRIOS -->
+              @if (noticiaAberta === noticia.id) {
+                <div class="comentarios">
+                  <div class="titulo-comentarios">
+                    <div>
+                      <span class="mini-titulo">
+                        RESENHA DA TORCIDA
+                      </span>
+
+                      <h4>
+                        O que você achou?
+                      </h4>
+                    </div>
+
+                    <button
+                      type="button"
+                      class="fechar-comentarios"
+                      aria-label="Fechar comentários"
+                      (click)="alternarComentarios(noticia.id)"
+                    >
+                      ×
+                    </button>
+                  </div>
+
+                  <form
+                    class="form-comentario"
+                    (submit)="
+                      adicionarComentario(
+                        noticia.id,
+                        $event
+                      )
+                    "
+                  >
+                    <label
+                      [for]="'comentario-' + noticia.id"
+                    >
+                      Deixe seu comentário
+                    </label>
+
+                    <textarea
+                      [id]="'comentario-' + noticia.id"
+                      [value]="textoComentario"
+                      (input)="
+                        atualizarTextoComentario($event)
+                      "
+                      maxlength="280"
+                      placeholder="Compartilhe sua opinião com a torcida..."
+                    ></textarea>
+
+                    <div class="rodape-form">
+                      <span>
+                        {{ textoComentario.length }}/280
+                      </span>
+
+                      <button
+                        type="submit"
+                        [disabled]="
+                          textoComentario.trim().length < 2
+                        "
+                      >
+                        Publicar
+                      </button>
+                    </div>
+                  </form>
+
+                  <div class="lista-comentarios">
+                    @for (
+                      comentario of obterComentarios(noticia.id);
+                      track comentario.id
+                    ) {
+                      <article class="comentario">
+                        <div class="avatar" aria-hidden="true">
+                          {{
+                            obterInicial(comentario.autor)
+                          }}
+                        </div>
+
+                        <div>
+                          <div class="autor-comentario">
+                            <strong>
+                              {{ comentario.autor }}
+                            </strong>
+
+                            <span>
+                              {{ comentario.data }}
+                            </span>
+                          </div>
+
+                          <p>
+                            {{ comentario.texto }}
+                          </p>
+                        </div>
+                      </article>
+                    } @empty {
+                      <div class="sem-comentarios">
+                        <span aria-hidden="true">💬</span>
+
+                        <div>
+                          <strong>
+                            Seja o primeiro a comentar
+                          </strong>
+
+                          <p>
+                            Essa resenha ainda está vazia.
+                          </p>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+            </article>
+          }
+        </div>
+      } @else {
+        <div class="sem-noticias">
+          <span aria-hidden="true">📰</span>
+
+          <h3>
+            Nenhuma notícia encontrada
+          </h3>
+
+          <p>
+            Ainda não há notícias nessa categoria.
+          </p>
+        </div>
+      }
+    </section>
+
+  </main>
+</div>
+
+<app-rodape />

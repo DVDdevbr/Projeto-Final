@@ -1,0 +1,441 @@
+<app-cabecalho />
+
+<div
+  class="pagina"
+  [class.modo-escuro]="temaSelecionado === 'escuro'"
+  [class.tema-vitoria]="temaSelecionado === 'vitoria'"
+  [class.tema-bahia]="temaSelecionado === 'bahia'"
+>
+  <main class="conteudo">
+
+    <!-- INTRODUÇÃO -->
+
+    <section class="introducao">
+      <span class="mini-titulo">
+        SUA OPINIÃO IMPORTA
+      </span>
+
+      <h1>
+        Ajude o Meu Manto a evoluir.
+      </h1>
+
+      <p>
+        Encontrou algum problema? Tem uma ideia para melhorar
+        a plataforma ou quer contribuir com o projeto?
+        Este espaço é seu.
+      </p>
+    </section>
+
+    <!-- RESUMO -->
+
+    <section class="resumo-feedback">
+      <article>
+        <span class="icone-resumo">★</span>
+
+        <div>
+          <strong>Avalie</strong>
+
+          <p>
+            Conte como foi sua experiência.
+          </p>
+        </div>
+      </article>
+
+      <article>
+        <span class="icone-resumo">!</span>
+
+        <div>
+          <strong>Avise</strong>
+
+          <p>
+            Encontrou algum erro? Nos conte.
+          </p>
+        </div>
+      </article>
+
+      <article>
+        <span class="icone-resumo">+</span>
+
+        <div>
+          <strong>Contribua</strong>
+
+          <p>
+            Sugestões, parcerias e apoio ao projeto.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    @if (!enviado) {
+
+      <!-- AVALIAÇÃO -->
+
+      <section class="bloco avaliacao">
+        <div class="cabecalho-bloco">
+          <span class="numero-etapa">
+            01
+          </span>
+
+          <div>
+            <span class="mini-titulo">
+              AVALIAÇÃO
+            </span>
+
+            <h2>
+              Como está sendo sua experiência?
+            </h2>
+
+            <p>
+              Selecione de 1 a 5 estrelas.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="estrelas"
+          aria-label="Avaliação do site"
+        >
+          @for (estrela of estrelas; track estrela) {
+            <button
+              type="button"
+              [class.ativa]="estrela <= avaliacao"
+              [attr.aria-label]="
+                estrela +
+                (estrela === 1 ? ' estrela' : ' estrelas')
+              "
+              (click)="selecionarAvaliacao(estrela)"
+            >
+              ★
+            </button>
+          }
+        </div>
+
+        @if (avaliacao > 0) {
+          <div class="texto-avaliacao">
+            <strong>
+              {{ textoAvaliacao }}
+            </strong>
+
+            <span>
+              {{ avaliacao }}/5
+            </span>
+          </div>
+        }
+      </section>
+
+      <!-- TIPO -->
+
+      <section class="bloco">
+        <div class="cabecalho-bloco">
+          <span class="numero-etapa">
+            02
+          </span>
+
+          <div>
+            <span class="mini-titulo">
+              ASSUNTO
+            </span>
+
+            <h2>
+              Sobre o que você quer falar?
+            </h2>
+
+            <p>
+              Escolha a opção que melhor representa
+              sua mensagem.
+            </p>
+          </div>
+        </div>
+
+        <div class="grade-tipos">
+          @for (tipo of tipos; track tipo.id) {
+            <button
+              type="button"
+              class="card-tipo"
+              [class.ativo]="tipoSelecionado === tipo.id"
+              (click)="selecionarTipo(tipo.id)"
+            >
+              <span class="icone-tipo">
+                {{ tipo.icone }}
+              </span>
+
+              <strong>
+                {{ tipo.nome }}
+              </strong>
+
+              <p>
+                {{ tipo.descricao }}
+              </p>
+
+              <span class="selecao">
+                {{
+                  tipoSelecionado === tipo.id
+                    ? 'Selecionado ✓'
+                    : 'Selecionar'
+                }}
+              </span>
+            </button>
+          }
+        </div>
+      </section>
+
+      <!-- FORMULÁRIO -->
+
+      @if (tipoSelecionado) {
+        <section class="bloco">
+          <div class="cabecalho-bloco">
+            <span class="numero-etapa">
+              03
+            </span>
+
+            <div>
+              <span class="mini-titulo">
+                SUA MENSAGEM
+              </span>
+
+              <h2>
+                Conte um pouco mais.
+              </h2>
+
+              <p>
+                Quanto mais detalhes, melhor.
+              </p>
+            </div>
+          </div>
+
+          <form
+            class="formulario"
+            (submit)="enviarFeedback($event)"
+          >
+            <!-- ASSUNTO -->
+
+            <div class="campo">
+              <label for="assunto">
+                Assunto
+              </label>
+
+              <input
+                id="assunto"
+                type="text"
+                maxlength="80"
+                [value]="assunto"
+                (input)="atualizarAssunto($event)"
+                [placeholder]="placeholderAssunto"
+              />
+
+              <span class="contador">
+                {{ assunto.length }}/80
+              </span>
+            </div>
+
+            <!-- MENSAGEM -->
+
+            <div class="campo">
+              <label for="mensagem">
+                Mensagem
+              </label>
+
+              <textarea
+                id="mensagem"
+                maxlength="600"
+                [value]="mensagem"
+                (input)="atualizarMensagem($event)"
+                [placeholder]="placeholderMensagem"
+              ></textarea>
+
+              <span class="contador">
+                {{ mensagem.length }}/600
+              </span>
+            </div>
+
+            <!-- CONTRIBUIÇÃO -->
+
+            @if (tipoSelecionado === 'contribuicao') {
+              <div class="area-contribuicao">
+                <div class="cabecalho-contribuicao">
+                  <span class="mini-titulo">
+                    COMO DESEJA CONTRIBUIR?
+                  </span>
+
+                  <p>
+                    Nenhum pagamento é realizado por esta
+                    página. Esta área serve apenas para
+                    registrar o interesse.
+                  </p>
+                </div>
+
+                <div class="opcoes-contribuicao">
+                  @for (
+                    opcao of contribuicoes;
+                    track opcao.id
+                  ) {
+                    <button
+                      type="button"
+                      [class.ativo]="
+                        contribuicaoSelecionada === opcao.id
+                      "
+                      (click)="
+                        selecionarContribuicao(opcao.id)
+                      "
+                    >
+                      <span>
+                        {{ opcao.icone }}
+                      </span>
+
+                      <div>
+                        <strong>
+                          {{ opcao.nome }}
+                        </strong>
+
+                        <small>
+                          {{ opcao.descricao }}
+                        </small>
+                      </div>
+                    </button>
+                  }
+                </div>
+              </div>
+            }
+
+            <!-- CONTATO -->
+
+            <div class="area-contato">
+              <div>
+                <span class="mini-titulo">
+                  CONTATO OPCIONAL
+                </span>
+
+                <p>
+                  Informe um e-mail apenas se quiser
+                  receber um retorno.
+                </p>
+              </div>
+
+              <div class="campo">
+                <label for="email">
+                  E-mail
+                  <span>(opcional)</span>
+                </label>
+
+                <input
+                  id="email"
+                  type="email"
+                  maxlength="100"
+                  [value]="email"
+                  (input)="atualizarEmail($event)"
+                  placeholder="seuemail@exemplo.com"
+                />
+              </div>
+            </div>
+
+            <!-- ERRO -->
+
+            @if (erroFormulario) {
+              <div class="erro-formulario">
+                <span aria-hidden="true">!</span>
+
+                <p>
+                  {{ erroFormulario }}
+                </p>
+              </div>
+            }
+
+            <div class="rodape-formulario">
+              <div class="privacidade">
+                <span aria-hidden="true">✓</span>
+
+                <p>
+                  Esta versão salva o feedback apenas
+                  neste navegador para demonstração
+                  do projeto.
+                </p>
+              </div>
+
+              <button
+                type="submit"
+                class="enviar"
+              >
+                Enviar feedback
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </form>
+        </section>
+      }
+    }
+
+    <!-- SUCESSO -->
+
+    @if (enviado) {
+      <section class="sucesso">
+        <div class="icone-sucesso">
+          ✓
+        </div>
+
+        <span class="mini-titulo">
+          FEEDBACK RECEBIDO
+        </span>
+
+        <h2>
+          Valeu por ajudar o Meu Manto!
+        </h2>
+
+        <p>
+          Sua mensagem foi registrada nesta demonstração.
+          Feedbacks como o seu ajudam a pensar nas próximas
+          melhorias da plataforma.
+        </p>
+
+        <div class="resumo-enviado">
+          <div>
+            <span>Tipo</span>
+
+            <strong>
+              {{ nomeTipoSelecionado }}
+            </strong>
+          </div>
+
+          @if (avaliacao > 0) {
+            <div>
+              <span>Avaliação</span>
+
+              <strong>
+                {{ avaliacao }}/5 ★
+              </strong>
+            </div>
+          }
+
+          <div>
+            <span>Protocolo demonstrativo</span>
+
+            <strong>
+              {{ protocolo }}
+            </strong>
+          </div>
+        </div>
+
+        <div class="acoes-sucesso">
+          <button
+            type="button"
+            class="novo-feedback"
+            (click)="novoFeedback()"
+          >
+            Enviar outro feedback
+          </button>
+
+          <button
+            type="button"
+            class="voltar"
+            (click)="voltarMeuTime()"
+          >
+            Voltar para Meu Time
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </section>
+    }
+
+  </main>
+</div>
+
+<app-rodape />

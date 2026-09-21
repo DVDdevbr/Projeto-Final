@@ -1,0 +1,631 @@
+:host {
+  display: block;
+}
+
+.pagina {
+  min-height: 70vh;
+  color: var(--texto);
+  background:
+    radial-gradient(
+      circle at top right,
+      var(--cor-principal-suave),
+      transparent 38%
+    ),
+    var(--fundo);
+}
+
+.conteudo {
+  width: min(1180px, 90%);
+  margin: 0 auto;
+  padding: 72px 0 100px;
+}
+
+button,
+select,
+a {
+  font: inherit;
+}
+
+button,
+select,
+summary {
+  cursor: pointer;
+}
+
+button,
+a,
+select,
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--texto);
+  outline-offset: 4px;
+}
+
+.apresentacao {
+  max-width: 780px;
+}
+
+.mini-titulo {
+  margin: 0 0 12px;
+  color: var(--texto);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  overflow-wrap: anywhere;
+}
+
+h1 {
+  margin: 0 0 24px;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.descricao,
+.titulo-secao > p:last-child,
+.informacoes-loja > p,
+.cartao-cupom > p {
+  color: var(--texto-secundario);
+  line-height: 1.7;
+}
+
+.descricao {
+  max-width: 660px;
+  font-size: 1.05rem;
+}
+
+.abas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.abas button,
+.botao-secundario {
+  min-height: 46px;
+  padding: 12px 20px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  background: var(--fundo-secundario);
+  color: var(--texto);
+  font-weight: 700;
+}
+
+.abas button:hover,
+.botao-secundario:hover {
+  border-color: var(--cor-principal);
+}
+
+.abas button.ativa {
+  border-color: var(--cor-principal);
+  background: var(--cor-principal-suave);
+  box-shadow: inset 0 -3px 0 var(--cor-principal);
+}
+
+.secao {
+  margin-top: 64px;
+}
+
+.titulo-secao {
+  margin-bottom: 24px;
+}
+
+.titulo-secao h2 {
+  margin: 0 0 12px;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  letter-spacing: -0.04em;
+}
+
+.titulo-secao > p:last-child {
+  margin-bottom: 0;
+}
+
+.aviso {
+  padding: 16px 20px;
+  margin: 0 0 24px;
+  border-left: 4px solid var(--cor-principal);
+  border-radius: 8px;
+  background: var(--cor-principal-suave);
+  color: var(--texto);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.loja-destaque,
+.cartao-parceira,
+.cartao-produto,
+.cartao-cupom {
+  border: 1px solid var(--borda);
+  border-radius: 18px;
+  background: var(--fundo-secundario);
+}
+
+.loja-destaque {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 36px;
+  padding: 32px;
+  box-shadow: var(--sombra);
+}
+
+.identidade-loja {
+  display: flex;
+  min-height: 250px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  border-radius: 12px;
+  background: var(--cor-principal-suave);
+  text-align: center;
+}
+
+.identidade-loja strong {
+  font-size: clamp(3rem, 6vw, 5rem);
+  letter-spacing: -0.08em;
+}
+
+.identidade-loja span {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.informacoes-loja {
+  align-self: center;
+  min-width: 0;
+}
+
+.etiqueta {
+  display: inline-block;
+  width: fit-content;
+  padding: 7px 10px;
+  border-radius: 6px;
+  background: var(--fundo-terciario);
+  color: var(--texto);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.informacoes-loja h3 {
+  margin: 16px 0 12px;
+  font-size: 1.8rem;
+  letter-spacing: -0.04em;
+}
+
+.categorias-loja {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 20px 0;
+  list-style: none;
+}
+
+.categorias-loja li {
+  padding: 7px 11px;
+  border: 1px solid var(--borda);
+  border-radius: 20px;
+  color: var(--texto-secundario);
+  font-size: 0.8rem;
+}
+
+.botao {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border: 2px solid var(--cor-principal);
+  border-radius: 9px;
+  background: var(--cor-principal-suave);
+  color: var(--texto);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+
+.botao:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.observacao {
+  display: block;
+  margin-top: 16px;
+  color: var(--texto-secundario);
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.grade-parceiras {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.cartao-parceira {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 24px;
+  color: var(--texto);
+  text-align: left;
+}
+
+.cartao-parceira:hover {
+  border-color: var(--cor-principal);
+}
+
+.cartao-parceira.selecionada {
+  border-color: var(--cor-principal);
+  box-shadow: inset 0 0 0 2px var(--cor-principal);
+}
+
+.simbolo-parceira {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--cor-principal-suave);
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: -0.06em;
+}
+
+.nome-parceira {
+  font-size: 1.2rem;
+}
+
+.descricao-parceira {
+  color: var(--texto-secundario);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.acao-parceira {
+  margin-top: auto;
+  padding-top: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  margin-top: 26px;
+}
+
+.filtros label {
+  display: flex;
+  min-width: 190px;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.filtros select {
+  min-height: 46px;
+  max-width: 100%;
+  padding: 10px 36px 10px 12px;
+  border: 1px solid var(--borda);
+  border-radius: 9px;
+  background: var(--fundo-secundario);
+  color: var(--texto);
+}
+
+.quantidade {
+  margin: 20px 0;
+  color: var(--texto-secundario);
+  font-size: 0.85rem;
+}
+
+.grade-produtos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.cartao-produto {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.imagem-produto {
+  position: relative;
+  display: flex;
+  min-height: 240px;
+  align-items: center;
+  justify-content: center;
+  background: var(--fundo-terciario);
+}
+
+.selo-desconto {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 7px 9px;
+  border-radius: 6px;
+  background: var(--cor-principal-suave);
+  color: var(--texto);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.ilustracao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--texto);
+  color: var(--fundo-secundario);
+  font-size: 1.1rem;
+  font-weight: 900;
+}
+
+.camisa {
+  width: 135px;
+  height: 140px;
+  clip-path: polygon(
+    26% 0, 38% 0, 42% 10%, 58% 10%, 62% 0,
+    74% 0, 100% 23%, 83% 43%, 74% 34%,
+    74% 100%, 26% 100%, 26% 34%, 17% 43%, 0 23%
+  );
+}
+
+.treino {
+  background: var(--cor-principal);
+  color: #101010;
+}
+
+.casual {
+  background: var(--fundo-secundario);
+  color: var(--texto);
+}
+
+.caneca {
+  position: relative;
+  width: 90px;
+  height: 100px;
+  margin-right: 20px;
+  border-radius: 7px 7px 22px 22px;
+}
+
+.caneca::after {
+  position: absolute;
+  top: 18px;
+  right: -27px;
+  width: 25px;
+  height: 45px;
+  border: 9px solid var(--texto);
+  border-left: 0;
+  border-radius: 0 18px 18px 0;
+  content: '';
+}
+
+.legenda-imagem {
+  position: absolute;
+  right: 10px;
+  bottom: 12px;
+  left: 10px;
+  color: var(--texto-secundario);
+  font-size: 0.65rem;
+  text-align: center;
+}
+
+.dados-produto {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.dados-produto .mini-titulo {
+  font-size: 0.65rem;
+}
+
+.dados-produto h3 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+.origem-produto {
+  margin: 0;
+  color: var(--texto-secundario);
+  font-size: 0.8rem;
+}
+
+.precos {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 22px 0;
+}
+
+.precos del {
+  color: var(--texto-secundario);
+  font-size: 0.8rem;
+}
+
+.precos strong {
+  font-size: 1.5rem;
+  letter-spacing: -0.04em;
+}
+
+.dados-produto .botao {
+  margin-top: auto;
+}
+
+.produto-demonstrativo {
+  margin: auto 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--borda);
+  color: var(--texto-secundario);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.vazio {
+  grid-column: 1 / -1;
+}
+
+.grade-cupons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.cartao-cupom {
+  min-width: 0;
+  padding: 26px;
+}
+
+.cartao-cupom h3 {
+  margin: 18px 0 10px;
+  font-size: 1.5rem;
+  letter-spacing: -0.03em;
+}
+
+.codigo-cupom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px;
+  margin: 24px 0;
+  border: 1px dashed var(--cor-principal);
+  border-radius: 9px;
+  background: var(--fundo-terciario);
+}
+
+.codigo-cupom code {
+  min-width: 0;
+  color: var(--texto);
+  font-size: 0.95rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+details {
+  padding-top: 16px;
+  border-top: 1px solid var(--borda);
+}
+
+summary {
+  min-height: 28px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+details p {
+  color: var(--texto-secundario);
+  font-size: 0.8rem;
+  line-height: 1.65;
+}
+
+.mensagem-cupom {
+  min-height: 24px;
+  margin: 20px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.somente-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 1000px) {
+  .grade-produtos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .loja-destaque,
+  .grade-parceiras,
+  .grade-cupons {
+    grid-template-columns: 1fr;
+  }
+
+  .loja-destaque {
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .identidade-loja {
+    min-height: 190px;
+  }
+}
+
+@media (max-width: 500px) {
+  .conteudo {
+    width: 92%;
+    padding: 45px 0 75px;
+  }
+
+  h1 {
+    font-size: clamp(2.7rem, 12vw, 3.5rem);
+  }
+
+  .secao {
+    margin-top: 44px;
+  }
+
+  .abas {
+    gap: 8px;
+  }
+
+  .abas button {
+    flex: 1;
+    padding: 12px;
+    font-size: 0.85rem;
+  }
+
+  .filtros label,
+  .filtros .botao-secundario {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .grade-produtos {
+    grid-template-columns: 1fr;
+  }
+
+  .cartao-cupom,
+  .cartao-parceira {
+    padding: 20px;
+  }
+}
