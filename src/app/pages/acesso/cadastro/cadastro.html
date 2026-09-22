@@ -1,0 +1,290 @@
+<main class="pagina-acesso">
+  <section class="apresentacao" aria-label="Meu Manto">
+    <img
+      class="logo"
+      src="img/logo-meu-manto.png"
+      alt="Meu Manto"
+    />
+
+    <p class="destaque">SUA PAIXÃO TEM LUGAR AQUI.</p>
+
+    <h1>Seu time. Sua torcida. Seu manto.</h1>
+
+    <p class="descricao">
+      Escolha seu clube do coração e organize como vai acompanhar
+      cada partida.
+    </p>
+  </section>
+
+  <section class="area-acesso" aria-labelledby="titulo-cadastro">
+    <div class="caixa-acesso">
+      <p class="chamada">FAÇA PARTE DA TORCIDA</p>
+
+      <h2 id="titulo-cadastro">Crie sua conta.</h2>
+
+      <p class="orientacao">
+        Preencha seus dados. Você escolherá seu time ao entrar.
+      </p>
+
+      <form
+        #formulario="ngForm"
+        (ngSubmit)="cadastrar(formulario)"
+        (input)="limparMensagens()"
+        (change)="limparMensagens()"
+      >
+        <div class="campo">
+          <label for="nome">Nome</label>
+
+          <input
+            id="nome"
+            name="nome"
+            type="text"
+            placeholder="Como podemos chamar você?"
+            autocomplete="given-name"
+            [(ngModel)]="nome"
+            #campoNome="ngModel"
+            [attr.aria-invalid]="campoNome.invalid && campoNome.touched"
+            [attr.aria-describedby]="
+              campoNome.invalid && campoNome.touched ? 'erro-nome' : null
+            "
+            required
+            minlength="2"
+            maxlength="60"
+          />
+
+          @if (campoNome.invalid && campoNome.touched) {
+            <small id="erro-nome" class="erro-campo">
+              Informe seu nome com pelo menos 2 caracteres.
+            </small>
+          }
+        </div>
+
+        <div class="campo">
+          <label for="email">E-mail</label>
+
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="voce@exemplo.com"
+            autocomplete="email"
+            [(ngModel)]="email"
+            #campoEmail="ngModel"
+            [attr.aria-invalid]="campoEmail.invalid && campoEmail.touched"
+            [attr.aria-describedby]="
+              campoEmail.invalid && campoEmail.touched ? 'erro-email' : null
+            "
+            required
+            email
+          />
+
+          @if (campoEmail.invalid && campoEmail.touched) {
+            <small id="erro-email" class="erro-campo">
+              Informe um e-mail válido.
+            </small>
+          }
+        </div>
+
+        <div class="campo">
+          <label for="senha">Senha</label>
+
+          <input
+            id="senha"
+            name="senha"
+            type="password"
+            placeholder="Use pelo menos 8 caracteres"
+            autocomplete="new-password"
+            [(ngModel)]="senha"
+            #campoSenha="ngModel"
+            [attr.aria-invalid]="campoSenha.invalid && campoSenha.touched"
+            [attr.aria-describedby]="
+              campoSenha.invalid && campoSenha.touched ? 'erro-senha' : null
+            "
+            required
+            minlength="8"
+          />
+
+          @if (campoSenha.invalid && campoSenha.touched) {
+            <small id="erro-senha" class="erro-campo">
+              A senha deve ter pelo menos 8 caracteres.
+            </small>
+          }
+        </div>
+
+        <div class="campo">
+          <label for="confirmar-senha">Confirmar senha</label>
+
+          <input
+            id="confirmar-senha"
+            name="confirmarSenha"
+            type="password"
+            placeholder="Digite a senha novamente"
+            autocomplete="new-password"
+            [(ngModel)]="confirmarSenha"
+            #campoConfirmacao="ngModel"
+            [attr.aria-invalid]="
+              campoConfirmacao.touched &&
+              (campoConfirmacao.invalid || senha !== confirmarSenha)
+            "
+            [attr.aria-describedby]="
+              campoConfirmacao.touched &&
+              (campoConfirmacao.invalid || senha !== confirmarSenha)
+                ? 'erro-confirmacao'
+                : null
+            "
+            required
+          />
+
+          @if (campoConfirmacao.touched) {
+            @if (campoConfirmacao.invalid) {
+              <small id="erro-confirmacao" class="erro-campo">
+                Confirme sua senha.
+              </small>
+            } @else if (senha !== confirmarSenha) {
+              <small id="erro-confirmacao" class="erro-campo">
+                As senhas não coincidem.
+              </small>
+            }
+          }
+        </div>
+
+        <div class="termos">
+          <label class="aceite" for="aceitou-termos">
+            <input
+              id="aceitou-termos"
+              name="aceitouTermos"
+              type="checkbox"
+              [(ngModel)]="aceitouTermos"
+              #campoTermos="ngModel"
+              [attr.aria-invalid]="campoTermos.invalid && campoTermos.touched"
+              [attr.aria-describedby]="
+                campoTermos.invalid && campoTermos.touched
+                  ? 'erro-termos'
+                  : null
+              "
+              required
+            />
+
+            <span>
+              Li e aceito os termos de uso e estou ciente do aviso
+              de privacidade desta demonstração.
+            </span>
+          </label>
+
+          @if (campoTermos.invalid && campoTermos.touched) {
+            <small id="erro-termos" class="erro-campo">
+              Leia e aceite os termos para criar sua conta.
+            </small>
+          }
+
+          <details class="privacidade">
+            <summary>Saiba mais sobre os termos e a privacidade</summary>
+
+            <div class="texto-termos">
+              <h3>Termos e privacidade da demonstração</h3>
+
+              <p>Versão: {{ versaoTermos }}.</p>
+
+              <h4>Finalidade do projeto</h4>
+
+              <p>
+                O Meu Manto é um projeto acadêmico de front-end.
+                Os recursos demonstram como uma plataforma para
+                torcedores poderia funcionar. O cadastro não cria
+                uma conta em um serviço de produção.
+              </p>
+
+              <h4>Dados utilizados</h4>
+
+              <p>
+                O nome personaliza a experiência. E-mail e senha
+                simulam a identificação e o acesso à conta.
+                O time escolhido no login define o conteúdo exibido.
+                Registramos também a data e a versão dos termos
+                aceitos durante esta demonstração.
+              </p>
+
+              <h4>Armazenamento do cadastro</h4>
+
+              <p>
+                Os cadastros, as senhas e o registro do aceite ficam
+                somente na memória desta página, sem envio por este
+                formulário a um servidor de autenticação. Atualizar
+                ou fechar a página apaga esses registros e encerra
+                a sessão. Sair da conta encerra apenas a sessão.
+              </p>
+
+              <h4>Outros dados no navegador</h4>
+
+              <p>
+                Preferências de tema, notícias salvas e feedbacks
+                utilizam o armazenamento local do navegador e podem
+                permanecer após atualizar ou fechar a página.
+                O feedback pode incluir nome, e-mail e mensagem.
+                Esses registros não são apagados ao sair da conta.
+              </p>
+
+              <h4>Como apagar os dados</h4>
+
+              <p>
+                Para apagar o cadastro temporário, atualize a página.
+                Para remover também os registros persistentes,
+                utilize a opção de limpar os dados deste site nas
+                configurações do navegador.
+              </p>
+
+              <h4>Uso da demonstração</h4>
+
+              <p>
+                Utilize somente dados fictícios e uma senha criada
+                para este teste. Não reutilize senhas pessoais nem
+                inclua informações sensíveis nos formulários.
+                A autenticação é simulada no navegador.
+              </p>
+
+              <h4>Links externos</h4>
+
+              <p>
+                Ao abrir links de lojas ou outros serviços, você
+                acessará sites com seus próprios termos e políticas
+                de privacidade.
+              </p>
+
+              <p>
+                O aceite se refere às condições desta demonstração.
+                Não representa autorização para publicidade ou
+                compartilhamento de dados com parceiros.
+              </p>
+            </div>
+          </details>
+        </div>
+
+        <button type="submit">Criar conta</button>
+
+        @if (mensagemErro) {
+          <p class="mensagem erro" role="alert">
+            {{ mensagemErro }}
+          </p>
+        }
+
+        @if (mensagemSucesso) {
+          <p class="mensagem sucesso" role="status">
+            {{ mensagemSucesso }}
+          </p>
+        }
+
+        <p class="aviso">
+          Demonstração: use dados fictícios e não reutilize senhas
+          pessoais. As contas são apagadas ao atualizar ou fechar
+          a página.
+        </p>
+      </form>
+
+      <p class="acesso">
+        Já tem uma conta? <a routerLink="/login">Entrar</a>
+      </p>
+    </div>
+
+    <footer>Meu Manto · Projeto acadêmico</footer>
+  </section>
+</main>

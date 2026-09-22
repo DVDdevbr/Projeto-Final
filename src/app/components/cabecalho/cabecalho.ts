@@ -1,203 +1,161 @@
-import {
-  Component,
-  HostBinding,
-  inject,
-} from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Autenticacao } from '../../../services/autenticacao';
+import { Tema, TemaService } from '../../../services/tema';
 
-import {
-  Router,
-  RouterLink,
-  RouterLinkActive,
-} from '@angular/router';
-
-import {
-  Autenticacao,
-} from '../../../services/autenticacao';
-
-import {
-  Tema,
-  TemaService,
-} from '../../../services/tema';
+type Menu = 'principal' | 'perfil';
 
 @Component({
   selector: 'app-cabecalho',
-
-  imports: [
-    RouterLink,
-    RouterLinkActive,
-  ],
-
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './cabecalho.html',
   styleUrl: './cabecalho.css',
+  host: {
+    '[class.modo-escuro]': "temaSelecionado === 'escuro'",
+    '[class.tema-vitoria]': "temaSelecionado === 'vitoria'",
+    '[class.tema-bahia]': "temaSelecionado === 'bahia'",
+    '(document:click)': 'fecharAoClicarFora($event)',
+    '(document:keydown.escape)': 'fecharComEscape()',
+  },
 })
 export class Cabecalho {
-  private autenticacao =
-    inject(Autenticacao);
+  private autenticacao = inject(Autenticacao);
+  private roteador = inject(Router);
+  private temaService = inject(TemaService);
+  private elemento = inject(ElementRef<HTMLElement>);
 
-  private roteador =
-    inject(Router);
+  @ViewChild('botaoMenu')
+  botaoMenu?: ElementRef<HTMLButtonElement>;
 
-  private temaService =
-    inject(TemaService);
+  @ViewChild('botaoPerfil')
+  botaoPerfil?: ElementRef<HTMLButtonElement>;
 
-  /* =====================================================
-     USUÁRIO
-  ===================================================== */
+  menuAberto: Menu | null = null;
 
-  usuario =
-    this.autenticacao.obterUsuario();
+  readonly links = [
+    {
+      rota: '/meu-time',
+      nome: 'Meu Time',
+      descricao: 'Jogos, agenda e onde acompanhar',
+      icone: '⚡',
+    },
+    {
+      rota: '/noticias',
+      nome: 'Notícias',
+      descricao: 'As novidades do seu clube',
+      icone: 'N',
+    },
+    {
+      rota: '/comunidade',
+      nome: 'Comunidade',
+      descricao: 'Encontre outros torcedores',
+      icone: 'C',
+    },
+    {
+      rota: '/sobre',
+      nome: 'Sobre',
+      descricao: 'Conheça melhor o seu clube',
+      icone: 'S',
+    },
+    {
+      rota: '/lojas',
+      nome: 'Lojas',
+      descricao: 'Lojas oficiais, ofertas e cupons',
+      icone: 'L',
+    },
+    {
+      rota: '/feedback',
+      nome: 'Feedback',
+      descricao: 'Ajude a melhorar o Meu Manto',
+      icone: 'F',
+    },
+    {
+      rota: '/trocar-time',
+      nome: 'Trocar de time',
+      descricao: 'Escolha o clube que quer acompanhar',
+      icone: '⇄',
+    },
+  ];
 
-  timeFavorito:
-    'vitoria' | 'bahia' =
-      this.usuario?.time === 'vitoria'
-        ? 'vitoria'
-        : 'bahia';
-
-  nomeTime =
-    this.timeFavorito === 'vitoria'
-      ? 'Vitória'
-      : 'Bahia';
-
-  /* =====================================================
-     MENU PRINCIPAL
-  ===================================================== */
-
-  menuAberto = false;
-
-  alternarMenu() {
-    this.menuAberto =
-      !this.menuAberto;
-
-    /*
-      Nunca deixamos o menu principal
-      e o perfil abertos juntos.
-    */
-
-    if (this.menuAberto) {
-      this.menuPerfilAberto = false;
-    }
+  get usuario() {
+    return this.autenticacao.obterUsuario();
   }
 
-  fecharMenu() {
-    this.menuAberto = false;
+  get timeFavorito() {
+    return this.usuario?.time ?? 'bahia';
   }
 
-  /* =====================================================
-     MENU DO PERFIL
-  ===================================================== */
-
-  menuPerfilAberto = false;
-
-  alternarMenuPerfil() {
-    this.menuPerfilAberto =
-      !this.menuPerfilAberto;
-
-    if (this.menuPerfilAberto) {
-      this.menuAberto = false;
-    }
+  get nomeTime() {
+    return this.timeFavorito === 'vitoria' ? 'Vitória' : 'Bahia';
   }
 
-  fecharMenus() {
-    this.menuAberto = false;
-    this.menuPerfilAberto = false;
-  }
-
-  /* =====================================================
-     TEMA GLOBAL
-  ===================================================== */
-
-  get temaSelecionado(): Tema {
+  get temaSelecionado() {
     return this.temaService.tema();
   }
 
-  selecionarTema(
-    tema: Tema
-  ) {
-    /*
-      Segurança extra:
-      o usuário só pode selecionar
-      o tema do clube favorito dele.
-    */
-
-    if (
-      tema === 'vitoria' ||
-      tema === 'bahia'
-    ) {
-      if (
-        tema !== this.timeFavorito
-      ) {
-        return;
-      }
-    }
-
-    this.temaService.selecionar(
-      tema
-    );
+  get temas(): { id: Tema; nome: string; descricao: string }[] {
+    return [
+      { id: 'padrao', nome: 'Meu Manto', descricao: 'Tema padrão' },
+      { id: 'escuro', nome: 'Escuro', descricao: 'Modo escuro' },
+      {
+        id: this.timeFavorito,
+        nome: this.nomeTime,
+        descricao: 'Tema do seu time',
+      },
+    ];
   }
-
-  /* =====================================================
-     CLASSES DO TEMA NO COMPONENTE
-  ===================================================== */
-
-  @HostBinding(
-    'class.modo-escuro'
-  )
-  get modoEscuro() {
-    return (
-      this.temaSelecionado ===
-      'escuro'
-    );
-  }
-
-  @HostBinding(
-    'class.tema-vitoria'
-  )
-  get temaVitoria() {
-    return (
-      this.temaSelecionado ===
-      'vitoria'
-    );
-  }
-
-  @HostBinding(
-    'class.tema-bahia'
-  )
-  get temaBahia() {
-    return (
-      this.temaSelecionado ===
-      'bahia'
-    );
-  }
-
-  /* =====================================================
-     INICIALIZAÇÃO
-  ===================================================== */
 
   constructor() {
-    /*
-      Se outro usuário tiver utilizado
-      o navegador anteriormente com
-      outro clube, impedimos que o
-      tema daquele clube permaneça.
-    */
-
-    this.temaService
-      .validarTemaDoUsuario(
-        this.timeFavorito
-      );
+    this.temaService.validarTemaDoUsuario(this.timeFavorito);
   }
 
-  /* =====================================================
-     LOGOUT
-  ===================================================== */
+  alternarMenu(menu: Menu) {
+    this.menuAberto = this.menuAberto === menu ? null : menu;
+  }
+
+  fecharMenus() {
+    this.menuAberto = null;
+  }
+
+  fecharAoClicarFora(evento: Event) {
+    if (
+      evento.target instanceof Node &&
+      !this.elemento.nativeElement.contains(evento.target)
+    ) {
+      this.fecharMenus();
+    }
+  }
+
+  fecharComEscape() {
+    const botao =
+      this.menuAberto === 'principal'
+        ? this.botaoMenu
+        : this.botaoPerfil;
+
+    if (this.menuAberto) {
+      this.fecharMenus();
+      botao?.nativeElement.focus();
+    }
+  }
+
+  selecionarTema(tema: Tema) {
+    if (
+      (tema === 'vitoria' || tema === 'bahia') &&
+      tema !== this.timeFavorito
+    ) {
+      return;
+    }
+
+    this.temaService.selecionar(tema);
+  }
 
   sair() {
+    if (!window.confirm('Tem certeza de que deseja sair da sua conta?')) {
+      return;
+    }
+
     this.fecharMenus();
-
     this.autenticacao.sair();
-
-    this.roteador.navigate([
-      '/login',
-    ]);
+    this.roteador.navigate(['/login']);
   }
 }

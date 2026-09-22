@@ -1,0 +1,50 @@
+<app-cabecalho />
+
+<main
+  class="pagina"
+  [class.modo-escuro]="temaService.tema() === 'escuro'"
+  [class.tema-vitoria]="temaService.tema() === 'vitoria'"
+  [class.tema-bahia]="temaService.tema() === 'bahia'"
+>
+  <section class="caixa" aria-labelledby="titulo-troca">
+    <p class="destaque">SUA TORCIDA</p>
+
+    <h1 id="titulo-troca">Qual time você quer acompanhar?</h1>
+
+    <p>
+      Escolha o clube para atualizar os jogos, as notícias
+      e as outras páginas do site.
+    </p>
+
+    <div class="times">
+      @for (clube of times; track clube.id) {
+        <button
+          type="button"
+          [class.atual]="timeAtual === clube.id"
+          (click)="selecionarTime(clube.id)"
+        >
+          <img
+            [src]="clube.escudo"
+            alt=""
+            width="64"
+            height="64"
+          />
+
+          <strong>{{ clube.nome }}</strong>
+
+          <span>
+            {{
+              timeAtual === clube.id
+                ? 'Time atual'
+                : 'Acompanhar este time'
+            }}
+          </span>
+        </button>
+      }
+    </div>
+
+    <a routerLink="/meu-time">Voltar sem trocar</a>
+  </section>
+</main>
+
+<app-rodape />

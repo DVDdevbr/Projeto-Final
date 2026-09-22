@@ -1,22 +1,24 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { Autenticacao } from '../../../services/autenticacao';
+import { Autenticacao } from '../../../../services/autenticacao';
 
 @Component({
   selector: 'app-cadastro',
   imports: [FormsModule, RouterLink],
   templateUrl: './cadastro.html',
-  styleUrl: './cadastro.css',
+  styleUrls: ['../acesso.css', './cadastro.css'],
 })
 export class Cadastro {
   private autenticacao = inject(Autenticacao);
+
+  readonly versaoTermos = this.autenticacao.versaoTermos;
 
   nome = '';
   email = '';
   senha = '';
   confirmarSenha = '';
-  time = '';
+  aceitouTermos = false;
 
   mensagemErro = '';
   mensagemSucesso = '';
@@ -26,7 +28,7 @@ export class Cadastro {
 
     if (formulario.invalid) {
       formulario.control.markAllAsTouched();
-      this.mensagemErro = 'Confira os campos destacados.';
+      this.mensagemErro = 'Confira os campos e o aceite dos termos.';
       return;
     }
 
@@ -40,14 +42,19 @@ export class Cadastro {
       return;
     }
 
-    const cadastrou = this.autenticacao.cadastrar(
-      this.nome,
-      this.email,
-      this.senha,
-      this.time
-    );
+    if (!this.aceitouTermos) {
+      this.mensagemErro = 'Leia e aceite os termos para criar sua conta.';
+      return;
+    }
 
-    if (!cadastrou) {
+    if (
+      !this.autenticacao.cadastrar(
+        this.nome,
+        this.email,
+        this.senha,
+        this.aceitouTermos
+      )
+    ) {
       this.mensagemErro = 'Já existe uma conta com esse e-mail.';
       return;
     }
@@ -57,11 +64,11 @@ export class Cadastro {
       email: '',
       senha: '',
       confirmarSenha: '',
-      time: '',
+      aceitouTermos: false,
     });
 
     this.mensagemSucesso =
-      'Conta criada! Clique em "Entrar" abaixo para acessar.';
+      'Conta criada! Clique em "Entrar" abaixo e escolha seu time.';
   }
 
   limparMensagens() {

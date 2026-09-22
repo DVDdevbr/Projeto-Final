@@ -1,48 +1,67 @@
 import { Injectable } from '@angular/core';
 
+export type TimeFavorito = 'vitoria' | 'bahia';
+
+interface Conta {
+  nome: string;
+  email: string;
+  senha: string;
+  aceite: {
+    versao: string;
+    data: string;
+  };
+}
+
 interface Perfil {
   nome: string;
   email: string;
-  time: string;
+  time: TimeFavorito;
 }
 
-interface Conta extends Perfil {
-  senha: string;
-}
-
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class Autenticacao {
+  readonly versaoTermos = '22/09/2026';
+
   private contas: Conta[] = [];
   private usuarioAtual: Perfil | null = null;
 
-  cadastrar(nome: string, email: string, senha: string, time: string) {
+  cadastrar(
+    nome: string,
+    email: string,
+    senha: string,
+    aceitouTermos: boolean
+  ) {
     const emailFormatado = email.trim().toLowerCase();
 
-    const contaExistente = this.contas.find(
-      conta => conta.email === emailFormatado
-    );
-
-    if (contaExistente) {
+    if (
+      !aceitouTermos ||
+      this.contas.some(conta => conta.email === emailFormatado)
+    ) {
       return false;
     }
 
     this.contas.push({
       nome: nome.trim(),
       email: emailFormatado,
-      senha: senha,
-      time: time,
+      senha,
+      aceite: {
+        versao: this.versaoTermos,
+        data: new Date().toISOString(),
+      },
     });
 
     return true;
   }
 
-  entrar(email: string, senha: string) {
-    const emailFormatado = email.trim().toLowerCase();
+  entrar(email: string, senha: string, time: TimeFavorito | '') {
+    if (time !== 'vitoria' && time !== 'bahia') {
+      return false;
+    }
 
     const conta = this.contas.find(
-      conta => conta.email === emailFormatado && conta.senha === senha
+      conta =>
+        conta.email === email.trim().toLowerCase() &&
+        conta.senha === senha
     );
 
     if (!conta) {
@@ -52,8 +71,21 @@ export class Autenticacao {
     this.usuarioAtual = {
       nome: conta.nome,
       email: conta.email,
-      time: conta.time,
+      time,
     };
+
+    return true;
+  }
+
+  trocarTime(time: TimeFavorito) {
+    if (
+      !this.usuarioAtual ||
+      (time !== 'vitoria' && time !== 'bahia')
+    ) {
+      return false;
+    }
+
+    this.usuarioAtual = { ...this.usuarioAtual, time };
 
     return true;
   }

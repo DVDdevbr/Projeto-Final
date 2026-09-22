@@ -1,58 +1,19 @@
-import {
-  Component,
-  HostBinding,
-  inject,
-} from '@angular/core';
-
-import {
-  RouterLink,
-} from '@angular/router';
-
-import {
-  TemaService,
-} from '../../../services/tema';
+import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TemaService } from '../../../services/tema';
 
 @Component({
   selector: 'app-rodape',
-
-  imports: [
-    RouterLink,
-  ],
-
+  imports: [RouterLink],
   templateUrl: './rodape.html',
   styleUrl: './rodape.css',
+  host: {
+    '[class.modo-escuro]': "temaService.tema() === 'escuro'",
+    '[class.tema-vitoria]': "temaService.tema() === 'vitoria'",
+    '[class.tema-bahia]': "temaService.tema() === 'bahia'",
+  },
 })
 export class Rodape {
-  private temaService =
-    inject(TemaService);
-
-  @HostBinding(
-    'class.modo-escuro'
-  )
-  get modoEscuro() {
-    return (
-      this.temaService.tema() ===
-      'escuro'
-    );
-  }
-
-  @HostBinding(
-    'class.tema-vitoria'
-  )
-  get temaVitoria() {
-    return (
-      this.temaService.tema() ===
-      'vitoria'
-    );
-  }
-
-  @HostBinding(
-    'class.tema-bahia'
-  )
-  get temaBahia() {
-    return (
-      this.temaService.tema() ===
-      'bahia'
-    );
-  }
+  readonly temaService = inject(TemaService);
+  readonly ano = new Date().getFullYear();
 }

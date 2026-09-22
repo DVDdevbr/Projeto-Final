@@ -1,18 +1,16 @@
-/* Estrutura da página */
-.pagina-cadastro {
+.pagina-acesso {
   display: flex;
   min-height: 100vh;
   background-color: #f5f6f8;
 }
 
-/* Apresentação do site */
 .apresentacao {
-  width: 52%;
-  padding: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  width: 52%;
+  padding: 60px;
   background-color: #13161b;
   color: white;
 }
@@ -24,12 +22,21 @@
   margin-bottom: 36px;
 }
 
-.destaque {
-  margin: 0 0 16px;
-  color: #ff8a33;
+.destaque,
+.chamada {
   font-size: 12px;
   font-weight: bold;
   letter-spacing: 2px;
+}
+
+.destaque {
+  margin: 0 0 16px;
+  color: #ff8a33;
+}
+
+.chamada {
+  margin: 0;
+  color: #a63e00;
 }
 
 .apresentacao h1 {
@@ -47,44 +54,34 @@
   line-height: 1.7;
 }
 
-/* Área do cadastro */
-.area-cadastro {
-  width: 48%;
-  padding: 48px 32px;
+.area-acesso {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 48%;
+  padding: 48px 32px;
 }
 
-.caixa-cadastro {
+.caixa-acesso {
   width: 100%;
   max-width: 400px;
 }
 
-.chamada {
-  margin: 0;
-  color: #a63e00;
-  font-size: 12px;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-
-.caixa-cadastro h2 {
+.caixa-acesso h2 {
   margin: 14px 0 12px;
   color: #171b24;
   font-size: 36px;
 }
 
 .orientacao {
-  margin: 0 0 28px;
+  margin: 0 0 var(--espaco-orientacao, 32px);
   color: #596273;
   line-height: 1.6;
 }
 
-/* Campos do formulário */
 .campo {
-  margin-bottom: 18px;
+  margin-bottom: var(--espaco-campo, 20px);
 }
 
 .campo label {
@@ -98,8 +95,8 @@
 .campo input,
 .campo select {
   width: 100%;
-  min-height: 52px;
-  padding: 14px 16px;
+  min-height: var(--altura-campo, auto);
+  padding: var(--padding-campo, 16px);
   border: 1px solid #8993a2;
   border-radius: 10px;
   background-color: white;
@@ -123,8 +120,7 @@
   line-height: 1.5;
 }
 
-/* Botão e navegação pelo teclado */
-button {
+button[type="submit"] {
   width: 100%;
   min-height: 52px;
   margin-top: 4px;
@@ -136,19 +132,19 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+button[type="submit"]:hover {
   background-color: #ff922e;
 }
 
 input:focus-visible,
 select:focus-visible,
 button:focus-visible,
-a:focus-visible {
+a:focus-visible,
+summary:focus-visible {
   outline: 3px solid #a63e00;
   outline-offset: 3px;
 }
 
-/* Mensagens e rodapé */
 .mensagem {
   padding: 12px;
   border-radius: 8px;
@@ -166,14 +162,19 @@ a:focus-visible {
   color: #085d3a;
 }
 
-.aviso {
+.aviso,
+footer {
   color: #596273;
   font-size: 12px;
+}
+
+.aviso {
+  margin-top: var(--espaco-aviso, 12px);
   line-height: 1.5;
 }
 
 .acesso {
-  margin-top: 24px;
+  margin-top: var(--espaco-acesso, 28px);
   color: #596273;
   font-size: 14px;
   line-height: 1.8;
@@ -186,19 +187,16 @@ a:focus-visible {
 }
 
 footer {
-  margin-top: 40px;
-  color: #596273;
-  font-size: 12px;
+  margin-top: var(--espaco-rodape, 48px);
 }
 
-/* Celular e telas menores */
 @media (max-width: 800px) {
-  .pagina-cadastro {
+  .pagina-acesso {
     flex-direction: column;
   }
 
   .apresentacao,
-  .area-cadastro {
+  .area-acesso {
     width: 100%;
     padding: 32px 24px;
   }
@@ -212,7 +210,7 @@ footer {
     font-size: 32px;
   }
 
-  .caixa-cadastro h2 {
+  .caixa-acesso h2 {
     font-size: 30px;
   }
 }

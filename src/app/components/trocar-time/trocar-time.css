@@ -1,0 +1,86 @@
+.pagina {
+  min-height: 65vh;
+  padding: 64px 24px;
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+.caixa {
+  max-width: 620px;
+  margin: auto;
+  text-align: center;
+}
+
+.destaque {
+  color: var(--cor-principal);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+h1 {
+  margin: 12px 0;
+  font-size: clamp(26px, 5vw, 36px);
+}
+
+p {
+  color: var(--texto-secundario);
+  line-height: 1.6;
+}
+
+.times {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 32px 0 20px;
+}
+
+.times button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 12px;
+  border: 2px solid var(--borda);
+  border-radius: 16px;
+  background: var(--fundo-secundario);
+  color: var(--texto);
+  cursor: pointer;
+}
+
+.times button:hover,
+.times button.atual {
+  border-color: var(--cor-principal);
+}
+
+.times img {
+  object-fit: contain;
+}
+
+.times strong {
+  font-size: 18px;
+}
+
+.times span {
+  color: var(--texto-secundario);
+  font-size: 12px;
+}
+
+a {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--texto);
+  text-underline-offset: 4px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--cor-principal);
+  outline-offset: 4px;
+}
+
+@media (max-width: 380px) {
+  .times {
+    grid-template-columns: 1fr;
+  }
+}

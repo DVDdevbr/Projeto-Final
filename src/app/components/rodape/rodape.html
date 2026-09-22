@@ -1,21 +1,53 @@
 <footer class="rodape">
-  <a
-    class="marca-rodape"
-    routerLink="/meu-time"
-    aria-label="Ir para Meu Time"
-  >
-    <strong>MEU MANTO</strong>
+  <div class="linha-rodape">
+    <a
+      class="marca-rodape"
+      routerLink="/meu-time"
+      aria-label="Ir para Meu Time"
+    >
+      <img
+        src="img/logo-terciaria.png"
+        alt="Meu Manto"
+        width="210"
+        height="70"
+      />
+    </a>
 
-    <span aria-hidden="true">
-      ⚡
-    </span>
-  </a>
+    <p class="slogan">Seu clube. Seu jogo. Seu manto.</p>
 
-  <p>
-    Seu clube. Seu jogo. Seu manto.
-  </p>
+    <div class="autoria">
+      <p>© {{ ano }} Meu Manto</p>
+      <p>Projeto acadêmico · Desenvolvido por David Dantas</p>
+    </div>
+  </div>
 
-  <span class="projeto">
-    Projeto acadêmico · Desenvolvido por David
-  </span>
+  <details class="privacidade">
+    <summary>Privacidade nesta demonstração</summary>
+
+    <div class="texto-privacidade">
+      <p>
+        Utilize apenas dados fictícios e uma senha exclusiva para
+        o teste. Nome, e-mail e senha simulam o cadastro e o acesso;
+        o time escolhido personaliza o conteúdo.
+      </p>
+
+      <p>
+        O cadastro e o aceite dos termos ficam na memória desta
+        página. Atualizar ou fechar a página apaga esses registros.
+        Sair da conta encerra somente a sessão.
+      </p>
+
+      <p>
+        Preferências de tema, notícias salvas e feedbacks permanecem
+        no armazenamento local do navegador. O feedback pode incluir
+        nome, e-mail e mensagem.
+      </p>
+
+      <p>
+        Para remover esses registros persistentes, limpe os dados
+        deste site nas configurações do navegador. Links externos
+        levam a serviços com suas próprias políticas de privacidade.
+      </p>
+    </div>
+  </details>
 </footer>

@@ -1,5 +1,4 @@
 <header class="cabecalho">
-  <!-- LOGO -->
   <a
     class="marca"
     routerLink="/meu-time"
@@ -7,23 +6,26 @@
     (click)="fecharMenus()"
   >
     <img
-      src="img/logo-meu-manto.png"
+      src="img/logo-secundaria.png"
       alt="Meu Manto"
+      width="62"
+      height="62"
     />
   </a>
 
-  <!-- MENU PRINCIPAL -->
   <div class="navegacao">
     <button
+      #botaoMenu
       type="button"
       class="botao-menu"
-      aria-label="Abrir menu principal"
-      [attr.aria-expanded]="menuAberto"
-      (click)="alternarMenu()"
+      aria-label="Menu principal"
+      aria-controls="menu-principal"
+      [attr.aria-expanded]="menuAberto === 'principal'"
+      (click)="alternarMenu('principal')"
     >
       <span
         class="hamburguer"
-        [class.aberto]="menuAberto"
+        [class.aberto]="menuAberto === 'principal'"
         aria-hidden="true"
       >
         <span></span>
@@ -31,367 +33,138 @@
         <span></span>
       </span>
 
-      <span class="texto-botao-menu">
-        Menu
-      </span>
+      <span class="texto-botao-menu">Menu</span>
     </button>
 
-    @if (menuAberto) {
+    @if (menuAberto === 'principal') {
       <nav
+        id="menu-principal"
         class="menu-principal"
         aria-label="Navegação principal"
       >
         <div class="topo-menu">
           <div>
-            <span class="mini-titulo">
-              MEU MANTO
-            </span>
-
-            <strong>
-              Explore
-            </strong>
+            <span class="mini-titulo">MEU MANTO</span>
+            <strong>Explore</strong>
           </div>
 
           <button
             type="button"
             class="fechar-menu"
             aria-label="Fechar menu"
-            (click)="fecharMenu()"
+            (click)="fecharComEscape()"
           >
             ×
           </button>
         </div>
 
         <div class="links-menu">
-          <a
-            routerLink="/meu-time"
-            routerLinkActive="ativo"
-            [routerLinkActiveOptions]="{
-              exact: true
-            }"
-            (click)="fecharMenus()"
-          >
-            <span
-              class="icone-link"
-              aria-hidden="true"
+          @for (link of links; track link.rota) {
+            <a
+              [routerLink]="link.rota"
+              routerLinkActive="ativo"
+              ariaCurrentWhenActive="page"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="fecharMenus()"
             >
-              ⚡
-            </span>
+              <span class="icone-link" aria-hidden="true">
+                {{ link.icone }}
+              </span>
 
-            <span class="conteudo-link">
-              <strong>Meu Time</strong>
+              <span class="conteudo-link">
+                <strong>{{ link.nome }}</strong>
+                <small>{{ link.descricao }}</small>
+              </span>
 
-              <small>
-                Jogos, agenda e onde acompanhar
-              </small>
-            </span>
-
-            <span
-              class="seta-link"
-              aria-hidden="true"
-            >
-              →
-            </span>
-          </a>
-
-          <a
-            routerLink="/noticias"
-            routerLinkActive="ativo"
-            (click)="fecharMenus()"
-          >
-            <span
-              class="icone-link"
-              aria-hidden="true"
-            >
-              N
-            </span>
-
-            <span class="conteudo-link">
-              <strong>Notícias</strong>
-
-              <small>
-                As novidades do seu clube
-              </small>
-            </span>
-
-            <span
-              class="seta-link"
-              aria-hidden="true"
-            >
-              →
-            </span>
-          </a>
-
-          <a
-            routerLink="/comunidade"
-            routerLinkActive="ativo"
-            (click)="fecharMenus()"
-          >
-            <span
-              class="icone-link"
-              aria-hidden="true"
-            >
-              C
-            </span>
-
-            <span class="conteudo-link">
-              <strong>Comunidade</strong>
-
-              <small>
-                Encontre outros torcedores
-              </small>
-            </span>
-
-            <span
-              class="seta-link"
-              aria-hidden="true"
-            >
-              →
-            </span>
-          </a>
-
-          <a
-            routerLink="/sobre"
-            routerLinkActive="ativo"
-            (click)="fecharMenus()"
-          >
-            <span
-              class="icone-link"
-              aria-hidden="true"
-            >
-              S
-            </span>
-
-            <span class="conteudo-link">
-              <strong>Sobre</strong>
-
-              <small>
-                Conheça melhor o seu clube
-              </small>
-            </span>
-
-            <span
-              class="seta-link"
-              aria-hidden="true"
-            >
-              →
-            </span>
-          </a>
-
-          <a
-            routerLink="/lojas"
-            routerLinkActive="ativo"
-            (click)="fecharMenus()"
-          >
-            <span class="icone-link" aria-hidden="true">
-              L
-            </span>
-
-            <span class="conteudo-link">
-              <strong>Lojas</strong>
-              <small>Lojas oficiais, ofertas e cupons</small>
-            </span>
-
-            <span class="seta-link" aria-hidden="true">
-              →
-            </span>
-          </a>
-
-          <a
-            routerLink="/feedback"
-            routerLinkActive="ativo"
-            (click)="fecharMenus()"
-          >
-            <span
-              class="icone-link"
-              aria-hidden="true"
-            >
-              F
-            </span>
-
-            <span class="conteudo-link">
-              <strong>Feedback</strong>
-
-              <small>
-                Ajude a melhorar o Meu Manto
-              </small>
-            </span>
-
-            <span
-              class="seta-link"
-              aria-hidden="true"
-            >
-              →
-            </span>
-          </a>
+              <span class="seta-link" aria-hidden="true">→</span>
+            </a>
+          }
         </div>
       </nav>
     }
   </div>
 
-  <!-- USUÁRIO -->
   <div class="area-usuario">
-    <span class="saudacao">
-      Olá, {{ usuario?.nome }}
-    </span>
+    <span class="saudacao">Olá, {{ usuario?.nome }}</span>
 
     <div class="perfil">
       <button
+        #botaoPerfil
         type="button"
         class="botao-perfil"
-        aria-label="Abrir menu do perfil"
-        [attr.aria-expanded]="menuPerfilAberto"
-        (click)="alternarMenuPerfil()"
+        aria-label="Menu do perfil"
+        aria-controls="menu-perfil"
+        [attr.aria-expanded]="menuAberto === 'perfil'"
+        (click)="alternarMenu('perfil')"
       >
-        <span
-          class="icone-perfil"
+        <svg
+          width="23"
+          height="23"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
           aria-hidden="true"
         >
-          <span class="cabeca-perfil"></span>
-          <span class="corpo-perfil"></span>
-        </span>
+          <circle cx="12" cy="7" r="4" />
+          <path d="M3 22v-2a9 9 0 0 1 18 0v2" />
+        </svg>
       </button>
 
-      @if (menuPerfilAberto) {
-        <div class="menu-perfil">
+      @if (menuAberto === 'perfil') {
+        <div id="menu-perfil" class="menu-perfil">
           <div class="topo-menu-perfil">
-            <strong>
-              {{ usuario?.nome }}
-            </strong>
-
-            <span>
-              {{ nomeTime }}
-            </span>
+            <strong>{{ usuario?.nome }}</strong>
+            <span>{{ nomeTime }}</span>
           </div>
 
           <div class="divisor-menu"></div>
 
-          <!-- TEMAS -->
           <div class="secao-menu">
-            <span class="titulo-menu">
-              Tema
-            </span>
+            <span class="titulo-menu">Tema</span>
 
-            <!-- PADRÃO -->
-            <button
-              type="button"
-              class="opcao-tema"
-              [class.tema-ativo]="
-                temaSelecionado === 'padrao'
-              "
-              (click)="selecionarTema('padrao')"
-            >
-              <span
-                class="
-                  amostra-tema
-                  tema-padrao
-                "
-              ></span>
+            @for (tema of temas; track tema.id) {
+              <button
+                type="button"
+                class="opcao-tema"
+                [class.tema-ativo]="temaSelecionado === tema.id"
+                [attr.aria-pressed]="temaSelecionado === tema.id"
+                (click)="selecionarTema(tema.id)"
+              >
+                <span
+                  [class]="'amostra-tema tema-' + tema.id"
+                  aria-hidden="true"
+                ></span>
 
-              <span class="texto-tema">
-                <strong>Meu Manto</strong>
-
-                <small>
-                  Tema padrão
-                </small>
-              </span>
-
-              @if (
-                temaSelecionado === 'padrao'
-              ) {
-                <span class="check-tema">
-                  ✓
+                <span class="texto-tema">
+                  <strong>{{ tema.nome }}</strong>
+                  <small>{{ tema.descricao }}</small>
                 </span>
-              }
-            </button>
 
-            <!-- ESCURO -->
-            <button
-              type="button"
-              class="opcao-tema"
-              [class.tema-ativo]="
-                temaSelecionado === 'escuro'
-              "
-              (click)="selecionarTema('escuro')"
-            >
-              <span
-                class="
-                  amostra-tema
-                  tema-escuro
-                "
-              ></span>
-
-              <span class="texto-tema">
-                <strong>Escuro</strong>
-
-                <small>
-                  Modo escuro
-                </small>
-              </span>
-
-              @if (
-                temaSelecionado === 'escuro'
-              ) {
-                <span class="check-tema">
-                  ✓
-                </span>
-              }
-            </button>
-
-            <!-- TEMA DO CLUBE -->
-            <button
-              type="button"
-              class="opcao-tema"
-              [class.tema-ativo]="
-                temaSelecionado === timeFavorito
-              "
-              (click)="
-                selecionarTema(timeFavorito)
-              "
-            >
-              <span
-                class="amostra-tema"
-                [class.tema-bahia-amostra]="
-                  timeFavorito === 'bahia'
-                "
-                [class.tema-vitoria-amostra]="
-                  timeFavorito === 'vitoria'
-                "
-              ></span>
-
-              <span class="texto-tema">
-                <strong>
-                  {{ nomeTime }}
-                </strong>
-
-                <small>
-                  Tema do seu time
-                </small>
-              </span>
-
-              @if (
-                temaSelecionado ===
-                timeFavorito
-              ) {
-                <span class="check-tema">
-                  ✓
-                </span>
-              }
-            </button>
+                @if (temaSelecionado === tema.id) {
+                  <span class="check-tema" aria-hidden="true">✓</span>
+                }
+              </button>
+            }
           </div>
 
           <div class="divisor-menu"></div>
 
-          <!-- SAIR -->
+          <a
+            class="acao-perfil"
+            routerLink="/trocar-time"
+            (click)="fecharMenus()"
+          >
+            <span aria-hidden="true">⇄</span>
+            Trocar de time
+          </a>
+
           <button
             type="button"
-            class="botao-sair-menu"
+            class="acao-perfil sair"
             (click)="sair()"
           >
-            <span aria-hidden="true">
-              ↪
-            </span>
-
+            <span aria-hidden="true">↪</span>
             Sair da conta
           </button>
         </div>

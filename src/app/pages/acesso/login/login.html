@@ -1,0 +1,135 @@
+<main class="pagina-acesso">
+  <section class="apresentacao" aria-label="Meu Manto">
+    <img
+      class="logo"
+      src="img/logo-meu-manto.png"
+      alt="Meu Manto"
+    />
+
+    <p class="destaque">SEU TIME. SEU MOMENTO.</p>
+
+    <h1>A próxima partida começa aqui.</h1>
+
+    <p class="descricao">
+      Descubra onde assistir, organize sua ida ao estádio e encontre
+      a torcida. Fique no ritmo do seu clube.
+    </p>
+  </section>
+
+  <section class="area-acesso" aria-labelledby="titulo-login">
+    <div class="caixa-acesso">
+      <p class="chamada">ENTRE PARA A TORCIDA</p>
+
+      <h2 id="titulo-login">Vista seu manto.</h2>
+
+      <p class="orientacao">
+        Acesse sua conta para acompanhar seu time.
+      </p>
+
+      <form
+        #formulario="ngForm"
+        (ngSubmit)="entrar(formulario)"
+        (input)="mensagemErro = ''"
+        (change)="mensagemErro = ''"
+      >
+        <div class="campo">
+          <label for="email">E-mail</label>
+
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="voce@exemplo.com"
+            autocomplete="username"
+            [(ngModel)]="email"
+            #campoEmail="ngModel"
+            [attr.aria-invalid]="campoEmail.invalid && campoEmail.touched"
+            required
+            email
+          />
+        </div>
+
+        <div class="campo">
+          <label for="senha">Senha</label>
+
+          <input
+            id="senha"
+            name="senha"
+            type="password"
+            placeholder="Digite sua senha"
+            autocomplete="current-password"
+            [(ngModel)]="senha"
+            #campoSenha="ngModel"
+            [attr.aria-invalid]="campoSenha.invalid && campoSenha.touched"
+            required
+          />
+        </div>
+
+        <div class="campo">
+          <label for="time">Time do coração</label>
+
+          <select
+            id="time"
+            name="time"
+            [(ngModel)]="time"
+            #campoTime="ngModel"
+            [attr.aria-invalid]="campoTime.invalid && campoTime.touched"
+            [attr.aria-describedby]="
+              campoTime.invalid && campoTime.touched ? 'erro-time' : null
+            "
+            required
+          >
+            <option value="" disabled>Selecione seu time</option>
+
+            @for (clube of times; track clube.id) {
+              <option [value]="clube.id">{{ clube.nome }}</option>
+            }
+          </select>
+
+          @if (campoTime.invalid && campoTime.touched) {
+            <small id="erro-time" class="erro-campo">
+              Selecione seu time.
+            </small>
+          }
+        </div>
+
+        <div aria-live="polite">
+          @if (timeSelecionado; as clube) {
+            <div class="time-selecionado">
+              <span>
+                Time selecionado: <strong>{{ clube.nome }}</strong>
+              </span>
+
+              <img
+                [src]="clube.escudo"
+                [alt]="'Escudo do ' + clube.nome"
+                width="40"
+                height="40"
+              />
+            </div>
+          }
+        </div>
+
+        <button type="submit">Entrar</button>
+
+        @if (mensagemErro) {
+          <p class="mensagem erro" role="alert">
+            {{ mensagemErro }}
+          </p>
+        }
+
+        <p class="aviso">
+          Use a conta criada nesta demonstração. Atualizar a página
+          apaga os cadastros e a sessão.
+        </p>
+      </form>
+
+      <p class="acesso">
+        Ainda não tem uma conta?
+        <a routerLink="/cadastro">Cadastre-se</a>
+      </p>
+    </div>
+
+    <footer>Meu Manto · Projeto acadêmico</footer>
+  </section>
+</main>
