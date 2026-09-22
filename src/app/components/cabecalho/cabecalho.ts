@@ -69,12 +69,6 @@ export class Cabecalho {
       descricao: 'Ajude a melhorar o Meu Manto',
       icone: 'F',
     },
-    {
-      rota: '/trocar-time',
-      nome: 'Trocar de time',
-      descricao: 'Escolha o clube que quer acompanhar',
-      icone: '⇄',
-    },
   ];
 
   get usuario() {

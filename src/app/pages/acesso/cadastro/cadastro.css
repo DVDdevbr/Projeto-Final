@@ -32,45 +32,15 @@
 }
 
 .privacidade {
+  display: inline-block;
   margin-top: 10px;
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-.privacidade summary {
   color: #a63e00;
+  font-size: 13px;
   font-weight: bold;
-  cursor: pointer;
+  line-height: 1.6;
+  text-underline-offset: 3px;
 }
 
-.texto-termos {
-  margin-top: 12px;
-  padding: 16px;
-  border: 1px solid #e1e3e8;
-  border-radius: 10px;
-  background-color: white;
-  color: #596273;
-}
-
-.texto-termos h3,
-.texto-termos h4 {
-  color: #252c38;
-}
-
-.texto-termos h3 {
-  margin: 0 0 12px;
-  font-size: 16px;
-}
-
-.texto-termos h4 {
-  margin: 16px 0 6px;
-  font-size: 14px;
-}
-
-.texto-termos p {
-  margin: 0 0 10px;
-}
-
-.texto-termos p:last-child {
-  margin-bottom: 0;
+.privacidade:hover {
+  color: #7d2f00;
 }

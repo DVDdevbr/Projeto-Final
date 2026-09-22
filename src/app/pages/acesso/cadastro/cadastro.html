@@ -1,19 +1,12 @@
 <main class="pagina-acesso">
   <section class="apresentacao" aria-label="Meu Manto">
-    <img
-      class="logo"
-      src="img/logo-meu-manto.png"
-      alt="Meu Manto"
-    />
+    <img class="logo" src="img/logo-meu-manto.png" alt="Meu Manto"/>
 
     <p class="destaque">SUA PAIXÃO TEM LUGAR AQUI.</p>
 
     <h1>Seu time. Sua torcida. Seu manto.</h1>
 
-    <p class="descricao">
-      Escolha seu clube do coração e organize como vai acompanhar
-      cada partida.
-    </p>
+    <p class="descricao">Escolha seu clube do coração e organize como vai acompanhar cada partida.</p>
   </section>
 
   <section class="area-acesso" aria-labelledby="titulo-cadastro">
@@ -22,9 +15,7 @@
 
       <h2 id="titulo-cadastro">Crie sua conta.</h2>
 
-      <p class="orientacao">
-        Preencha seus dados. Você escolherá seu time ao entrar.
-      </p>
+      <p class="orientacao">Preencha seus dados. Você escolherá seu time ao entrar.</p>
 
       <form
         #formulario="ngForm"
@@ -79,9 +70,7 @@
           />
 
           @if (campoEmail.invalid && campoEmail.touched) {
-            <small id="erro-email" class="erro-campo">
-              Informe um e-mail válido.
-            </small>
+            <small id="erro-email" class="erro-campo">Informe um e-mail válido.</small>
           }
         </div>
 
@@ -105,9 +94,7 @@
           />
 
           @if (campoSenha.invalid && campoSenha.touched) {
-            <small id="erro-senha" class="erro-campo">
-              A senha deve ter pelo menos 8 caracteres.
-            </small>
+            <small id="erro-senha" class="erro-campo">A senha deve ter pelo menos 8 caracteres.</small>
           }
         </div>
 
@@ -137,13 +124,9 @@
 
           @if (campoConfirmacao.touched) {
             @if (campoConfirmacao.invalid) {
-              <small id="erro-confirmacao" class="erro-campo">
-                Confirme sua senha.
-              </small>
+              <small id="erro-confirmacao" class="erro-campo">Confirme sua senha.</small>
             } @else if (senha !== confirmarSenha) {
-              <small id="erro-confirmacao" class="erro-campo">
-                As senhas não coincidem.
-              </small>
+              <small id="erro-confirmacao" class="erro-campo">As senhas não coincidem.</small>
             }
           }
         </div>
@@ -159,104 +142,20 @@
               [attr.aria-invalid]="campoTermos.invalid && campoTermos.touched"
               [attr.aria-describedby]="
                 campoTermos.invalid && campoTermos.touched
-                  ? 'erro-termos'
-                  : null
+                  ? 'aviso-demonstracao erro-termos'
+                  : 'aviso-demonstracao'
               "
               required
             />
 
-            <span>
-              Li e aceito os termos de uso e estou ciente do aviso
-              de privacidade desta demonstração.
-            </span>
+            <span>Concordo com os termos e a politica de privacidade.</span>
           </label>
 
           @if (campoTermos.invalid && campoTermos.touched) {
-            <small id="erro-termos" class="erro-campo">
-              Leia e aceite os termos para criar sua conta.
-            </small>
+            <small id="erro-termos" class="erro-campo">Confirme os termos para acessar.</small>
           }
 
-          <details class="privacidade">
-            <summary>Saiba mais sobre os termos e a privacidade</summary>
-
-            <div class="texto-termos">
-              <h3>Termos e privacidade da demonstração</h3>
-
-              <p>Versão: {{ versaoTermos }}.</p>
-
-              <h4>Finalidade do projeto</h4>
-
-              <p>
-                O Meu Manto é um projeto acadêmico de front-end.
-                Os recursos demonstram como uma plataforma para
-                torcedores poderia funcionar. O cadastro não cria
-                uma conta em um serviço de produção.
-              </p>
-
-              <h4>Dados utilizados</h4>
-
-              <p>
-                O nome personaliza a experiência. E-mail e senha
-                simulam a identificação e o acesso à conta.
-                O time escolhido no login define o conteúdo exibido.
-                Registramos também a data e a versão dos termos
-                aceitos durante esta demonstração.
-              </p>
-
-              <h4>Armazenamento do cadastro</h4>
-
-              <p>
-                Os cadastros, as senhas e o registro do aceite ficam
-                somente na memória desta página, sem envio por este
-                formulário a um servidor de autenticação. Atualizar
-                ou fechar a página apaga esses registros e encerra
-                a sessão. Sair da conta encerra apenas a sessão.
-              </p>
-
-              <h4>Outros dados no navegador</h4>
-
-              <p>
-                Preferências de tema, notícias salvas e feedbacks
-                utilizam o armazenamento local do navegador e podem
-                permanecer após atualizar ou fechar a página.
-                O feedback pode incluir nome, e-mail e mensagem.
-                Esses registros não são apagados ao sair da conta.
-              </p>
-
-              <h4>Como apagar os dados</h4>
-
-              <p>
-                Para apagar o cadastro temporário, atualize a página.
-                Para remover também os registros persistentes,
-                utilize a opção de limpar os dados deste site nas
-                configurações do navegador.
-              </p>
-
-              <h4>Uso da demonstração</h4>
-
-              <p>
-                Utilize somente dados fictícios e uma senha criada
-                para este teste. Não reutilize senhas pessoais nem
-                inclua informações sensíveis nos formulários.
-                A autenticação é simulada no navegador.
-              </p>
-
-              <h4>Links externos</h4>
-
-              <p>
-                Ao abrir links de lojas ou outros serviços, você
-                acessará sites com seus próprios termos e políticas
-                de privacidade.
-              </p>
-
-              <p>
-                O aceite se refere às condições desta demonstração.
-                Não representa autorização para publicidade ou
-                compartilhamento de dados com parceiros.
-              </p>
-            </div>
-          </details>
+          <a class="privacidade" href="https://www.gov.br/governodigital/pt-br/lgpd-pagina-do-cidadao/o-que-e-a-lgpd" target="_blank" rel="noopener noreferrer"> Saiba mais.</a>
         </div>
 
         <button type="submit">Criar conta</button>
@@ -273,16 +172,15 @@
           </p>
         }
 
-        <p class="aviso">
-          Demonstração: use dados fictícios e não reutilize senhas
-          pessoais. As contas são apagadas ao atualizar ou fechar
-          a página.
+        <p id="aviso-demonstracao" class="aviso">
+          Demonstração acadêmica: o nome personaliza a experiência;
+          e-mail e senha simulam o acesso. Use dados fictícios e não
+          reutilize senhas pessoais. O cadastro fica na memória
+          desta página e é apagado ao atualizar ou fechar.
         </p>
       </form>
 
-      <p class="acesso">
-        Já tem uma conta? <a routerLink="/login">Entrar</a>
-      </p>
+      <p class="acesso">Já tem uma conta? <a routerLink="/login"> Entrar</a></p>
     </div>
 
     <footer>Meu Manto · Projeto acadêmico</footer>

@@ -1,19 +1,12 @@
 <main class="pagina-acesso">
   <section class="apresentacao" aria-label="Meu Manto">
-    <img
-      class="logo"
-      src="img/logo-meu-manto.png"
-      alt="Meu Manto"
-    />
+    <img class="logo" src="img/logo-meu-manto.png" alt="Meu Manto"/>
 
     <p class="destaque">SEU TIME. SEU MOMENTO.</p>
 
     <h1>A próxima partida começa aqui.</h1>
 
-    <p class="descricao">
-      Descubra onde assistir, organize sua ida ao estádio e encontre
-      a torcida. Fique no ritmo do seu clube.
-    </p>
+    <p class="descricao">Descubra onde assistir, organize sua ida ao estádio e encontre a torcida. Fique no ritmo do seu clube.</p>
   </section>
 
   <section class="area-acesso" aria-labelledby="titulo-login">
@@ -22,18 +15,15 @@
 
       <h2 id="titulo-login">Vista seu manto.</h2>
 
-      <p class="orientacao">
-        Acesse sua conta para acompanhar seu time.
-      </p>
+      <p class="orientacao">Faça login para acompanhar seu time.</p>
 
       <form
         #formulario="ngForm"
         (ngSubmit)="entrar(formulario)"
         (input)="mensagemErro = ''"
-        (change)="mensagemErro = ''"
-      >
+        (change)="mensagemErro = ''">
         <div class="campo">
-          <label for="email">E-mail</label>
+          <label for="email">E-mail:</label>
 
           <input
             id="email"
@@ -50,7 +40,7 @@
         </div>
 
         <div class="campo">
-          <label for="senha">Senha</label>
+          <label for="senha">Senha:</label>
 
           <input
             id="senha"
@@ -66,7 +56,7 @@
         </div>
 
         <div class="campo">
-          <label for="time">Time do coração</label>
+          <label for="time">Time:</label>
 
           <select
             id="time"
@@ -96,9 +86,7 @@
         <div aria-live="polite">
           @if (timeSelecionado; as clube) {
             <div class="time-selecionado">
-              <span>
-                Time selecionado: <strong>{{ clube.nome }}</strong>
-              </span>
+              <span>Time selecionado: <strong>{{ clube.nome }}</strong></span>
 
               <img
                 [src]="clube.escudo"
@@ -118,16 +106,10 @@
           </p>
         }
 
-        <p class="aviso">
-          Use a conta criada nesta demonstração. Atualizar a página
-          apaga os cadastros e a sessão.
-        </p>
+        <p class="aviso">Use a conta criada nesta demonstração. Atualizar a página apaga os cadastros e a sessão.</p>
       </form>
 
-      <p class="acesso">
-        Ainda não tem uma conta?
-        <a routerLink="/cadastro">Cadastre-se</a>
-      </p>
+      <p class="acesso">Ainda não tem uma conta? <a routerLink="/cadastro">Cadastre-se</a></p>
     </div>
 
     <footer>Meu Manto · Projeto acadêmico</footer>
