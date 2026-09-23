@@ -7,427 +7,450 @@
   [class.tema-bahia]="temaSelecionado === 'bahia'"
 >
   <main id="inicio" class="conteudo">
-
-    <!-- INTRODUÇÃO -->
     <section class="introducao" aria-labelledby="titulo-pagina">
       <p class="destaque">MEU TIME</p>
-
-      <h1 id="titulo-pagina">
-        No ritmo do {{ nomeTime }}.
-      </h1>
-
-      <p>
-        Seu próximo jogo, suas informações e sua forma de torcer.
-      </p>
+      <h1 id="titulo-pagina">No ritmo do {{ nomeTime }}.</h1>
+      <p>Seu próximo jogo, suas informações e sua forma de torcer.</p>
     </section>
 
-    <p class="aviso">
-      Modo demonstração: partidas, datas e opções de acompanhamento
-      são exemplos fictícios.
-    </p>
-
-    <!-- PARTIDA EM DESTAQUE -->
     <section class="partida" aria-labelledby="titulo-partida">
       <div class="topo-partida">
         <div>
           <span class="mini-titulo">JOGO EM DESTAQUE</span>
-
           <h2 id="titulo-partida">
-            {{
-              indicePartida === 0
-                ? 'Próxima partida'
-                : 'Partida selecionada'
-            }}
+            {{ indicePartida === 0 ? 'Próxima partida' : 'Partida selecionada' }}
           </h2>
         </div>
-
-        <span class="etiqueta">
-          {{ jogo.competicao }}
-        </span>
+        <span class="etiqueta">Partida demonstrativa</span>
       </div>
 
       <div class="confronto">
         <div class="equipe">
-          <div
-            class="simbolo-time"
-            [class.vitoria]="jogo.siglaMandante === 'VIT'"
-            [class.bahia]="jogo.siglaMandante === 'BAH'"
-            [class.santos]="jogo.siglaMandante === 'SAN'"
-            [class.flamengo]="jogo.siglaMandante === 'FLA'"
-            [class.palmeiras]="jogo.siglaMandante === 'PAL'"
-            aria-hidden="true"
-          >
-            {{ jogo.siglaMandante }}
-          </div>
-
-          <h3>{{ jogo.mandante }}</h3>
+          <img
+            class="escudo"
+            [src]="clubes[jogo.mandante].escudo"
+            alt=""
+            width="76"
+            height="76"
+          />
+          <h3>{{ clubes[jogo.mandante].nome }}</h3>
           <span>Mandante</span>
         </div>
 
         <div class="horario">
-          <span>{{ jogo.data }}</span>
+          <span>{{ formatarData(jogo.data) }}</span>
           <strong>{{ jogo.horario }}</strong>
           <span>Horário de Brasília</span>
         </div>
 
         <div class="equipe">
-          <div
-            class="simbolo-time"
-            [class.vitoria]="jogo.siglaVisitante === 'VIT'"
-            [class.bahia]="jogo.siglaVisitante === 'BAH'"
-            [class.santos]="jogo.siglaVisitante === 'SAN'"
-            [class.flamengo]="jogo.siglaVisitante === 'FLA'"
-            [class.palmeiras]="jogo.siglaVisitante === 'PAL'"
-            aria-hidden="true"
-          >
-            {{ jogo.siglaVisitante }}
-          </div>
-
-          <h3>{{ jogo.visitante }}</h3>
+          <img
+            class="escudo"
+            [src]="clubes[jogo.visitante].escudo"
+            alt=""
+            width="76"
+            height="76"
+          />
+          <h3>{{ clubes[jogo.visitante].nome }}</h3>
           <span>Visitante</span>
         </div>
       </div>
 
       <div class="local-partida">
         <span aria-hidden="true">⌖</span>
-
-        <p>
-          {{ jogo.estadio }} · {{ jogo.cidade }}
-        </p>
+        <p>{{ local.estadio }} · {{ local.cidade }}</p>
       </div>
 
       <details class="detalhes">
         <summary>Ver detalhes da partida</summary>
 
-        <dl>
-          <div>
-            <dt>Provável escalação</dt>
-            <dd>{{ jogo.escalacao }}</dd>
-          </div>
+        @if (jogo.classico) {
+          <div class="detalhes-grid">
+            <article class="bloco-detalhe">
+              <h3>Provável escalação</h3>
+              <p class="observacao">Formação: 4-3-3</p>
 
-          <div>
-            <dt>Uniforme</dt>
-            <dd>{{ jogo.uniforme }}</dd>
-          </div>
+              @for (elenco of elencos; track elenco.nome) {
+                @if (elenco.nome === nomeTime) {
+                  <h4>{{ elenco.nome }}</h4>
+                  <p>{{ elenco.jogadores }}</p>
+                }
+              }
+            </article>
 
-          <div>
-            <dt>Histórico do confronto</dt>
-            <dd>
-              Ainda não disponível nesta demonstração.
-            </dd>
+            <article class="bloco-detalhe">
+              <h3>Uniforme do {{ nomeTime }}</h3>
+
+              <div class="uniformes">
+                @for (elenco of elencos; track elenco.nome) {
+                  @if (elenco.nome === nomeTime) {
+                    <figure style="grid-column: 1 / -1">
+                      <img
+                        [src]="elenco.uniforme.replace('.webp', '.png')"
+                        [alt]="elenco.descricao"
+                        width="120"
+                        height="140"
+                        loading="lazy"
+                        style="background: transparent"
+                      />
+                      <figcaption>{{ elenco.nome }}</figcaption>
+                    </figure>
+                  }
+                }
+              </div>
+
+              <p class="observacao">
+                Imagens ilustrativas; não confirmam o uniforme escolhido para o jogo.
+              </p>
+            </article>
+
+            <article class="bloco-detalhe">
+              <h3>Últimos 3 Ba-Vis no Barradão</h3>
+              <p class="observacao">
+                Resultado na perspectiva do {{ nomeTime }}.
+              </p>
+
+              <ul class="historico">
+                @for (partida of historico; track partida.data) {
+                  <li>
+                    <span
+                      class="selo-resultado"
+                      [class.ganhou]="resultado(partida) === 'vitória'"
+                      [class.perdeu]="resultado(partida) === 'derrota'"
+                      [class.empatou]="resultado(partida) === 'empate'"
+                    >
+                      <i aria-hidden="true"></i>
+                      {{ resultado(partida) }}
+                    </span>
+
+                    <strong>
+                      Vitória {{ partida.vitoria }} × {{ partida.bahia }} Bahia
+                    </strong>
+
+                    <small>
+                      {{ formatarData(partida.data) }} · {{ partida.competicao }}
+                    </small>
+
+                    <a
+                      [href]="partida.fonte"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Fonte do resultado ↗
+                    </a>
+                  </li>
+                }
+              </ul>
+            </article>
           </div>
-        </dl>
+        } @else {
+          <p class="observacao">
+            Escalações, uniformes e histórico deste confronto ainda não foram
+            incluídos. A agenda desta partida é demonstrativa.
+          </p>
+        }
       </details>
 
       <div class="controles-partidas">
         <button
           type="button"
           class="seta"
-          aria-label="Ver partida anterior"
-          (click)="partidaAnterior()"
+          aria-label="Partida anterior"
+          (click)="mudarPartida(-1)"
         >
           ←
         </button>
 
-        <p
-          class="contador"
-          aria-live="polite"
-          aria-atomic="true"
-        >
+        <p class="contador" aria-live="polite" aria-atomic="true">
           Jogo {{ indicePartida + 1 }} de {{ partidas.length }}
-
           <span>
-            {{ jogo.mandante }} × {{ jogo.visitante }}
+            {{ clubes[jogo.mandante].nome }} × {{ clubes[jogo.visitante].nome }}
           </span>
         </p>
 
         <button
           type="button"
           class="seta"
-          aria-label="Ver próxima partida"
-          (click)="proximaPartida()"
+          aria-label="Próxima partida"
+          (click)="mudarPartida(1)"
         >
           →
         </button>
       </div>
     </section>
 
-    <!-- COMO ACOMPANHAR -->
-    <section
-      class="acompanhamento"
-      aria-labelledby="titulo-acompanhamento"
-    >
+    <section class="acompanhamento" aria-labelledby="titulo-acompanhamento">
       <div class="cabecalho-secao">
-        <span class="mini-titulo">
-          PREPARE A TORCIDA
-        </span>
+        <span class="mini-titulo">PREPARE A TORCIDA</span>
+        <h2 id="titulo-acompanhamento">Como você vai acompanhar?</h2>
 
-        <h2 id="titulo-acompanhamento">
-          Como você vai acompanhar?
-        </h2>
-
-        <p>
-          Escolha uma opção para consultar as informações.
-        </p>
+        @if (jogo.classico) {
+          <p>Escolha uma opção para consultar as informações.</p>
+        }
       </div>
 
-      <div class="opcoes">
-        <button
-          type="button"
-          class="opcao"
-          [class.selecionada]="opcaoSelecionada === 'casa'"
-          [attr.aria-pressed]="opcaoSelecionada === 'casa'"
-          (click)="selecionarOpcao('casa')"
-        >
-          <span class="icone-opcao" aria-hidden="true">▣</span>
-          <strong>Em casa</strong>
-          <span>TV, streaming e narrações</span>
-        </button>
+      @if (jogo.classico) {
+        <div class="opcoes">
+          @for (opcao of opcoes; track opcao.id) {
+            <button
+              type="button"
+              class="opcao"
+              [class.selecionada]="opcaoSelecionada === opcao.id"
+              [attr.aria-pressed]="opcaoSelecionada === opcao.id"
+              aria-controls="informacoes-acompanhamento"
+              (click)="selecionarOpcao(opcao.id)"
+            >
+              <span class="icone-opcao" aria-hidden="true">
+                {{ opcao.icone }}
+              </span>
+              <strong>{{ opcao.titulo }}</strong>
+              <span>{{ opcao.texto }}</span>
+            </button>
+          }
+        </div>
 
-        <button
-          type="button"
-          class="opcao"
-          [class.selecionada]="opcaoSelecionada === 'estadio'"
-          [attr.aria-pressed]="opcaoSelecionada === 'estadio'"
-          (click)="selecionarOpcao('estadio')"
-        >
-          <span class="icone-opcao" aria-hidden="true">◉</span>
-          <strong>No estádio</strong>
-          <span>Ingressos e informações do local</span>
-        </button>
+        <div id="informacoes-acompanhamento" class="resultado">
+          @switch (opcaoSelecionada) {
+            @case ('casa') {
+              <div class="cabecalho-resultado">
+                <span class="categoria">EM CASA</span>
+                <h3>Torça de casa</h3>
+                <p>
+                  Serviços e profissionais reais como referências. Nenhuma equipe
+                  ou transmissão está confirmada para a partida fictícia.
+                </p>
+              </div>
 
-        <button
-          type="button"
-          class="opcao"
-          [class.selecionada]="opcaoSelecionada === 'torcida'"
-          [attr.aria-pressed]="opcaoSelecionada === 'torcida'"
-          (click)="selecionarOpcao('torcida')"
-        >
-          <span class="icone-opcao" aria-hidden="true">♟</span>
-          <strong>Com a torcida</strong>
-          <span>Estabelecimentos e encontros</span>
-        </button>
-      </div>
+              <div class="lista transmissoes">
+                @for (canal of transmissoes; track canal.id) {
+                  <article class="item">
+                    <div class="topo-canal">
+                      <svg
+                        class="icone-canal"
+                        [class.youtube]="canal.id === 'youtube'"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path [attr.d]="canal.icone" />
+                      </svg>
 
-      <div
-        id="informacoes-acompanhamento"
-        class="resultado"
-        aria-live="polite"
-      >
-        @if (opcaoSelecionada === '') {
+                      <span class="categoria">{{ canal.categoria }}</span>
+                    </div>
+
+                    <h4>{{ canal.nome }}</h4>
+                    <p>{{ canal.descricao }}</p>
+
+                    <details class="info-canal">
+                      <summary>
+                        <span class="interrogacao" aria-hidden="true">?</span>
+                        <span>Equipe e acesso</span>
+                      </summary>
+
+                      <p>
+                        <strong>Narração de referência:</strong>
+                        {{ canal.narrador }}
+                      </p>
+                      <p>
+                        <strong>Comentários de referência:</strong>
+                        {{ canal.comentarista }}
+                      </p>
+                      <p>{{ canal.acesso }}</p>
+                      <p>Equipe ilustrativa, não escalada para este jogo.</p>
+                    </details>
+
+                    <a
+                      [href]="canal.url"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Consultar o canal ↗
+                    </a>
+                  </article>
+                }
+              </div>
+            }
+
+            @case ('estadio') {
+              <div class="cabecalho-resultado">
+                <span class="categoria">NO ESTÁDIO</span>
+                <h3>Viva o jogo no estádio</h3>
+                <p>
+                  Referências para planejar a ida. Não há venda de ingressos
+                  neste protótipo.
+                </p>
+              </div>
+
+              <div class="lista">
+                <article class="item">
+                  <span class="categoria">LOCAL</span>
+                  <h4>{{ local.estadio }}</h4>
+                  <p>{{ local.cidade }}</p>
+                  <p>{{ local.endereco }}</p>
+
+                  <a
+                    [href]="mapaEstadio"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Ver localização ↗
+                  </a>
+                </article>
+
+                <article class="item">
+                  <span class="categoria">INGRESSOS</span>
+                  <h4>Consulte o clube mandante</h4>
+                  <p>
+                    Exemplo de preços: inteira R$ 120 e meia R$ 60.
+                    Valores fictícios, sem oferta de venda.
+                  </p>
+                  <p>
+                    Setores, documentos e eventual biometria dependem
+                    das regras oficiais do jogo.
+                  </p>
+
+                  <a
+                    [href]="local.site"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Site do {{ local.nome }} ↗
+                  </a>
+                </article>
+
+                <article class="item">
+                  <span class="categoria">ANTES DO JOGO</span>
+                  <h4>Chegada sugerida: {{ chegadaSugerida }}</h4>
+                  <p>
+                    Chegue duas horas antes para passar pela revista com
+                    tranquilidade, localizar seu setor e evitar as filas
+                    próximas ao início da partida.
+                  </p>
+                  <p>
+                    <strong>Abertura dos portões:</strong> 14:00.
+                  </p>
+                  <p>
+                    <strong>Recepção aos jogadores do Vitória:</strong>
+                    15:00, com cantos e bandeiras na chegada da delegação.
+                    Mantenha os acessos livres e siga as orientações
+                    da equipe de segurança.
+                  </p>
+                  <p>Tenha seu ingresso e documento em mãos.</p>
+
+                  @if (timeFavorito === 'bahia') {
+                    <p class="alerta-acesso">
+                      Acesso da torcida visitante não confirmado.
+                      Verifique a regra de torcida única antes de planejar
+                      a ida ao Barradão.
+                    </p>
+                  }
+                </article>
+              </div>
+            }
+
+            @case ('torcida') {
+              <div class="cabecalho-resultado">
+                <span class="categoria">COM A TORCIDA</span>
+                <h3>Encontre a torcida do {{ nomeTime }}</h3>
+                <p>
+                  Estabelecimentos e encontros abaixo são fictícios,
+                  sem reservas ou confirmação de exibição.
+                </p>
+              </div>
+
+              <div class="lista">
+                <article class="item">
+                  <span class="categoria">ESTABELECIMENTO · EXEMPLO</span>
+                  <h4>
+                    {{ timeFavorito === 'vitoria' ? 'Espaço Rubro-Negro' : 'Espaço Tricolor' }}
+                  </h4>
+                  <p>
+                    Região ilustrativa: Pituba, Salvador.
+                    Endereço a cadastrar.
+                  </p>
+                  <p>
+                    Recepção: {{ chegadaSugerida }} · Jogo: {{ jogo.horario }}.
+                  </p>
+                  <p>
+                    40 lugares, telão, entrada gratuita e consumo à parte —
+                    condições simuladas.
+                  </p>
+
+                  <a
+                    [href]="mapa('Pituba, Salvador')"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Conhecer o bairro no mapa ↗
+                  </a>
+                </article>
+
+                <article class="item">
+                  <span class="categoria">ENCONTRO DA TORCIDA</span>
+                  <h4>Encontro da organizada do {{ nomeTime }}</h4>
+                  <p>
+                    {{ formatarData(jogo.data) }},
+                    a partir das {{ chegadaSugerida }}.
+                  </p>
+                  <p>
+                    Concentração para acompanhar a partida com cantos,
+                    bandeiras e apoio ao {{ nomeTime }}.
+                  </p>
+                  <p>
+                    Local e orientações divulgados pelos próprios
+                    organizadores nos canais da torcida.
+                  </p>
+                  <p>
+                    Encontro independente, sem organização ou vínculo
+                    com o Meu Manto.
+                  </p>
+                </article>
+              </div>
+            }
+
+            @default {
+              <div class="estado-inicial">
+                <span class="icone-estado" aria-hidden="true">⚡</span>
+                <div>
+                  <h3>Onde será sua torcida?</h3>
+                  <p>
+                    Selecione uma opção para consultar as informações
+                    da partida.
+                  </p>
+                </div>
+              </div>
+            }
+          }
+        </div>
+      } @else {
+        <div class="resultado">
           <div class="estado-inicial">
             <span class="icone-estado" aria-hidden="true">⚡</span>
-
             <div>
-              <h3>Onde será sua torcida?</h3>
-
+              <h3>
+                {{ clubes[jogo.mandante].nome }} × {{ clubes[jogo.visitante].nome }}
+              </h3>
               <p>
-                Selecione uma das opções acima para encontrar
-                as informações da partida.
+                Informações de acompanhamento ainda não disponíveis
+                para esta partida.
               </p>
             </div>
           </div>
-        }
-
-        @if (opcaoSelecionada === 'casa') {
-          <div class="cabecalho-resultado">
-            <span class="categoria">EM CASA</span>
-            <h3>Torça de casa</h3>
-
-            <p>
-              Veja onde a partida poderá ser acompanhada.
-            </p>
-          </div>
-
-          <div class="lista">
-            <article class="item">
-              <span class="categoria">TV ABERTA</span>
-              <h4>Canal demonstrativo</h4>
-
-              <p>
-                Acesso gratuito · Disponibilidade regional
-                a confirmar.
-              </p>
-            </article>
-
-            <article class="item">
-              <span class="categoria">STREAMING</span>
-              <h4>Plataforma demonstrativa</h4>
-
-              <p>
-                Acesso por assinatura · Plano e cobertura
-                a confirmar.
-              </p>
-            </article>
-
-            <article class="item">
-              <span class="categoria">NARRAÇÃO</span>
-              <h4>Rádio demonstrativa</h4>
-
-              <p>
-                Acesso gratuito · Apenas áudio,
-                sem imagens da partida.
-              </p>
-            </article>
-          </div>
-
-          <p class="observacao">
-            O atraso pode variar entre transmissões.
-            Narradores e comentaristas ainda não informados.
-          </p>
-        }
-
-        @if (opcaoSelecionada === 'estadio') {
-          <div class="cabecalho-resultado">
-            <span class="categoria">NO ESTÁDIO</span>
-            <h3>Viva o jogo no estádio</h3>
-
-            <p>
-              Informações importantes para quem vai acompanhar
-              a partida de perto.
-            </p>
-          </div>
-
-          <div class="lista">
-            <article class="item">
-              <span class="categoria">LOCAL</span>
-              <h4>{{ jogo.estadio }}</h4>
-              <p>{{ jogo.cidade }}</p>
-            </article>
-
-            <article class="item">
-              <span class="categoria">INGRESSOS</span>
-              <h4>Venda não informada</h4>
-
-              <p>
-                Os canais oficiais de compra serão
-                apresentados aqui.
-              </p>
-            </article>
-
-            <article class="item">
-              <span class="categoria">ANTES DO JOGO</span>
-              <h4>Programação não informada</h4>
-
-              <p>
-                Abertura dos portões e eventos ainda
-                não divulgados.
-              </p>
-            </article>
-          </div>
-        }
-
-        @if (opcaoSelecionada === 'torcida') {
-          <div class="cabecalho-resultado">
-            <span class="categoria">COM A TORCIDA</span>
-            <h3>Encontre a sua torcida</h3>
-
-            <p>
-              Lugares e encontros para acompanhar o jogo
-              junto com outros torcedores.
-            </p>
-          </div>
-
-          <div class="lista">
-            <article class="item">
-              <span class="categoria">ESTABELECIMENTO</span>
-              <h4>Espaço do Torcedor — exemplo</h4>
-              <p>Endereço: não cadastrado.</p>
-              <p>Transmissão: não confirmada.</p>
-            </article>
-
-            <article class="item">
-              <span class="categoria">ENCONTRO</span>
-              <h4>Resenha da Torcida — exemplo</h4>
-              <p>Organizador: grupo demonstrativo.</p>
-              <p>Local e horário: a definir.</p>
-            </article>
-          </div>
-        }
-      </div>
+        </div>
+      }
     </section>
 
-    <!-- PRÓXIMOS JOGOS -->
-    <section
-      class="proximos-jogos"
-      aria-labelledby="titulo-proximos"
-    >
+    <section class="agenda" aria-labelledby="titulo-agenda">
       <div class="cabecalho-secao">
-        <span class="mini-titulo">
-          PRÓXIMOS COMPROMISSOS
-        </span>
-
-        <h2 id="titulo-proximos">
-          Na sequência
-        </h2>
-
+        <span class="mini-titulo">CALENDÁRIO</span>
+        <h2 id="titulo-agenda">Agenda do {{ nomeTime }}</h2>
         <p>
-          Selecione uma partida para consultar os detalhes.
-        </p>
-      </div>
-
-      <div class="lista-jogos">
-        @for (
-          partida of proximosJogos;
-          track partida.data;
-          let indice = $index
-        ) {
-          <button
-            type="button"
-            class="cartao-jogo"
-            [class.jogo-selecionado]="indicePartida === indice + 1"
-            [attr.aria-pressed]="indicePartida === indice + 1"
-            (click)="selecionarPartida(indice + 1)"
-          >
-            <div class="topo-cartao-jogo">
-              <span class="data-jogo">
-                {{ partida.data }}
-              </span>
-
-              <span class="hora-cartao">
-                {{ partida.horario }}
-              </span>
-            </div>
-
-            <div class="confronto-cartao">
-              <strong>{{ partida.mandante }}</strong>
-              <span>×</span>
-              <strong>{{ partida.visitante }}</strong>
-            </div>
-
-            <span class="estadio-jogo">
-              {{ partida.estadio }}
-            </span>
-
-            <span class="acao-jogo">
-              {{
-                indicePartida === indice + 1
-                  ? 'Selecionado'
-                  : 'Ver partida'
-              }}
-            </span>
-          </button>
-        }
-      </div>
-    </section>
-
-    <!-- CALENDÁRIO -->
-    <section
-      class="agenda"
-      aria-labelledby="titulo-agenda"
-    >
-      <div class="cabecalho-secao">
-        <span class="mini-titulo">
-          CALENDÁRIO
-        </span>
-
-        <h2 id="titulo-agenda">
-          Agenda do {{ nomeTime }}
-        </h2>
-
-        <p>
-          Consulte as datas e selecione um dia
-          para ver a programação.
+          Selecione uma data. Partidas e eventos da torcida
+          têm marcadores diferentes.
         </p>
       </div>
 
@@ -444,8 +467,7 @@
             </button>
 
             <h3 aria-live="polite">
-              {{ nomesMeses[mesCalendario] }}
-              {{ anoCalendario }}
+              {{ nomesMeses[mesCalendario] }} {{ anoCalendario }}
             </h3>
 
             <button
@@ -471,6 +493,7 @@
                   type="button"
                   class="dia"
                   [class.com-partida]="temPartida(dia)"
+                  [class.com-evento]="temEvento(dia)"
                   [class.dia-selecionado]="diaSelecionado === dia"
                   [attr.aria-label]="descricaoDia(dia)"
                   [attr.aria-pressed]="diaSelecionado === dia"
@@ -478,12 +501,14 @@
                 >
                   {{ dia }}
 
-                  @if (temPartida(dia)) {
-                    <span
-                      class="marcador"
-                      aria-hidden="true"
-                    ></span>
-                  }
+                  <span class="marcadores" aria-hidden="true">
+                    @if (temPartida(dia)) {
+                      <i class="ponto-jogo"></i>
+                    }
+                    @if (temEvento(dia)) {
+                      <i class="ponto-evento"></i>
+                    }
+                  </span>
                 </button>
               } @else {
                 <span class="dia-vazio" aria-hidden="true"></span>
@@ -491,75 +516,76 @@
             }
           </div>
 
-          <p class="legenda-calendario">
-            <span class="ponto-legenda" aria-hidden="true"></span>
-            Dia com partida
-          </p>
+          <div class="legenda-calendario">
+            <span>
+              <i class="ponto-jogo" aria-hidden="true"></i>
+              Partida
+            </span>
+            <span>
+              <i class="ponto-evento" aria-hidden="true"></i>
+              Evento da torcida
+            </span>
+          </div>
+
+          @for (evento of eventos; track evento.id) {
+            <button
+              type="button"
+              class="atalho-evento"
+              (click)="abrirEvento(evento.data)"
+            >
+              {{ evento.titulo }} · {{ formatarData(evento.data) }} →
+            </button>
+          }
         </div>
 
-        <div
-          class="programacao"
-          aria-live="polite"
-          aria-atomic="true"
-        >
+        <div class="programacao" aria-live="polite">
           @if (diaSelecionado === null) {
-            <span class="categoria">
-              PROGRAMAÇÃO DO CLUBE
-            </span>
-
+            <span class="categoria">PROGRAMAÇÃO DO CLUBE</span>
             <h3>Escolha um dia</h3>
-
-            <p>
-              Os dias marcados indicam partidas cadastradas.
-            </p>
+            <p>Consulte as partidas e os eventos cadastrados.</p>
           } @else {
             <span class="categoria">
-              {{ diaSelecionado }}
-              DE
-              {{ nomesMeses[mesCalendario] }}
+              {{ diaSelecionado }} DE {{ nomesMeses[mesCalendario] }}
             </span>
 
-            @if (partidaDoDia; as partida) {
-              <h3>
-                {{ partida.mandante }}
-                ×
-                {{ partida.visitante }}
-              </h3>
-
-              <div class="dados-programacao">
+            @for (partida of partidasDoDia; track partida.id) {
+              <article class="compromisso">
+                <h3>
+                  {{ clubes[partida.mandante].nome }} ×
+                  {{ clubes[partida.visitante].nome }}
+                </h3>
                 <p>
-                  <strong>Horário</strong>
-                  {{ partida.horario }}
+                  <strong>Horário:</strong> {{ partida.horario }}
                 </p>
-
                 <p>
-                  <strong>Estádio</strong>
-                  {{ partida.estadio }}
+                  <strong>Estádio:</strong>
+                  {{ clubes[partida.mandante].estadio }}
                 </p>
+                <p>{{ clubes[partida.mandante].cidade }}</p>
+                <p class="observacao">Partida demonstrativa.</p>
 
+                <a class="link-partida" href="#titulo-partida">
+                  Ir para os detalhes da partida →
+                </a>
+              </article>
+            }
+
+            @for (evento of eventosDoDia; track evento.id) {
+              <article class="compromisso evento">
+                <h3>{{ evento.titulo }}</h3>
                 <p>
-                  <strong>Cidade</strong>
-                  {{ partida.cidade }}
+                  <strong>Horário:</strong> {{ evento.horario }}
                 </p>
-              </div>
+                <p>
+                  <strong>Local:</strong> {{ evento.local }}
+                </p>
+                <p>{{ evento.descricao }}</p>
+              </article>
+            }
 
-              <p class="nota-agenda">
-                Partida fictícia para demonstração.
-              </p>
-
-              <a
-                class="link-partida"
-                href="#titulo-partida"
-              >
-                Ir para os detalhes da partida →
-              </a>
-            } @else {
+            @if (!partidasDoDia.length && !eventosDoDia.length) {
               <h3>Sem programação cadastrada</h3>
-
-              <p>
-                Ainda não há jogos ou eventos
-                registrados para este dia.
-              </p>
+              <p>Ainda não há jogos ou eventos registrados para este dia.</p>
             }
           }
         </div>
@@ -569,4 +595,3 @@
 </div>
 
 <app-rodape />
-
