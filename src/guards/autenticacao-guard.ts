@@ -6,9 +6,16 @@ export const autenticacaoGuard: CanActivateFn = () => {
   const autenticacao = inject(Autenticacao);
   const roteador = inject(Router);
 
-  if (autenticacao.estaLogado()) {
-    return true;
-  }
+  return autenticacao.estaLogado()
+    ? true
+    : roteador.createUrlTree(['/login']);
+};
 
-  return roteador.createUrlTree(['/login']);
+export const visitanteGuard: CanActivateFn = () => {
+  const autenticacao = inject(Autenticacao);
+  const roteador = inject(Router);
+
+  return autenticacao.estaLogado()
+    ? roteador.createUrlTree(['/meu-time'])
+    : true;
 };

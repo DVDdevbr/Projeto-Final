@@ -22,8 +22,10 @@ interface Perfil {
 export class Autenticacao {
   readonly versaoTermos = '22/09/2026';
 
+  private readonly chaveSessao = 'meu-manto-sessao';
+
   private contas: Conta[] = [];
-  private usuarioAtual: Perfil | null = null;
+  private usuarioAtual: Perfil | null = this.carregarSessao();
 
   cadastrar(
     nome: string,
@@ -74,6 +76,8 @@ export class Autenticacao {
       time,
     };
 
+    this.salvarSessao();
+
     return true;
   }
 
@@ -86,6 +90,7 @@ export class Autenticacao {
     }
 
     this.usuarioAtual = { ...this.usuarioAtual, time };
+    this.salvarSessao();
 
     return true;
   }
@@ -99,6 +104,48 @@ export class Autenticacao {
   }
 
   sair() {
+    // Remove a sessão salva antes de encerrar a sessão em memória.
+    localStorage.removeItem(this.chaveSessao);
     this.usuarioAtual = null;
+  }
+
+  private salvarSessao() {
+    localStorage.setItem(
+      this.chaveSessao,
+      JSON.stringify(this.usuarioAtual)
+    );
+  }
+
+  private carregarSessao(): Perfil | null {
+    try {
+      const sessao = localStorage.getItem(this.chaveSessao);
+
+      if (!sessao) {
+        return null;
+      }
+
+      const perfil: unknown = JSON.parse(sessao);
+
+      if (
+        typeof perfil === 'object' &&
+        perfil !== null &&
+        'nome' in perfil &&
+        typeof perfil.nome === 'string' &&
+        'email' in perfil &&
+        typeof perfil.email === 'string' &&
+        'time' in perfil &&
+        (perfil.time === 'vitoria' || perfil.time === 'bahia')
+      ) {
+        return {
+          nome: perfil.nome,
+          email: perfil.email,
+          time: perfil.time,
+        };
+      }
+
+      return null;
+    } catch {
+      return null;
+    }
   }
 }

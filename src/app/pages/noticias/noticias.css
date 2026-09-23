@@ -1,7 +1,3 @@
-/* =========================================================
-   NOTÍCIAS
-========================================================= */
-
 :host {
   display: block;
 }
@@ -12,24 +8,15 @@
 
 .pagina {
   min-height: 100vh;
-
   background:
     radial-gradient(
       circle at 50% -200px,
-      color-mix(
-        in srgb,
-        var(--cor-principal) 10%,
-        transparent
-      ),
+      color-mix(in srgb, var(--cor-principal) 10%, transparent),
       transparent 500px
     ),
     var(--fundo);
-
   color: var(--texto);
-
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 button,
@@ -49,33 +36,22 @@ textarea:focus-visible {
   outline-offset: 3px;
 }
 
-/* =========================================================
-   CONTEÚDO
-========================================================= */
+/* Introdução */
 
 .conteudo {
   width: min(1180px, 90%);
-
   margin: 0 auto;
-
   padding: 72px 0 100px;
 }
 
 .mini-titulo,
 .categoria {
   color: var(--cor-principal);
-
   font-size: 0.68rem;
   font-weight: 900;
-
   letter-spacing: 0.12em;
-
   text-transform: uppercase;
 }
-
-/* =========================================================
-   INTRODUÇÃO
-========================================================= */
 
 .introducao {
   max-width: 760px;
@@ -83,95 +59,59 @@ textarea:focus-visible {
 
 .introducao h1 {
   margin: 10px 0 0;
-
-  font-size:
-    clamp(2.4rem, 5vw, 4.2rem);
-
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
   line-height: 1;
-
   letter-spacing: -0.045em;
 }
 
 .introducao p {
   max-width: 620px;
-
   margin: 18px 0 0;
-
   color: var(--texto-secundario);
-
   font-size: 0.95rem;
   line-height: 1.7;
 }
 
-/* =========================================================
-   AVISO
-========================================================= */
-
 .aviso {
   margin: 35px 0 20px;
-
   padding: 13px 15px;
-
-  border:
-    1px solid var(--borda);
-
+  border: 1px solid var(--borda);
   border-radius: 11px;
-
   display: flex;
   align-items: center;
-
   gap: 10px;
-
-  background-color:
-    var(--fundo-secundario);
-
-  color:
-    var(--texto-secundario);
+  background-color: var(--fundo-secundario);
+  color: var(--texto-secundario);
 }
 
 .aviso > span {
   color: var(--cor-principal);
-
   font-weight: 900;
 }
 
 .aviso p {
   margin: 0;
-
   font-size: 0.72rem;
   line-height: 1.5;
 }
 
-/* =========================================================
-   FILTROS
-========================================================= */
+/* Filtros */
 
 .filtros {
   margin-bottom: 25px;
-
   display: flex;
   flex-wrap: wrap;
-
   gap: 8px;
 }
 
 .filtros button {
   padding: 9px 14px;
-
-  border:
-    1px solid var(--borda);
-
+  border: 1px solid var(--borda);
   border-radius: 999px;
-
-  background-color:
-    var(--fundo-secundario);
-
-  color:
-    var(--texto-secundario);
-
+  background-color: var(--fundo-secundario);
+  color: var(--texto-secundario);
   font-size: 0.72rem;
   font-weight: 800;
-
   transition:
     background-color 0.2s ease,
     border-color 0.2s ease,
@@ -181,51 +121,28 @@ textarea:focus-visible {
 
 .filtros button:hover {
   transform: translateY(-2px);
-
-  border-color:
-    var(--cor-principal);
-
-  color:
-    var(--cor-principal);
+  border-color: var(--cor-principal);
+  color: var(--cor-principal);
 }
 
 .filtros button.ativo {
-  border-color:
-    var(--cor-principal);
-
-  background-color:
-    var(--cor-principal);
-
+  border-color: var(--cor-principal);
+  background-color: var(--cor-principal);
   color: white;
 }
 
-/* =========================================================
-   NOTÍCIA EM DESTAQUE
-========================================================= */
+/* Destaque */
 
 .noticia-destaque {
   min-height: 310px;
-
   padding: 35px;
-
-  border:
-    1px solid var(--borda);
-
+  border: 1px solid var(--borda);
   border-radius: 22px;
-
   display: grid;
-
-  grid-template-columns:
-    minmax(0, 1fr)
-    230px;
-
+  grid-template-columns: minmax(0, 1fr) 230px;
   align-items: center;
-
   gap: 40px;
-
-  background-color:
-    var(--fundo-secundario);
-
+  background-color: var(--fundo-secundario);
   box-shadow: var(--sombra);
 }
 
@@ -236,73 +153,50 @@ textarea:focus-visible {
 .meta {
   display: flex;
   align-items: center;
-
   gap: 12px;
-
-  color:
-    var(--texto-secundario);
-
+  color: var(--texto-secundario);
   font-size: 0.7rem;
 }
 
 .conteudo-destaque h2 {
   max-width: 750px;
-
   margin: 14px 0 12px;
-
-  font-size:
-    clamp(1.6rem, 3vw, 2.4rem);
-
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
   line-height: 1.15;
-
   letter-spacing: -0.03em;
 }
 
 .conteudo-destaque > p {
   max-width: 760px;
-
   margin: 0;
-
-  color:
-    var(--texto-secundario);
-
+  color: var(--texto-secundario);
   font-size: 0.85rem;
   line-height: 1.7;
 }
 
 .rodape-noticia {
   margin-top: 25px;
-
   display: flex;
   align-items: center;
-
   gap: 18px;
-
   flex-wrap: wrap;
 }
 
 .rodape-noticia > span {
-  color:
-    var(--texto-secundario);
-
+  color: var(--texto-secundario);
   font-size: 0.7rem;
 }
 
 .botao-leitura,
 .ler-mais {
   border: 0;
-
-  color:
-    var(--cor-principal);
-
+  color: var(--cor-principal);
   background: none;
-
   font-weight: 800;
 }
 
 .botao-leitura {
   padding: 0;
-
   font-size: 0.76rem;
 }
 
@@ -311,55 +205,38 @@ textarea:focus-visible {
   text-decoration: underline;
 }
 
-/* BLOCO VISUAL */
-
 .marca-destaque {
   width: 210px;
   height: 210px;
-
   border-radius: 28px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   justify-self: end;
-
-  background:
-    linear-gradient(
-      145deg,
-      var(--cor-principal),
-      var(--cor-principal-hover)
-    );
-
+  background: linear-gradient(
+    145deg,
+    var(--cor-principal),
+    var(--cor-principal-hover)
+  );
   color: white;
-
-  box-shadow:
-    0 22px 45px
-    rgba(0, 0, 0, 0.15);
-
+  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.15);
   transform: rotate(3deg);
 }
 
 .marca-destaque span {
   font-size: 0.72rem;
   font-weight: 900;
-
   letter-spacing: 0.16em;
 }
 
 .marca-destaque strong {
   margin-top: 5px;
-
   font-size: 3.5rem;
-
   letter-spacing: -0.08em;
 }
 
-/* =========================================================
-   LISTAGEM
-========================================================= */
+/* Lista e cartões */
 
 .secao-noticias {
   margin-top: 75px;
@@ -367,57 +244,35 @@ textarea:focus-visible {
 
 .cabecalho-secao {
   margin-bottom: 24px;
-
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-
   gap: 20px;
 }
 
 .cabecalho-secao h2 {
   margin: 6px 0 0;
-
   font-size: 2rem;
-
   letter-spacing: -0.03em;
 }
 
 .quantidade {
-  color:
-    var(--texto-secundario);
-
+  color: var(--texto-secundario);
   font-size: 0.72rem;
 }
 
 .grade-noticias {
   display: grid;
-
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
-
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 15px;
 }
 
-/* =========================================================
-   CARD
-========================================================= */
-
 .card-noticia {
   padding: 24px;
-
-  border:
-    1px solid var(--borda);
-
+  border: 1px solid var(--borda);
   border-radius: 18px;
-
-  background-color:
-    var(--fundo-secundario);
-
-  box-shadow:
-    0 10px 30px
-    rgba(0, 0, 0, 0.04);
-
+  background-color: var(--fundo-secundario);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
   transition:
     transform 0.2s ease,
     border-color 0.2s ease,
@@ -426,58 +281,41 @@ textarea:focus-visible {
 
 .card-noticia:hover {
   transform: translateY(-3px);
-
-  border-color:
-    var(--cor-principal);
-
-  box-shadow:
-    0 16px 35px
-    rgba(0, 0, 0, 0.08);
+  border-color: var(--cor-principal);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.08);
 }
 
 .topo-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   gap: 10px;
 }
 
 .data {
-  color:
-    var(--texto-secundario);
-
+  color: var(--texto-secundario);
   font-size: 0.68rem;
 }
 
 .card-noticia h3 {
   margin: 17px 0 10px;
-
   font-size: 1.05rem;
   line-height: 1.4;
 }
 
 .resumo {
   margin: 0;
-
-  color:
-    var(--texto-secundario);
-
+  color: var(--texto-secundario);
   font-size: 0.77rem;
   line-height: 1.65;
 }
 
 .fonte {
   margin-top: 20px;
-
   display: flex;
   align-items: center;
-
   gap: 6px;
-
-  color:
-    var(--texto-secundario);
-
+  color: var(--texto-secundario);
   font-size: 0.68rem;
 }
 
@@ -488,92 +326,65 @@ textarea:focus-visible {
 .acoes-noticia {
   margin-top: 22px;
   padding-top: 17px;
-
-  border-top:
-    1px solid var(--borda);
-
+  border-top: 1px solid var(--borda);
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   gap: 15px;
 }
 
 .ler-mais {
   padding: 0;
-
   font-size: 0.73rem;
 }
 
 .botao-comentarios {
   padding: 0;
-
   border: 0;
-
   display: flex;
   align-items: center;
-
   gap: 5px;
-
   background: none;
-
-  color:
-    var(--texto-secundario);
-
+  color: var(--texto-secundario);
   font-size: 0.7rem;
   font-weight: 700;
 }
 
 .botao-comentarios:hover,
 .botao-comentarios.aberto {
-  color:
-    var(--cor-principal);
+  color: var(--cor-principal);
 }
 
-/* =========================================================
-   COMENTÁRIOS
-========================================================= */
+/* Formulário de comentários */
 
 .comentarios {
   margin-top: 20px;
   padding-top: 20px;
-
-  border-top:
-    1px solid var(--borda);
+  border-top: 1px solid var(--borda);
 }
 
 .titulo-comentarios {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-
   gap: 15px;
 }
 
 .titulo-comentarios h4 {
   margin: 5px 0 0;
-
   font-size: 1rem;
 }
 
 .fechar-comentarios {
   width: 30px;
   height: 30px;
-
   padding: 0;
-
   border: 0;
   border-radius: 50%;
-
   display: grid;
   place-items: center;
-
-  background-color:
-    var(--fundo-terciario);
-
-  color:
-    var(--texto-secundario);
-
+  background-color: var(--fundo-terciario);
+  color: var(--texto-secundario);
   font-size: 1.2rem;
 }
 
@@ -583,12 +394,8 @@ textarea:focus-visible {
 
 .form-comentario label {
   display: block;
-
   margin-bottom: 7px;
-
-  color:
-    var(--texto-secundario);
-
+  color: var(--texto-secundario);
   font-size: 0.68rem;
   font-weight: 800;
 }
@@ -596,112 +403,78 @@ textarea:focus-visible {
 .form-comentario textarea {
   width: 100%;
   min-height: 90px;
-
   padding: 12px;
-
-  border:
-    1px solid var(--borda);
-
+  border: 1px solid var(--borda);
   border-radius: 11px;
-
   resize: vertical;
-
-  background-color:
-    var(--fundo-terciario);
-
+  background-color: var(--fundo-terciario);
   color: var(--texto);
-
   font-size: 0.76rem;
-
   outline: none;
 }
 
 .form-comentario textarea::placeholder {
-  color:
-    var(--texto-secundario);
+  color: var(--texto-secundario);
 }
 
 .form-comentario textarea:focus {
-  border-color:
-    var(--cor-principal);
+  border-color: var(--cor-principal);
 }
 
 .rodape-form {
   margin-top: 8px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .rodape-form > span {
-  color:
-    var(--texto-secundario);
-
+  color: var(--texto-secundario);
   font-size: 0.65rem;
 }
 
 .rodape-form button {
   padding: 8px 14px;
-
   border: 0;
   border-radius: 8px;
-
-  background-color:
-    var(--cor-principal);
-
+  background-color: var(--cor-principal);
   color: white;
-
   font-size: 0.7rem;
   font-weight: 800;
 }
 
 .rodape-form button:hover:not(:disabled) {
-  background-color:
-    var(--cor-principal-hover);
+  background-color: var(--cor-principal-hover);
 }
 
 .rodape-form button:disabled {
   opacity: 0.45;
-
   cursor: not-allowed;
 }
 
-/* LISTA DE COMENTÁRIOS */
+/* Comentários publicados */
 
 .lista-comentarios {
   margin-top: 20px;
-
   display: flex;
   flex-direction: column;
-
   gap: 12px;
 }
 
 .comentario {
   display: grid;
-
-  grid-template-columns:
-    36px minmax(0, 1fr);
-
+  grid-template-columns: 36px minmax(0, 1fr);
   gap: 10px;
 }
 
 .avatar {
   width: 36px;
   height: 36px;
-
   border-radius: 50%;
-
   display: grid;
   place-items: center;
-
-  background-color:
-    var(--cor-principal-suave);
-
-  color:
-    var(--cor-principal);
-
+  background-color: var(--cor-principal-suave);
+  color: var(--cor-principal);
   font-size: 0.72rem;
   font-weight: 900;
 }
@@ -709,9 +482,7 @@ textarea:focus-visible {
 .autor-comentario {
   display: flex;
   align-items: center;
-
   gap: 8px;
-
   flex-wrap: wrap;
 }
 
@@ -720,36 +491,25 @@ textarea:focus-visible {
 }
 
 .autor-comentario span {
-  color:
-    var(--texto-secundario);
-
+  color: var(--texto-secundario);
   font-size: 0.62rem;
 }
 
 .comentario p {
   margin: 5px 0 0;
-
-  color:
-    var(--texto-secundario);
-
+  color: var(--texto-secundario);
   font-size: 0.73rem;
   line-height: 1.55;
-
   overflow-wrap: anywhere;
 }
 
 .sem-comentarios {
   padding: 15px;
-
   border-radius: 11px;
-
   display: flex;
   align-items: center;
-
   gap: 10px;
-
-  background-color:
-    var(--fundo-terciario);
+  background-color: var(--fundo-terciario);
 }
 
 .sem-comentarios strong {
@@ -758,33 +518,21 @@ textarea:focus-visible {
 
 .sem-comentarios p {
   margin: 2px 0 0;
-
-  color:
-    var(--texto-secundario);
-
+  color: var(--texto-secundario);
   font-size: 0.68rem;
 }
 
-/* =========================================================
-   SEM NOTÍCIAS
-========================================================= */
+/* Lista vazia */
 
 .sem-noticias {
   min-height: 250px;
-
-  border:
-    1px solid var(--borda);
-
+  border: 1px solid var(--borda);
   border-radius: 18px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  background-color:
-    var(--fundo-secundario);
-
+  background-color: var(--fundo-secundario);
   text-align: center;
 }
 
@@ -798,21 +546,15 @@ textarea:focus-visible {
 
 .sem-noticias p {
   margin: 0;
-
-  color:
-    var(--texto-secundario);
-
+  color: var(--texto-secundario);
   font-size: 0.75rem;
 }
 
-/* =========================================================
-   RESPONSIVIDADE
-========================================================= */
+/* Responsividade */
 
 @media (max-width: 850px) {
   .conteudo {
     width: min(92%, 760px);
-
     padding-top: 55px;
   }
 
@@ -832,29 +574,22 @@ textarea:focus-visible {
 @media (max-width: 600px) {
   .conteudo {
     width: 92%;
-
-    padding:
-      45px 0 75px;
+    padding: 45px 0 75px;
   }
 
   .introducao h1 {
-    font-size:
-      clamp(2rem, 10vw, 2.8rem);
+    font-size: clamp(2rem, 10vw, 2.8rem);
   }
 
   .noticia-destaque {
     min-height: auto;
-
     padding: 24px 18px;
-
     border-radius: 18px;
   }
 
   .cabecalho-secao {
     align-items: flex-start;
-
     flex-direction: column;
-
     gap: 7px;
   }
 
@@ -864,17 +599,13 @@ textarea:focus-visible {
 
   .acoes-noticia {
     align-items: flex-start;
-
     flex-direction: column;
   }
 
   .filtros {
     flex-wrap: nowrap;
-
     overflow-x: auto;
-
     padding-bottom: 5px;
-
     scrollbar-width: none;
   }
 

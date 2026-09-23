@@ -7,349 +7,167 @@
   [class.tema-bahia]="temaSelecionado === 'bahia'"
 >
   <main class="conteudo">
-
-    <!-- APRESENTAÇÃO -->
-
     <section class="hero">
       <div>
-        <span class="mini-titulo">
-          CONHEÇA O CLUBE
-        </span>
-
-        <h1>
-          {{ nomeTime }}
-        </h1>
-
+        <span class="mini-titulo">CONHEÇA O CLUBE</span>
+        <h1>{{ clube.nome }}</h1>
         <p>
-          História, identidade, elenco e as principais
-          informações do seu clube reunidas em um só lugar.
+          História, identidade, elenco e as principais informações
+          do seu clube reunidas em um só lugar.
         </p>
       </div>
 
-      <div class="escudo-demo">
-        <span>MEU MANTO</span>
-
-        <strong>
-          {{ siglaTime }}
-        </strong>
-      </div>
+      <img
+          class="escudo-clube"
+          [src]="clube.sigla === 'VIT' ? 'img/ecv.png' : 'img/ba.webp'"
+          [alt]="'Escudo do ' + clube.nome"
+          width="210"
+          height="210"
+        />
     </section>
 
-    <!-- NAVEGAÇÃO INTERNA -->
-
-    <nav
-      class="navegacao"
-      aria-label="Informações do clube"
-    >
+    <nav class="navegacao" aria-label="Informações do clube">
       @for (secao of secoes; track secao.id) {
         <button
           type="button"
-          [class.ativo]="secaoSelecionada === secao.id"
-          (click)="selecionarSecao(secao.id)"
+          [class.ativo]="secaoSelecionada.id === secao.id"
+          [attr.aria-pressed]="secaoSelecionada.id === secao.id"
+          (click)="secaoSelecionada = secao"
         >
           {{ secao.nome }}
         </button>
       }
     </nav>
 
-    <!-- HISTÓRIA -->
+    <section class="bloco" [attr.aria-label]="secaoSelecionada.nome">
+      <div class="cabecalho-secao">
+        <span class="mini-titulo">{{ secaoSelecionada.nome }}</span>
+        <h2>{{ secaoSelecionada.titulo }}</h2>
+      </div>
 
-    @if (secaoSelecionada === 'historia') {
-      <section class="bloco">
-        <div class="cabecalho-secao">
-          <span class="mini-titulo">
-            NOSSA HISTÓRIA
-          </span>
+      @switch (secaoSelecionada.id) {
+        @case ('historia') {
+          <div class="historia-grid">
+            <article class="texto-historia">
+              @for (paragrafo of clube.historia; track $index) {
+                <p>{{ paragrafo }}</p>
+              }
+            </article>
 
-          <h2>
-            Uma história carregada no manto.
-          </h2>
-        </div>
+            <aside class="fatos" aria-label="Dados do clube">
+              @for (fato of clube.fatos; track fato[0]) {
+                <div class="fato">
+                  <span>{{ fato[0] }}</span>
+                  <strong>{{ fato[1] }}</strong>
+                </div>
+              }
+            </aside>
+          </div>
 
-        <div class="historia-grid">
-          <article class="texto-historia">
-            <p>
-              {{ historia }}
-            </p>
-
-            <p>
-              Nesta área, o Meu Manto reúne informações
-              históricas do {{ nomeTime }} de maneira simples
-              e organizada para que o torcedor conheça ainda
-              mais o clube que acompanha.
-            </p>
-          </article>
-
-          <aside class="fatos">
-            @for (fato of fatos; track fato.titulo) {
-              <div class="fato">
-                <span>
-                  {{ fato.titulo }}
-                </span>
-
-                <strong>
-                  {{ fato.valor }}
-                </strong>
-              </div>
+          <div class="linha-tempo">
+            @for (evento of clube.marcos; track evento[0]) {
+              <article class="evento">
+                <span class="ano">{{ evento[0] }}</span>
+                <div>
+                  <h3>{{ evento[1] }}</h3>
+                  <p>{{ evento[2] }}</p>
+                </div>
+              </article>
             }
-          </aside>
-        </div>
+          </div>
+        }
 
-        <div class="linha-tempo">
-          @for (evento of linhaDoTempo; track evento.ano) {
-            <article class="evento">
-              <span class="ano">
-                {{ evento.ano }}
-              </span>
-
-              <div>
-                <h3>
-                  {{ evento.titulo }}
-                </h3>
-
-                <p>
-                  {{ evento.descricao }}
-                </p>
-              </div>
-            </article>
-          }
-        </div>
-      </section>
-    }
-
-    <!-- ELENCO -->
-
-    @if (secaoSelecionada === 'elenco') {
-      <section class="bloco">
-        <div class="cabecalho-secao">
-          <span class="mini-titulo">
-            ELENCO
-          </span>
-
-          <h2>
-            Quem veste o manto.
-          </h2>
-
-          <p>
-            Estrutura demonstrativa do elenco do
-            {{ nomeTime }}.
+        @case ('elenco') {
+          <p class="descricao-secao">
+            Seleção de atletas por posição predominante,
+            com a numeração das camisas.
           </p>
-        </div>
 
-        <div class="aviso">
-          <span>ⓘ</span>
+          <div class="grade-posicoes">
+            @for (grupo of clube.elenco; track grupo.posicao) {
+              <article class="card-posicao">
+                <h3>{{ grupo.posicao }}</h3>
 
-          <p>
-            Os nomes abaixo são demonstrativos. Em uma versão
-            conectada a dados esportivos, o elenco seria
-            atualizado automaticamente.
-          </p>
-        </div>
+                <ul class="jogadores">
+                  @for (jogador of grupo.jogadores; track jogador[0]) {
+                    <li>
+                      <strong>{{ jogador[0] }}</strong>
+                      <span
+                        class="numero"
+                        [attr.aria-label]="'Camisa ' + jogador[1]"
+                      >
+                        {{ jogador[1] }}
+                      </span>
+                    </li>
+                  }
+                </ul>
+              </article>
+            }
+          </div>
+        }
 
-        <div class="grade-pessoas">
-          @for (jogador of jogadores; track jogador.numero) {
-            <article class="card-pessoa">
-              <div class="numero">
-                {{ jogador.numero }}
-              </div>
+        @case ('uniformes') {
+          <div class="grade-uniformes">
+            @for (uniforme of uniformes; track uniforme.nome) {
+              <article class="card-uniforme">
+                <img
+                  [src]="uniforme.imagem"
+                  [alt]="uniforme.nome + ' do ' + clube.nome"
+                  width="300"
+                  height="300"
+                  loading="lazy"
+                />
+                <h3>{{ uniforme.nome }}</h3>
+              </article>
+            }
+          </div>
+        }
 
-              <div>
-                <span>
-                  {{ jogador.posicao }}
-                </span>
+        @case ('patrocinadores') {
+          <div class="grade-patrocinadores">
+            @for (marca of clube.patrocinadores; track marca[0]) {
+              <article class="patrocinador">
+                <span>{{ marca[1] }}</span>
+                <h3>{{ marca[0] }}</h3>
+              </article>
+            }
+          </div>
+        }
+      }
 
-                <h3>
-                  {{ jogador.nome }}
-                </h3>
-              </div>
-            </article>
-          }
-        </div>
-      </section>
-    }
-
-    <!-- COMISSÃO -->
-
-    @if (secaoSelecionada === 'comissao') {
-      <section class="bloco">
-        <div class="cabecalho-secao">
-          <span class="mini-titulo">
-            COMISSÃO TÉCNICA
-          </span>
-
-          <h2>
-            Por trás de cada partida.
-          </h2>
-        </div>
+      @if (
+        secaoSelecionada.id === 'comissao' ||
+        secaoSelecionada.id === 'diretoria'
+      ) {
+        @let pessoas =
+          secaoSelecionada.id === 'comissao'
+            ? clube.comissao
+            : clube.diretoria;
 
         <div class="grade-cargos">
-          @for (pessoa of comissao; track pessoa.cargo) {
+          @for (pessoa of pessoas; track pessoa[0]) {
             <article class="card-cargo">
-              <div class="avatar">
-                {{ obterInicial(pessoa.nome) }}
+              <div class="avatar" aria-hidden="true">
+                {{ pessoa[0].charAt(0) }}
               </div>
-
               <div>
-                <span>
-                  {{ pessoa.cargo }}
-                </span>
-
-                <h3>
-                  {{ pessoa.nome }}
-                </h3>
-
-                <p>
-                  {{ pessoa.descricao }}
-                </p>
+                <span>{{ pessoa[1] }}</span>
+                <h3>{{ pessoa[0] }}</h3>
               </div>
             </article>
           }
         </div>
-      </section>
-    }
+      }
+    </section>
 
-    <!-- DIRETORIA -->
-
-    @if (secaoSelecionada === 'diretoria') {
-      <section class="bloco">
-        <div class="cabecalho-secao">
-          <span class="mini-titulo">
-            DIRETORIA
-          </span>
-
-          <h2>
-            Gestão do clube.
-          </h2>
-        </div>
-
-        <div class="grade-cargos">
-          @for (pessoa of diretoria; track pessoa.cargo) {
-            <article class="card-cargo">
-              <div class="avatar">
-                {{ obterInicial(pessoa.nome) }}
-              </div>
-
-              <div>
-                <span>
-                  {{ pessoa.cargo }}
-                </span>
-
-                <h3>
-                  {{ pessoa.nome }}
-                </h3>
-
-                <p>
-                  {{ pessoa.descricao }}
-                </p>
-              </div>
-            </article>
-          }
-        </div>
-      </section>
-    }
-
-    <!-- UNIFORMES -->
-
-    @if (secaoSelecionada === 'uniformes') {
-      <section class="bloco">
-        <div class="cabecalho-secao">
-          <span class="mini-titulo">
-            UNIFORMES
-          </span>
-
-          <h2>
-            O manto dentro do Meu Manto.
-          </h2>
-
-          <p>
-            Espaço preparado para apresentar os uniformes
-            utilizados pelo clube.
-          </p>
-        </div>
-
-        <div class="grade-uniformes">
-          @for (uniforme of uniformes; track uniforme.nome) {
-            <article class="card-uniforme">
-              <div
-                class="camisa"
-                [class.principal]="uniforme.tipo === 'principal'"
-                [class.reserva]="uniforme.tipo === 'reserva'"
-                [class.goleiro]="uniforme.tipo === 'goleiro'"
-              >
-                <span>
-                  {{ siglaTime }}
-                </span>
-              </div>
-
-              <span class="tipo">
-                {{ uniforme.categoria }}
-              </span>
-
-              <h3>
-                {{ uniforme.nome }}
-              </h3>
-
-              <p>
-                {{ uniforme.descricao }}
-              </p>
-            </article>
-          }
-        </div>
-      </section>
-    }
-
-    <!-- PATROCINADORES -->
-
-    @if (secaoSelecionada === 'patrocinadores') {
-      <section class="bloco">
-        <div class="cabecalho-secao">
-          <span class="mini-titulo">
-            PARCEIROS
-          </span>
-
-          <h2>
-            Patrocinadores do clube.
-          </h2>
-
-          <p>
-            Área destinada às marcas que apoiam o
-            {{ nomeTime }}.
-          </p>
-        </div>
-
-        <div class="aviso">
-          <span>ⓘ</span>
-
-          <p>
-            Os patrocinadores desta demonstração são
-            representados por espaços genéricos. Os dados
-            oficiais podem ser adicionados posteriormente.
-          </p>
-        </div>
-
-        <div class="grade-patrocinadores">
-          @for (
-            patrocinador of patrocinadores;
-            track patrocinador.nome
-          ) {
-            <article class="patrocinador">
-              <div class="logo-patrocinador">
-                {{ patrocinador.sigla }}
-              </div>
-
-              <span>
-                {{ patrocinador.tipo }}
-              </span>
-
-              <h3>
-                {{ patrocinador.nome }}
-              </h3>
-            </article>
-          }
-        </div>
-      </section>
-    }
-
+    <footer class="fontes">
+      <span>Consulta: 23/09/2026 · Fontes do clube:</span>
+      @for (fonte of clube.fontes; track fonte[0]) {
+        <a [href]="fonte[1]" target="_blank" rel="noopener noreferrer">
+          {{ fonte[0] }} ↗
+        </a>
+      }
+    </footer>
   </main>
 </div>
 

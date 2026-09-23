@@ -230,11 +230,11 @@ export const EVENTOS: Record<TimeFavorito, Evento[]> = {
       data: '2026-10-03',
       horario: '14:00',
       titulo: 'Aeronego — demonstração',
-      local: 'Aeroporto de Salvador — ponto de encontro a confirmar',
+      local: 'Aeroporto de Salvador',
       descricao:
-        'Exemplo de apoio à delegação antes da viagem para enfrentar o Santos. ' +
+        'Apoio à delegação e jogadores antes da viagem para enfrentar o Santos. ' +
         'Encontro gratuito da torcida, sugerido para 13h30. ' +
-        'Data, embarque e organização são fictícios; consulte os canais oficiais antes de se deslocar.',
+        'Data, embarque e organização são fictícios.',
     },
   ],
   bahia: [],

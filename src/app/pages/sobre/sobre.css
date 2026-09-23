@@ -8,19 +8,13 @@
 
 .pagina {
   min-height: 100vh;
-
   background:
     radial-gradient(
       circle at 50% -200px,
-      color-mix(
-        in srgb,
-        var(--cor-principal) 10%,
-        transparent
-      ),
+      color-mix(in srgb, var(--cor-principal) 10%, transparent),
       transparent 500px
     ),
     var(--fundo);
-
   color: var(--texto);
 }
 
@@ -29,7 +23,8 @@ button {
   cursor: pointer;
 }
 
-button:focus-visible {
+button:focus-visible,
+.fontes a:focus-visible {
   outline: 3px solid var(--cor-principal);
   outline-offset: 3px;
 }
@@ -37,32 +32,24 @@ button:focus-visible {
 .conteudo {
   width: min(1180px, 90%);
   margin: 0 auto;
-
   padding: 72px 0 100px;
 }
 
 .mini-titulo {
   color: var(--cor-principal);
-
   font-size: 0.68rem;
   font-weight: 900;
-
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-/* HERO */
+/* Apresentação */
 
 .hero {
   min-height: 310px;
-
   display: grid;
-
-  grid-template-columns:
-    minmax(0, 1fr) 230px;
-
+  grid-template-columns: minmax(0, 1fr) 230px;
   align-items: center;
-
   gap: 50px;
 }
 
@@ -72,82 +59,38 @@ button:focus-visible {
 
 .hero h1 {
   margin: 10px 0 0;
-
   font-size: clamp(3rem, 7vw, 5.5rem);
   line-height: 0.95;
-
   letter-spacing: -0.06em;
 }
 
 .hero p {
   max-width: 620px;
-
   margin: 20px 0 0;
-
   color: var(--texto-secundario);
-
   font-size: 0.95rem;
   line-height: 1.7;
 }
 
-.escudo-demo {
+.escudo-clube {
   width: 210px;
   height: 210px;
-
-  border-radius: 28px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
+  object-fit: contain;
   justify-self: end;
-
-  background:
-    linear-gradient(
-      145deg,
-      var(--cor-principal),
-      var(--cor-principal-hover)
-    );
-
-  color: white;
-
-  box-shadow: var(--sombra);
-
-  transform: rotate(3deg);
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.15));
 }
 
-.escudo-demo span {
-  font-size: 0.65rem;
-  font-weight: 900;
-
-  letter-spacing: 0.16em;
-}
-
-.escudo-demo strong {
-  margin-top: 6px;
-
-  font-size: 3.5rem;
-
-  letter-spacing: -0.08em;
-}
-
-/* NAVEGAÇÃO */
+/* Navegação */
 
 .navegacao {
   margin: 25px 0 50px;
   padding: 6px;
-
   border: 1px solid var(--borda);
   border-radius: 14px;
-
   display: flex;
   gap: 4px;
-
   overflow-x: auto;
-
   background-color: var(--fundo-secundario);
-
   scrollbar-width: none;
 }
 
@@ -157,18 +100,12 @@ button:focus-visible {
 
 .navegacao button {
   flex: 1;
-
   min-width: max-content;
-
   padding: 10px 14px;
-
   border: 0;
   border-radius: 9px;
-
   background: transparent;
-
   color: var(--texto-secundario);
-
   font-size: 0.7rem;
   font-weight: 800;
 }
@@ -179,11 +116,10 @@ button:focus-visible {
 
 .navegacao button.ativo {
   background-color: var(--cor-principal);
-
   color: white;
 }
 
-/* CONTEÚDO */
+/* Conteúdo */
 
 .bloco {
   animation: aparecer 0.25s ease;
@@ -203,54 +139,41 @@ button:focus-visible {
 
 .cabecalho-secao {
   max-width: 720px;
-
   margin-bottom: 25px;
 }
 
 .cabecalho-secao h2 {
   margin: 7px 0 0;
-
   font-size: clamp(1.6rem, 3vw, 2.3rem);
-
   letter-spacing: -0.035em;
 }
 
-.cabecalho-secao p {
-  margin: 9px 0 0;
-
+.descricao-secao {
+  margin: 0 0 20px;
   color: var(--texto-secundario);
-
   font-size: 0.78rem;
   line-height: 1.6;
 }
 
-/* HISTÓRIA */
+/* História */
 
 .historia-grid {
   display: grid;
-
-  grid-template-columns:
-    minmax(0, 1.5fr)
-    minmax(260px, 0.5fr);
-
+  grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.5fr);
   gap: 20px;
 }
 
 .texto-historia,
 .fatos {
   padding: 28px;
-
   border: 1px solid var(--borda);
   border-radius: 18px;
-
   background-color: var(--fundo-secundario);
 }
 
 .texto-historia p {
   margin: 0;
-
   color: var(--texto-secundario);
-
   font-size: 0.8rem;
   line-height: 1.8;
 }
@@ -262,33 +185,26 @@ button:focus-visible {
 .fatos {
   display: flex;
   flex-direction: column;
-
   gap: 12px;
 }
 
 .fato {
   padding-bottom: 12px;
-
   border-bottom: 1px solid var(--borda);
-
   display: flex;
   flex-direction: column;
-
   gap: 3px;
 }
 
 .fato:last-child {
   padding-bottom: 0;
-
   border-bottom: 0;
 }
 
 .fato span {
   color: var(--texto-secundario);
-
   font-size: 0.63rem;
   font-weight: 800;
-
   text-transform: uppercase;
 }
 
@@ -298,387 +214,215 @@ button:focus-visible {
 
 .linha-tempo {
   margin-top: 20px;
-
   border-left: 2px solid var(--borda);
-
   display: flex;
   flex-direction: column;
-
   gap: 5px;
 }
 
 .evento {
   position: relative;
-
   padding: 20px 20px 20px 30px;
-
   display: grid;
-
   grid-template-columns: 75px 1fr;
-
   gap: 15px;
 }
 
 .evento::before {
   content: '';
-
   position: absolute;
-
   left: -7px;
   top: 27px;
-
   width: 12px;
   height: 12px;
-
   border: 2px solid var(--fundo);
-
   border-radius: 50%;
-
   background-color: var(--cor-principal);
 }
 
 .ano {
   color: var(--cor-principal);
-
   font-size: 0.78rem;
   font-weight: 900;
 }
 
 .evento h3 {
   margin: 0;
-
   font-size: 0.85rem;
 }
 
 .evento p {
   margin: 5px 0 0;
-
   color: var(--texto-secundario);
-
   font-size: 0.7rem;
   line-height: 1.55;
 }
 
-/* AVISO */
+/* Grades e cartões */
 
-.aviso {
-  margin-bottom: 20px;
-
-  padding: 13px 15px;
-
-  border: 1px solid var(--borda);
-  border-radius: 11px;
-
-  display: flex;
-  align-items: center;
-
-  gap: 10px;
-
-  background-color: var(--fundo-secundario);
-
-  color: var(--texto-secundario);
+.grade-posicoes,
+.grade-uniformes,
+.grade-patrocinadores,
+.grade-cargos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
 }
 
-.aviso > span {
+.grade-cargos {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.card-posicao,
+.card-cargo,
+.card-uniforme,
+.patrocinador {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid var(--borda);
+  border-radius: 18px;
+  background: var(--fundo-secundario);
+}
+
+/* Elenco */
+
+.card-posicao h3 {
+  margin: 0 0 16px;
   color: var(--cor-principal);
-
-  font-weight: 900;
+  font-size: 0.95rem;
 }
 
-.aviso p {
+.jogadores {
+  padding: 0;
   margin: 0;
-
-  font-size: 0.7rem;
-  line-height: 1.5;
+  list-style: none;
 }
 
-/* ELENCO */
-
-.grade-pessoas {
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-  gap: 12px;
-}
-
-.card-pessoa {
-  padding: 18px;
-
-  border: 1px solid var(--borda);
-  border-radius: 14px;
-
-  display: grid;
-
-  grid-template-columns: 45px 1fr;
-
+.jogadores li {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-
   gap: 12px;
+  padding: 12px 0;
+}
 
-  background-color: var(--fundo-secundario);
+.jogadores li + li {
+  border-top: 1px solid var(--borda);
+}
+
+.jogadores strong {
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.numero,
+.avatar {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background: var(--cor-principal-suave);
+  color: var(--cor-principal);
+  font-weight: 900;
 }
 
 .numero {
-  width: 42px;
-  height: 42px;
-
-  border-radius: 11px;
-
-  display: grid;
-  place-items: center;
-
-  background-color: var(--cor-principal-suave);
-
-  color: var(--cor-principal);
-
-  font-size: 0.82rem;
-  font-weight: 900;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  font-size: 0.8rem;
 }
 
-.card-pessoa span,
-.card-cargo span,
-.card-uniforme .tipo,
-.patrocinador > span {
-  color: var(--cor-principal);
-
-  font-size: 0.61rem;
-  font-weight: 900;
-
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.card-pessoa h3 {
-  margin: 4px 0 0;
-
-  font-size: 0.82rem;
-}
-
-/* CARGOS */
-
-.grade-cargos {
-  display: grid;
-
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
-
-  gap: 14px;
-}
-
-.card-cargo {
-  padding: 22px;
-
-  border: 1px solid var(--borda);
-  border-radius: 16px;
-
-  display: grid;
-
-  grid-template-columns: 50px 1fr;
-
-  gap: 14px;
-
-  background-color: var(--fundo-secundario);
-}
+/* Comissão e diretoria */
 
 .avatar {
   width: 48px;
   height: 48px;
-
   border-radius: 50%;
+}
 
+.card-cargo {
   display: grid;
-  place-items: center;
-
-  background-color: var(--cor-principal-suave);
-
-  color: var(--cor-principal);
-
-  font-weight: 900;
-}
-
-.card-cargo h3 {
-  margin: 4px 0 5px;
-
-  font-size: 0.9rem;
-}
-
-.card-cargo p {
-  margin: 0;
-
-  color: var(--texto-secundario);
-
-  font-size: 0.69rem;
-  line-height: 1.5;
-}
-
-/* UNIFORMES */
-
-.grade-uniformes {
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-  gap: 15px;
-}
-
-.card-uniforme {
-  padding: 25px;
-
-  border: 1px solid var(--borda);
-  border-radius: 18px;
-
-  background-color: var(--fundo-secundario);
-
-  text-align: center;
-}
-
-.camisa {
-  width: 120px;
-  height: 135px;
-
-  margin: 0 auto 22px;
-
-  clip-path:
-    polygon(
-      22% 8%,
-      38% 0,
-      62% 0,
-      78% 8%,
-      100% 22%,
-      86% 42%,
-      77% 34%,
-      77% 100%,
-      23% 100%,
-      23% 34%,
-      14% 42%,
-      0 22%
-    );
-
-  display: grid;
-  place-items: center;
-
-  background-color: var(--cor-principal);
-
-  color: white;
-
-  font-weight: 900;
-}
-
-.camisa.reserva {
-  border: 1px solid var(--borda);
-
-  background-color: var(--fundo-terciario);
-
-  color: var(--cor-principal);
-}
-
-.camisa.goleiro {
-  background:
-    linear-gradient(
-      145deg,
-      var(--texto),
-      var(--texto-secundario)
-    );
-}
-
-.card-uniforme h3 {
-  margin: 5px 0 7px;
-
-  font-size: 0.9rem;
-}
-
-.card-uniforme p {
-  margin: 0;
-
-  color: var(--texto-secundario);
-
-  font-size: 0.68rem;
-  line-height: 1.5;
-}
-
-/* PATROCINADORES */
-
-.grade-patrocinadores {
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
+  grid-template-columns: 48px minmax(0, 1fr);
+  align-items: center;
   gap: 14px;
 }
 
+.card-cargo span,
+.patrocinador > span {
+  color: var(--cor-principal);
+  font-size: 0.65rem;
+  font-weight: 800;
+}
+
+.card-cargo h3,
+.card-uniforme h3,
+.patrocinador h3 {
+  margin: 7px 0 0;
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+
+/* Uniformes e patrocinadores */
+
+.card-uniforme,
 .patrocinador {
-  padding: 25px;
-
-  border: 1px solid var(--borda);
-  border-radius: 16px;
-
-  background-color: var(--fundo-secundario);
-
   text-align: center;
 }
 
-.logo-patrocinador {
-  width: 70px;
-  height: 70px;
-
-  margin: 0 auto 18px;
-
-  border-radius: 15px;
-
-  display: grid;
-  place-items: center;
-
-  background-color: var(--fundo-terciario);
-
-  color: var(--texto);
-
-  font-size: 0.75rem;
-  font-weight: 900;
+.card-uniforme img {
+  display: block;
+  width: 100%;
+  height: 260px;
+  margin: 0 auto 20px;
+  object-fit: contain;
 }
 
-.patrocinador h3 {
-  margin: 5px 0 0;
+/* Fontes */
 
-  font-size: 0.85rem;
+.fontes {
+  margin-top: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: var(--texto-secundario);
+  font-size: 0.7rem;
+  line-height: 1.6;
 }
 
-/* RESPONSIVO */
+.fontes a {
+  color: var(--cor-principal);
+  text-underline-offset: 3px;
+}
+
+/* Responsividade */
 
 @media (max-width: 850px) {
   .conteudo {
     width: min(92%, 760px);
-
     padding-top: 55px;
   }
 
-  .hero {
-    grid-template-columns: 1fr;
-  }
-
-  .escudo-demo {
-    display: none;
-  }
-
+  .hero,
   .historia-grid {
     grid-template-columns: 1fr;
   }
 
-  .grade-pessoas,
+  .escudo-clube {
+    width: 140px;
+    height: 140px;
+    justify-self: start;
+  }
+
+  .grade-posicoes,
   .grade-uniformes,
   .grade-patrocinadores {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 600px) {
   .conteudo {
     width: 92%;
-
     padding: 45px 0 75px;
   }
 
@@ -694,7 +438,7 @@ button:focus-visible {
     margin-bottom: 35px;
   }
 
-  .grade-pessoas,
+  .grade-posicoes,
   .grade-cargos,
   .grade-uniformes,
   .grade-patrocinadores {
@@ -708,7 +452,12 @@ button:focus-visible {
 
   .evento {
     grid-template-columns: 1fr;
-
     gap: 5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bloco {
+    animation: none;
   }
 }

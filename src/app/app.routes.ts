@@ -10,7 +10,10 @@ import { Feedback } from './pages/feedback/feedback';
 import { Lojas } from './pages/lojas/lojas';
 import { TrocarTime } from './components/trocar-time/trocar-time';
 
-import { autenticacaoGuard } from '../guards/autenticacao-guard';
+import {
+  autenticacaoGuard,
+  visitanteGuard,
+} from '../guards/autenticacao-guard';
 
 export const routes: Routes = [
   {
@@ -21,10 +24,12 @@ export const routes: Routes = [
   {
     path: 'login',
     component: Login,
+    canActivate: [visitanteGuard],
   },
   {
     path: 'cadastro',
     component: Cadastro,
+    canActivate: [visitanteGuard],
   },
   {
     path: 'meu-time',

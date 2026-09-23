@@ -7,28 +7,17 @@
   [class.tema-bahia]="temaSelecionado === 'bahia'"
 >
   <main class="conteudo">
-
-    <!-- INTRODUÇÃO -->
     <section class="introducao">
-      <span class="mini-titulo">
-        COMUNIDADE
-      </span>
-
-      <h1>
-        A torcida também joga junto.
-      </h1>
-
+      <span class="mini-titulo">COMUNIDADE</span>
+      <h1>A torcida também joga junto.</h1>
       <p>
-        Encontre canais do {{ nomeTime }}, comunidades de
-        torcedores e espaços para resenha, notícias,
-        figurinhas e muito mais.
+        Encontre canais do {{ nomeTime }}, comunidades de torcedores
+        e espaços para resenha, notícias, figurinhas e muito mais.
       </p>
     </section>
 
-    <!-- AVISO -->
     <div class="aviso">
       <span aria-hidden="true">ⓘ</span>
-
       <p>
         Alguns grupos abaixo são demonstrativos para apresentar
         o funcionamento da plataforma. Canais oficiais serão
@@ -36,26 +25,14 @@
       </p>
     </div>
 
-    <!-- CANAIS OFICIAIS -->
     <section class="secao">
       <div class="cabecalho-secao">
         <div>
-          <span class="mini-titulo">
-            CANAIS OFICIAIS
-          </span>
-
-          <h2>
-            Acompanhe o {{ nomeTime }}
-          </h2>
-
-          <p>
-            Acesso rápido aos principais canais do clube.
-          </p>
+          <span class="mini-titulo">CANAIS OFICIAIS</span>
+          <h2>Acompanhe o {{ nomeTime }}</h2>
+          <p>Acesso rápido aos principais canais do clube.</p>
         </div>
-
-        <span class="selo-oficial">
-          ✓ Oficial
-        </span>
+        <span class="selo-oficial">✓ Oficial</span>
       </div>
 
       <div class="grade-oficiais">
@@ -70,17 +47,9 @@
             </div>
 
             <div class="conteudo-oficial">
-              <span class="tipo-canal">
-                {{ canal.tipo }}
-              </span>
-
-              <h3>
-                {{ canal.nome }}
-              </h3>
-
-              <p>
-                {{ canal.descricao }}
-              </p>
+              <span class="tipo-canal">{{ canal.tipo }}</span>
+              <h3>{{ canal.nome }}</h3>
+              <p>{{ canal.descricao }}</p>
             </div>
 
             <button
@@ -89,12 +58,7 @@
               [disabled]="!canal.link"
               (click)="abrirLink(canal.link)"
             >
-              {{
-                canal.link
-                  ? 'Acessar'
-                  : 'Em breve'
-              }}
-
+              {{ canal.link ? 'Acessar' : 'Em breve' }}
               @if (canal.link) {
                 <span aria-hidden="true">↗</span>
               }
@@ -104,42 +68,22 @@
       </div>
     </section>
 
-    <!-- COMUNIDADES -->
     <section class="secao comunidades">
       <div class="cabecalho-secao">
         <div>
-          <span class="mini-titulo">
-            GALERA DO MANTO
-          </span>
-
-          <h2>
-            Encontre sua resenha
-          </h2>
-
-          <p>
-            Escolha o tipo de comunidade que combina
-            com você.
-          </p>
+          <span class="mini-titulo">GALERA DO MANTO</span>
+          <h2>Encontre sua resenha</h2>
+          <p>Escolha o tipo de comunidade que combina com você.</p>
         </div>
       </div>
 
-      <!-- FILTROS -->
-      <div
-        class="filtros"
-        aria-label="Categorias de comunidades"
-      >
-        @for (
-          categoria of categorias;
-          track categoria.valor
-        ) {
+      <div class="filtros" aria-label="Categorias de comunidades">
+        @for (categoria of categorias; track categoria.valor) {
           <button
             type="button"
-            [class.ativo]="
-              categoriaSelecionada === categoria.valor
-            "
-            (click)="
-              selecionarCategoria(categoria.valor)
-            "
+            [class.ativo]="categoriaSelecionada === categoria.valor"
+            [attr.aria-pressed]="categoriaSelecionada === categoria.valor"
+            (click)="categoriaSelecionada = categoria.valor"
           >
             {{ categoria.nome }}
           </button>
@@ -147,50 +91,31 @@
       </div>
 
       <div class="grade-grupos">
-        @for (
-          grupo of gruposFiltrados;
-          track grupo.id
-        ) {
+        @for (grupo of gruposFiltrados; track grupo.id) {
           <article class="card-grupo">
             <div class="topo-grupo">
               <div class="icone-grupo" aria-hidden="true">
                 {{ grupo.icone }}
               </div>
-
               <div class="etiquetas">
-                <span class="plataforma">
-                  {{ grupo.plataforma }}
-                </span>
-
-                <span class="demonstracao">
-                  Demonstração
-                </span>
+                <span class="plataforma">{{ grupo.plataforma }}</span>
+                <span class="demonstracao">Demonstração</span>
               </div>
             </div>
 
             <div class="conteudo-grupo">
               <span class="categoria">
-                {{ nomeCategoria(grupo.categoria) }}
+                {{ nomesCategorias[grupo.categoria] }}
               </span>
-
-              <h3>
-                {{ grupo.nome }}
-              </h3>
-
-              <p>
-                {{ grupo.descricao }}
-              </p>
+              <h3>{{ grupo.nome }}</h3>
+              <p>{{ grupo.descricao }}</p>
             </div>
 
             <div class="informacoes-grupo">
               <span>
-                <strong>{{ grupo.membros }}</strong>
-                membros
+                <strong>{{ grupo.membros }}</strong> membros
               </span>
-
-              <span>
-                {{ grupo.atividade }}
-              </span>
+              <span>{{ grupo.atividade }}</span>
             </div>
 
             <button
@@ -199,12 +124,7 @@
               [disabled]="!grupo.link"
               (click)="abrirLink(grupo.link)"
             >
-              {{
-                grupo.link
-                  ? 'Entrar na comunidade'
-                  : 'Grupo demonstrativo'
-              }}
-
+              {{ grupo.link ? 'Entrar na comunidade' : 'Grupo demonstrativo' }}
               @if (grupo.link) {
                 <span aria-hidden="true">→</span>
               }
@@ -214,21 +134,11 @@
       </div>
     </section>
 
-    <!-- SEGURANÇA -->
     <section class="seguranca">
-      <div class="icone-seguranca" aria-hidden="true">
-        !
-      </div>
-
+      <div class="icone-seguranca" aria-hidden="true">!</div>
       <div>
-        <span class="mini-titulo">
-          ATENÇÃO, TORCEDOR
-        </span>
-
-        <h2>
-          Comunidade boa é comunidade segura.
-        </h2>
-
+        <span class="mini-titulo">ATENÇÃO, TORCEDOR</span>
+        <h2>Comunidade boa é comunidade segura.</h2>
         <p>
           O Meu Manto apenas organiza o acesso às comunidades.
           Nunca compartilhe senhas, documentos, códigos de
@@ -237,32 +147,19 @@
       </div>
     </section>
 
-    <!-- SUGESTÃO -->
     <section class="sugerir">
       <div>
-        <span class="mini-titulo">
-          CONHECE UMA COMUNIDADE?
-        </span>
-
-        <h2>
-          Ajude a aumentar a torcida.
-        </h2>
-
+        <span class="mini-titulo">CONHECE UMA COMUNIDADE?</span>
+        <h2>Ajude a aumentar a torcida.</h2>
         <p>
           Você poderá sugerir grupos e comunidades para
           aparecerem no Meu Manto.
         </p>
       </div>
-
-      <button
-        type="button"
-        (click)="irParaFeedback()"
-      >
-        Sugerir comunidade
-        <span aria-hidden="true">→</span>
+      <button type="button" routerLink="/feedback">
+        Sugerir comunidade <span aria-hidden="true">→</span>
       </button>
     </section>
-
   </main>
 </div>
 
