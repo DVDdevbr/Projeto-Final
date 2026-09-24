@@ -18,6 +18,7 @@ export class Login {
 
   email = '';
   senha = '';
+  mostrarSenha = false;
   time: TimeFavorito | '' = '';
   mensagemErro = '';
 

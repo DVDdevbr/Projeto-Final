@@ -77,56 +77,120 @@
         <div class="campo">
           <label for="senha">Senha</label>
 
-          <input
-            id="senha"
-            name="senha"
-            type="password"
-            placeholder="Use pelo menos 8 caracteres"
-            autocomplete="new-password"
-            [(ngModel)]="senha"
-            #campoSenha="ngModel"
-            [attr.aria-invalid]="campoSenha.invalid && campoSenha.touched"
-            [attr.aria-describedby]="
-              campoSenha.invalid && campoSenha.touched ? 'erro-senha' : null
-            "
-            required
-            minlength="8"
-          />
+          <div class="campo-senha">
+            <input
+              id="senha"
+              name="senha"
+              [type]="mostrarSenha ? 'text' : 'password'"
+              placeholder="Use pelo menos 8 caracteres"
+              autocomplete="new-password"
+              [(ngModel)]="senha"
+              #campoSenha="ngModel"
+              [attr.aria-invalid]="campoSenha.invalid && campoSenha.touched"
+              [attr.aria-describedby]="
+                campoSenha.invalid && campoSenha.touched ? 'erro-senha' : null
+              "
+              required
+              minlength="8"
+            />
+
+            <button
+              type="button"
+              class="botao-senha"
+              (click)="mostrarSenha = !mostrarSenha"
+              [attr.aria-label]="mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'"
+              aria-controls="senha"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                <circle cx="12" cy="12" r="3" />
+
+                @if (mostrarSenha) {
+                  <path d="M3 3 21 21" />
+                }
+              </svg>
+            </button>
+          </div>
 
           @if (campoSenha.invalid && campoSenha.touched) {
-            <small id="erro-senha" class="erro-campo">A senha deve ter pelo menos 8 caracteres.</small>
+            <small id="erro-senha" class="erro-campo">
+              A senha deve ter pelo menos 8 caracteres.
+            </small>
           }
         </div>
 
         <div class="campo">
           <label for="confirmar-senha">Confirmar senha</label>
 
-          <input
-            id="confirmar-senha"
-            name="confirmarSenha"
-            type="password"
-            placeholder="Digite a senha novamente"
-            autocomplete="new-password"
-            [(ngModel)]="confirmarSenha"
-            #campoConfirmacao="ngModel"
-            [attr.aria-invalid]="
-              campoConfirmacao.touched &&
-              (campoConfirmacao.invalid || senha !== confirmarSenha)
-            "
-            [attr.aria-describedby]="
-              campoConfirmacao.touched &&
-              (campoConfirmacao.invalid || senha !== confirmarSenha)
-                ? 'erro-confirmacao'
-                : null
-            "
-            required
-          />
+          <div class="campo-senha">
+            <input
+              id="confirmar-senha"
+              name="confirmarSenha"
+              [type]="mostrarConfirmacao ? 'text' : 'password'"
+              placeholder="Digite a senha novamente"
+              autocomplete="new-password"
+              [(ngModel)]="confirmarSenha"
+              #campoConfirmacao="ngModel"
+              [attr.aria-invalid]="
+                campoConfirmacao.touched &&
+                (campoConfirmacao.invalid || senha !== confirmarSenha)
+              "
+              [attr.aria-describedby]="
+                campoConfirmacao.touched &&
+                (campoConfirmacao.invalid || senha !== confirmarSenha)
+                  ? 'erro-confirmacao'
+                  : null
+              "
+              required
+            />
+
+            <button
+              type="button"
+              class="botao-senha"
+              (click)="mostrarConfirmacao = !mostrarConfirmacao"
+              [attr.aria-label]="
+                mostrarConfirmacao
+                  ? 'Ocultar confirmação de senha'
+                  : 'Mostrar confirmação de senha'
+              "
+              aria-controls="confirmar-senha"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                <circle cx="12" cy="12" r="3" />
+
+                @if (mostrarConfirmacao) {
+                  <path d="M3 3 21 21" />
+                }
+              </svg>
+            </button>
+          </div>
 
           @if (campoConfirmacao.touched) {
             @if (campoConfirmacao.invalid) {
-              <small id="erro-confirmacao" class="erro-campo">Confirme sua senha.</small>
+              <small id="erro-confirmacao" class="erro-campo">
+                Confirme sua senha.
+              </small>
             } @else if (senha !== confirmarSenha) {
-              <small id="erro-confirmacao" class="erro-campo">As senhas não coincidem.</small>
+              <small id="erro-confirmacao" class="erro-campo">
+                As senhas não coincidem.
+              </small>
             }
           }
         </div>

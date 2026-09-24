@@ -18,6 +18,8 @@ export class Cadastro {
   email = '';
   senha = '';
   confirmarSenha = '';
+  mostrarSenha = false;
+  mostrarConfirmacao = false;
   aceitouTermos = false;
 
   mensagemErro = '';
@@ -58,6 +60,9 @@ export class Cadastro {
       this.mensagemErro = 'Já existe uma conta com esse e-mail.';
       return;
     }
+
+    this.mostrarSenha = false;
+    this.mostrarConfirmacao = false;
 
     formulario.resetForm({
       nome: '',
