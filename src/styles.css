@@ -16,9 +16,7 @@ textarea {
   font: inherit;
 }
 
-/* =========================================================
-   MEU MANTO - SISTEMA GLOBAL DE TEMAS
-========================================================= */
+   /* SISTEMA GLOBAL DE TEMAS */
 
 :root {
   --mm-laranja: #ff6b00;
@@ -114,4 +112,24 @@ app-rodape.tema-bahia {
   --sombra:
     0 18px 50px
     rgba(17, 24, 39, 0.08);
+}
+
+/* VITÓRIA ESCURO */
+
+.pagina.tema-vitoria-escuro,
+app-cabecalho.tema-vitoria-escuro,
+app-rodape.tema-vitoria-escuro {
+  --cor-principal: #e52330;
+  --cor-principal-hover: #f23845;
+  --cor-principal-suave: #32191e;
+}
+
+/* BAHIA ESCURO */
+
+.pagina.tema-bahia-escuro,
+app-cabecalho.tema-bahia-escuro,
+app-rodape.tema-bahia-escuro {
+  --cor-principal: #1684d4;
+  --cor-principal-hover: #2998eb;
+  --cor-principal-suave: #142b40;
 }

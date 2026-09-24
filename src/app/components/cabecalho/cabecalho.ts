@@ -11,11 +11,11 @@ type Menu = 'principal' | 'perfil';
   templateUrl: './cabecalho.html',
   styleUrl: './cabecalho.css',
   host: {
-    '[class.modo-escuro]': "temaSelecionado === 'escuro'",
+    '[class.modo-escuro]': "temaSelecionado.includes('escuro')",
     '[class.tema-vitoria]': "temaSelecionado === 'vitoria'",
     '[class.tema-bahia]': "temaSelecionado === 'bahia'",
-    '(document:click)': 'fecharAoClicarFora($event)',
-    '(document:keydown.escape)': 'fecharComEscape()',
+    '[class.tema-vitoria-escuro]': "temaSelecionado === 'vitoria-escuro'",
+    '[class.tema-bahia-escuro]': "temaSelecionado === 'bahia-escuro'",
   },
 })
 export class Cabecalho {
@@ -96,6 +96,13 @@ export class Cabecalho {
         nome: this.nomeTime,
         descricao: 'Tema do seu time',
       },
+      {
+        id: this.timeFavorito === 'vitoria'
+          ? 'vitoria-escuro'
+          : 'bahia-escuro',
+        nome: `${this.nomeTime} escuro`,
+        descricao: 'Modo escuro com as cores do clube',
+      },
     ];
   }
 
@@ -133,14 +140,9 @@ export class Cabecalho {
   }
 
   selecionarTema(tema: Tema) {
-    if (
-      (tema === 'vitoria' || tema === 'bahia') &&
-      tema !== this.timeFavorito
-    ) {
-      return;
+    if (this.temas.some(opcao => opcao.id === tema)) {
+      this.temaService.selecionar(tema);
     }
-
-    this.temaService.selecionar(tema);
   }
 
   sair() {

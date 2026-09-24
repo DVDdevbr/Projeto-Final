@@ -2,9 +2,11 @@
 
 <div
   class="pagina"
-  [class.modo-escuro]="temaSelecionado === 'escuro'"
+  [class.modo-escuro]="temaSelecionado.includes('escuro')"
   [class.tema-vitoria]="temaSelecionado === 'vitoria'"
   [class.tema-bahia]="temaSelecionado === 'bahia'"
+  [class.tema-vitoria-escuro]="temaSelecionado === 'vitoria-escuro'"
+  [class.tema-bahia-escuro]="temaSelecionado === 'bahia-escuro'"
 >
   <main class="conteudo">
     @let filtradas = noticiasFiltradas;

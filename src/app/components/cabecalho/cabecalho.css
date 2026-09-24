@@ -358,6 +358,14 @@ a:focus-visible {
   background: linear-gradient(135deg, #d71920 50%, #111111 50%);
 }
 
+.amostra-tema.tema-vitoria-escuro {
+  background: linear-gradient(135deg, #0e1014 50%, #e52330 50%);
+}
+
+.amostra-tema.tema-bahia-escuro {
+  background: linear-gradient(135deg, #0e1014 50%, #1684d4 50%);
+}
+
 .texto-tema strong {
   font-size: 0.86rem;
 }

@@ -4,7 +4,9 @@ export type Tema =
   | 'padrao'
   | 'escuro'
   | 'vitoria'
-  | 'bahia';
+  | 'bahia'
+  | 'vitoria-escuro'
+  | 'bahia-escuro';
 
 @Injectable({
   providedIn: 'root',
@@ -16,45 +18,35 @@ export class TemaService {
 
   selecionar(tema: Tema) {
     this.tema.set(tema);
-
-    localStorage.setItem(
-      this.chaveTema,
-      tema
-    );
+    localStorage.setItem(this.chaveTema, tema);
   }
 
-  validarTemaDoUsuario(
-    timeFavorito: 'vitoria' | 'bahia'
-  ) {
-    const temaAtual = this.tema();
-
-    const temaDeClube =
-      temaAtual === 'vitoria' ||
-      temaAtual === 'bahia';
+  validarTemaDoUsuario(timeFavorito: 'vitoria' | 'bahia') {
+    const tema = this.tema();
 
     if (
-      temaDeClube &&
-      temaAtual !== timeFavorito
+      tema !== 'padrao' &&
+      tema !== 'escuro' &&
+      tema !== timeFavorito &&
+      tema !== `${timeFavorito}-escuro`
     ) {
       this.selecionar('padrao');
     }
   }
 
   private carregarTema(): Tema {
-    const temaSalvo =
-      localStorage.getItem(
-        this.chaveTema
-      );
+    const salvo = localStorage.getItem(this.chaveTema);
 
-    if (
-      temaSalvo === 'padrao' ||
-      temaSalvo === 'escuro' ||
-      temaSalvo === 'vitoria' ||
-      temaSalvo === 'bahia'
-    ) {
-      return temaSalvo;
+    switch (salvo) {
+      case 'padrao':
+      case 'escuro':
+      case 'vitoria':
+      case 'bahia':
+      case 'vitoria-escuro':
+      case 'bahia-escuro':
+        return salvo;
+      default:
+        return 'padrao';
     }
-
-    return 'padrao';
   }
 }

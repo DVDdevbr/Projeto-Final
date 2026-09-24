@@ -8,9 +8,11 @@ import { TemaService } from '../../../services/tema';
   templateUrl: './rodape.html',
   styleUrl: './rodape.css',
   host: {
-    '[class.modo-escuro]': "temaService.tema() === 'escuro'",
+    '[class.modo-escuro]': "temaService.tema().includes('escuro')",
     '[class.tema-vitoria]': "temaService.tema() === 'vitoria'",
     '[class.tema-bahia]': "temaService.tema() === 'bahia'",
+    '[class.tema-vitoria-escuro]': "temaService.tema() === 'vitoria-escuro'",
+    '[class.tema-bahia-escuro]': "temaService.tema() === 'bahia-escuro'",
   },
 })
 export class Rodape {
