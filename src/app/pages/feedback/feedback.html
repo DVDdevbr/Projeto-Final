@@ -2,108 +2,65 @@
 
 <div
   class="pagina"
-  [class.modo-escuro]="temaSelecionado === 'escuro'"
-  [class.tema-vitoria]="temaSelecionado === 'vitoria'"
-  [class.tema-bahia]="temaSelecionado === 'bahia'"
+  [class.modo-escuro]="tema() === 'escuro'"
+  [class.tema-vitoria]="tema() === 'vitoria'"
+  [class.tema-bahia]="tema() === 'bahia'"
 >
   <main class="conteudo">
-
-    <!-- INTRODUÇÃO -->
-
     <section class="introducao">
-      <span class="mini-titulo">
-        SUA OPINIÃO IMPORTA
-      </span>
-
-      <h1>
-        Ajude o Meu Manto a evoluir.
-      </h1>
-
+      <span class="mini-titulo">SUA OPINIÃO IMPORTA</span>
+      <h1>Ajude o Meu Manto a evoluir.</h1>
       <p>
-        Encontrou algum problema? Tem uma ideia para melhorar
-        a plataforma ou quer contribuir com o projeto?
-        Este espaço é seu.
+        Encontrou algum problema? Tem uma ideia para melhorar a plataforma
+        ou quer contribuir com o projeto? Este espaço é seu.
       </p>
     </section>
-
-    <!-- RESUMO -->
 
     <section class="resumo-feedback">
       <article>
         <span class="icone-resumo">★</span>
-
         <div>
           <strong>Avalie</strong>
-
-          <p>
-            Conte como foi sua experiência.
-          </p>
+          <p>Conte como foi sua experiência.</p>
         </div>
       </article>
 
       <article>
         <span class="icone-resumo">!</span>
-
         <div>
           <strong>Avise</strong>
-
-          <p>
-            Encontrou algum erro? Nos conte.
-          </p>
+          <p>Encontrou algum erro? Nos conte.</p>
         </div>
       </article>
 
       <article>
         <span class="icone-resumo">+</span>
-
         <div>
           <strong>Contribua</strong>
-
-          <p>
-            Sugestões, parcerias e apoio ao projeto.
-          </p>
+          <p>Sugestões, parcerias e apoio ao projeto.</p>
         </div>
       </article>
     </section>
 
     @if (!enviado) {
-
-      <!-- AVALIAÇÃO -->
-
       <section class="bloco avaliacao">
         <div class="cabecalho-bloco">
-          <span class="numero-etapa">
-            01
-          </span>
-
+          <span class="numero-etapa">01</span>
           <div>
-            <span class="mini-titulo">
-              AVALIAÇÃO
-            </span>
-
-            <h2>
-              Como está sendo sua experiência?
-            </h2>
-
-            <p>
-              Selecione de 1 a 5 estrelas.
-            </p>
+            <span class="mini-titulo">AVALIAÇÃO</span>
+            <h2>Como está sendo sua experiência?</h2>
+            <p>Selecione de 1 a 5 estrelas.</p>
           </div>
         </div>
 
-        <div
-          class="estrelas"
-          aria-label="Avaliação do site"
-        >
+        <div class="estrelas" role="group" aria-label="Avaliação do site">
           @for (estrela of estrelas; track estrela) {
             <button
               type="button"
               [class.ativa]="estrela <= avaliacao"
-              [attr.aria-label]="
-                estrela +
-                (estrela === 1 ? ' estrela' : ' estrelas')
-              "
-              (click)="selecionarAvaliacao(estrela)"
+              [attr.aria-pressed]="estrela === avaliacao"
+              [attr.aria-label]="estrela + (estrela === 1 ? ' estrela' : ' estrelas')"
+              (click)="avaliacao = estrela"
             >
               ★
             </button>
@@ -112,38 +69,19 @@
 
         @if (avaliacao > 0) {
           <div class="texto-avaliacao">
-            <strong>
-              {{ textoAvaliacao }}
-            </strong>
-
-            <span>
-              {{ avaliacao }}/5
-            </span>
+            <strong>{{ textosAvaliacao[avaliacao] }}</strong>
+            <span>{{ avaliacao }}/5</span>
           </div>
         }
       </section>
 
-      <!-- TIPO -->
-
       <section class="bloco">
         <div class="cabecalho-bloco">
-          <span class="numero-etapa">
-            02
-          </span>
-
+          <span class="numero-etapa">02</span>
           <div>
-            <span class="mini-titulo">
-              ASSUNTO
-            </span>
-
-            <h2>
-              Sobre o que você quer falar?
-            </h2>
-
-            <p>
-              Escolha a opção que melhor representa
-              sua mensagem.
-            </p>
+            <span class="mini-titulo">ASSUNTO</span>
+            <h2>Sobre o que você quer falar?</h2>
+            <p>Escolha a opção que melhor representa sua mensagem.</p>
           </div>
         </div>
 
@@ -153,143 +91,79 @@
               type="button"
               class="card-tipo"
               [class.ativo]="tipoSelecionado === tipo.id"
+              [attr.aria-pressed]="tipoSelecionado === tipo.id"
               (click)="selecionarTipo(tipo.id)"
             >
-              <span class="icone-tipo">
-                {{ tipo.icone }}
-              </span>
-
-              <strong>
-                {{ tipo.nome }}
-              </strong>
-
-              <p>
-                {{ tipo.descricao }}
-              </p>
-
+              <span class="icone-tipo">{{ tipo.icone }}</span>
+              <strong>{{ tipo.nome }}</strong>
+              <p>{{ tipo.descricao }}</p>
               <span class="selecao">
-                {{
-                  tipoSelecionado === tipo.id
-                    ? 'Selecionado ✓'
-                    : 'Selecionar'
-                }}
+                {{ tipoSelecionado === tipo.id ? 'Selecionado ✓' : 'Selecionar' }}
               </span>
             </button>
           }
         </div>
       </section>
 
-      <!-- FORMULÁRIO -->
-
-      @if (tipoSelecionado) {
+      @if (tipoAtual; as selecionado) {
         <section class="bloco">
           <div class="cabecalho-bloco">
-            <span class="numero-etapa">
-              03
-            </span>
-
+            <span class="numero-etapa">03</span>
             <div>
-              <span class="mini-titulo">
-                SUA MENSAGEM
-              </span>
-
-              <h2>
-                Conte um pouco mais.
-              </h2>
-
-              <p>
-                Quanto mais detalhes, melhor.
-              </p>
+              <span class="mini-titulo">SUA MENSAGEM</span>
+              <h2>Conte um pouco mais.</h2>
+              <p>Quanto mais detalhes, melhor.</p>
             </div>
           </div>
 
-          <form
-            class="formulario"
-            (submit)="enviarFeedback($event)"
-          >
-            <!-- ASSUNTO -->
-
+          <form class="formulario" (ngSubmit)="enviarFeedback()">
             <div class="campo">
-              <label for="assunto">
-                Assunto
-              </label>
-
+              <label for="assunto">Assunto</label>
               <input
                 id="assunto"
+                name="assunto"
                 type="text"
                 maxlength="80"
-                [value]="assunto"
-                (input)="atualizarAssunto($event)"
-                [placeholder]="placeholderAssunto"
+                [(ngModel)]="assunto"
+                [placeholder]="selecionado.assunto"
               />
-
-              <span class="contador">
-                {{ assunto.length }}/80
-              </span>
+              <span class="contador">{{ assunto.length }}/80</span>
             </div>
-
-            <!-- MENSAGEM -->
 
             <div class="campo">
-              <label for="mensagem">
-                Mensagem
-              </label>
-
+              <label for="mensagem">Mensagem</label>
               <textarea
                 id="mensagem"
+                name="mensagem"
                 maxlength="600"
-                [value]="mensagem"
-                (input)="atualizarMensagem($event)"
-                [placeholder]="placeholderMensagem"
+                [(ngModel)]="mensagem"
+                [placeholder]="selecionado.mensagem"
               ></textarea>
-
-              <span class="contador">
-                {{ mensagem.length }}/600
-              </span>
+              <span class="contador">{{ mensagem.length }}/600</span>
             </div>
-
-            <!-- CONTRIBUIÇÃO -->
 
             @if (tipoSelecionado === 'contribuicao') {
               <div class="area-contribuicao">
                 <div class="cabecalho-contribuicao">
-                  <span class="mini-titulo">
-                    COMO DESEJA CONTRIBUIR?
-                  </span>
-
+                  <span class="mini-titulo">COMO DESEJA CONTRIBUIR?</span>
                   <p>
-                    Nenhum pagamento é realizado por esta
-                    página. Esta área serve apenas para
-                    registrar o interesse.
+                    Nenhum pagamento é realizado por esta página.
+                    Esta área serve apenas para registrar o interesse.
                   </p>
                 </div>
 
                 <div class="opcoes-contribuicao">
-                  @for (
-                    opcao of contribuicoes;
-                    track opcao.id
-                  ) {
+                  @for (opcao of contribuicoes; track opcao.id) {
                     <button
                       type="button"
-                      [class.ativo]="
-                        contribuicaoSelecionada === opcao.id
-                      "
-                      (click)="
-                        selecionarContribuicao(opcao.id)
-                      "
+                      [class.ativo]="contribuicaoSelecionada === opcao.id"
+                      [attr.aria-pressed]="contribuicaoSelecionada === opcao.id"
+                      (click)="contribuicaoSelecionada = opcao.id"
                     >
-                      <span>
-                        {{ opcao.icone }}
-                      </span>
-
+                      <span>{{ opcao.icone }}</span>
                       <div>
-                        <strong>
-                          {{ opcao.nome }}
-                        </strong>
-
-                        <small>
-                          {{ opcao.descricao }}
-                        </small>
+                        <strong>{{ opcao.nome }}</strong>
+                        <small>{{ opcao.descricao }}</small>
                       </div>
                     </button>
                   }
@@ -297,66 +171,43 @@
               </div>
             }
 
-            <!-- CONTATO -->
-
             <div class="area-contato">
               <div>
-                <span class="mini-titulo">
-                  CONTATO OPCIONAL
-                </span>
-
-                <p>
-                  Informe um e-mail apenas se quiser
-                  receber um retorno.
-                </p>
+                <span class="mini-titulo">CONTATO OPCIONAL</span>
+                <p>Informe um e-mail apenas se quiser receber um retorno.</p>
               </div>
 
               <div class="campo">
-                <label for="email">
-                  E-mail
-                  <span>(opcional)</span>
-                </label>
-
+                <label for="email">E-mail <span>(opcional)</span></label>
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   maxlength="100"
-                  [value]="email"
-                  (input)="atualizarEmail($event)"
+                  [(ngModel)]="email"
                   placeholder="seuemail@exemplo.com"
                 />
               </div>
             </div>
 
-            <!-- ERRO -->
-
             @if (erroFormulario) {
-              <div class="erro-formulario">
+              <div class="erro-formulario" role="alert">
                 <span aria-hidden="true">!</span>
-
-                <p>
-                  {{ erroFormulario }}
-                </p>
+                <p>{{ erroFormulario }}</p>
               </div>
             }
 
             <div class="rodape-formulario">
               <div class="privacidade">
                 <span aria-hidden="true">✓</span>
-
                 <p>
-                  Esta versão salva o feedback apenas
-                  neste navegador para demonstração
-                  do projeto.
+                  Esta versão salva o feedback apenas neste navegador
+                  para demonstração do projeto.
                 </p>
               </div>
 
-              <button
-                type="submit"
-                class="enviar"
-              >
-                Enviar feedback
-                <span aria-hidden="true">→</span>
+              <button type="submit" class="enviar">
+                Enviar feedback <span aria-hidden="true">→</span>
               </button>
             </div>
           </form>
@@ -364,77 +215,45 @@
       }
     }
 
-    <!-- SUCESSO -->
-
     @if (enviado) {
       <section class="sucesso">
-        <div class="icone-sucesso">
-          ✓
-        </div>
-
-        <span class="mini-titulo">
-          FEEDBACK RECEBIDO
-        </span>
-
-        <h2>
-          Valeu por ajudar o Meu Manto!
-        </h2>
-
+        <div class="icone-sucesso">✓</div>
+        <span class="mini-titulo">FEEDBACK RECEBIDO</span>
+        <h2>Valeu por ajudar o Meu Manto!</h2>
         <p>
-          Sua mensagem foi registrada nesta demonstração.
-          Feedbacks como o seu ajudam a pensar nas próximas
-          melhorias da plataforma.
+          Sua mensagem foi registrada nesta demonstração. Feedbacks como
+          o seu ajudam a pensar nas próximas melhorias da plataforma.
         </p>
 
         <div class="resumo-enviado">
           <div>
             <span>Tipo</span>
-
-            <strong>
-              {{ nomeTipoSelecionado }}
-            </strong>
+            <strong>{{ tipoAtual?.nome ?? 'Feedback' }}</strong>
           </div>
 
           @if (avaliacao > 0) {
             <div>
               <span>Avaliação</span>
-
-              <strong>
-                {{ avaliacao }}/5 ★
-              </strong>
+              <strong>{{ avaliacao }}/5 ★</strong>
             </div>
           }
 
           <div>
             <span>Protocolo demonstrativo</span>
-
-            <strong>
-              {{ protocolo }}
-            </strong>
+            <strong>{{ protocolo }}</strong>
           </div>
         </div>
 
         <div class="acoes-sucesso">
-          <button
-            type="button"
-            class="novo-feedback"
-            (click)="novoFeedback()"
-          >
+          <button type="button" class="novo-feedback" (click)="novoFeedback()">
             Enviar outro feedback
           </button>
-
-          <button
-            type="button"
-            class="voltar"
-            (click)="voltarMeuTime()"
-          >
-            Voltar para Meu Time
-            <span aria-hidden="true">→</span>
+          <button type="button" class="voltar" routerLink="/meu-time">
+            Voltar para Meu Time <span aria-hidden="true">→</span>
           </button>
         </div>
       </section>
     }
-
   </main>
 </div>
 

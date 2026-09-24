@@ -8,25 +8,17 @@
 
 .pagina {
   min-height: 100vh;
-
+  color: var(--texto);
   background:
     radial-gradient(
       circle at 50% -200px,
-      color-mix(
-        in srgb,
-        var(--cor-principal) 10%,
-        transparent
-      ),
+      color-mix(in srgb, var(--cor-principal) 10%, transparent),
       transparent 500px
     ),
     var(--fundo);
-
-  color: var(--texto);
 }
 
-button,
-input,
-textarea {
+button, input, textarea {
   font: inherit;
 }
 
@@ -34,9 +26,7 @@ button {
   cursor: pointer;
 }
 
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
+button:focus-visible, input:focus-visible, textarea:focus-visible {
   outline: 3px solid var(--cor-principal);
   outline-offset: 3px;
 }
@@ -44,23 +34,16 @@ textarea:focus-visible {
 .conteudo {
   width: min(1180px, 90%);
   margin: 0 auto;
-
   padding: 72px 0 100px;
 }
 
 .mini-titulo {
   color: var(--cor-principal);
-
   font-size: 0.68rem;
   font-weight: 900;
-
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-
-/* =========================================================
-   INTRODUÇÃO
-========================================================= */
 
 .introducao {
   max-width: 800px;
@@ -68,69 +51,57 @@ textarea:focus-visible {
 
 .introducao h1 {
   margin: 10px 0 0;
-
   font-size: clamp(2.4rem, 5vw, 4.2rem);
   line-height: 1;
-
   letter-spacing: -0.045em;
 }
 
 .introducao p {
   max-width: 670px;
-
   margin: 18px 0 0;
-
   color: var(--texto-secundario);
-
   font-size: 0.95rem;
   line-height: 1.7;
 }
 
-/* =========================================================
-   RESUMO
-========================================================= */
+/* Resumo e blocos */
+
+.resumo-feedback, .opcoes-contribuicao, .resumo-enviado {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
 
 .resumo-feedback {
   margin: 45px 0 65px;
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
   gap: 12px;
 }
 
-.resumo-feedback article {
-  padding: 18px;
-
+.resumo-feedback article, .bloco, .sucesso {
   border: 1px solid var(--borda);
-  border-radius: 14px;
-
-  display: flex;
-  align-items: center;
-
-  gap: 13px;
-
   background-color: var(--fundo-secundario);
 }
 
-.icone-resumo {
-  width: 40px;
-  height: 40px;
+.resumo-feedback article {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 18px;
+  border-radius: 14px;
+}
 
-  flex-shrink: 0;
-
-  border-radius: 11px;
-
+.icone-resumo, .numero-etapa, .icone-tipo {
   display: grid;
   place-items: center;
-
-  background-color: var(--cor-principal-suave);
-
+  width: 40px;
+  height: 40px;
   color: var(--cor-principal);
-
   font-weight: 900;
+}
+
+.icone-resumo {
+  flex-shrink: 0;
+  border-radius: 11px;
+  background-color: var(--cor-principal-suave);
 }
 
 .resumo-feedback strong {
@@ -139,26 +110,14 @@ textarea:focus-visible {
 
 .resumo-feedback p {
   margin: 3px 0 0;
-
   color: var(--texto-secundario);
-
   font-size: 0.66rem;
 }
 
-/* =========================================================
-   BLOCOS
-========================================================= */
-
 .bloco {
   padding: 30px;
-
-  border: 1px solid var(--borda);
   border-radius: 20px;
-
-  background-color: var(--fundo-secundario);
-
-  box-shadow:
-    0 12px 35px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.04);
 }
 
 .bloco + .bloco {
@@ -167,73 +126,44 @@ textarea:focus-visible {
 
 .cabecalho-bloco {
   display: grid;
-
   grid-template-columns: 42px 1fr;
-
   gap: 15px;
 }
 
 .numero-etapa {
-  width: 40px;
-  height: 40px;
-
   border-radius: 50%;
-
-  display: grid;
-  place-items: center;
-
   background-color: var(--cor-principal-suave);
-
-  color: var(--cor-principal);
-
   font-size: 0.7rem;
-  font-weight: 900;
 }
 
 .cabecalho-bloco h2 {
   margin: 5px 0 0;
-
   font-size: clamp(1.25rem, 3vw, 1.8rem);
-
   letter-spacing: -0.03em;
 }
 
 .cabecalho-bloco p {
   margin: 5px 0 0;
-
   color: var(--texto-secundario);
-
   font-size: 0.7rem;
 }
 
-/* =========================================================
-   ESTRELAS
-========================================================= */
+/* Avaliação */
 
 .estrelas {
-  margin-top: 28px;
-
   display: flex;
-
   gap: 5px;
+  margin-top: 28px;
 }
 
 .estrelas button {
   padding: 0;
-
   border: 0;
-
   background: transparent;
-
   color: var(--borda);
-
   font-size: clamp(2rem, 5vw, 3rem);
-
   line-height: 1;
-
-  transition:
-    color 0.15s ease,
-    transform 0.15s ease;
+  transition: color 0.15s ease, transform 0.15s ease;
 }
 
 .estrelas button:hover {
@@ -244,60 +174,46 @@ textarea:focus-visible {
   color: var(--cor-principal);
 }
 
-.texto-avaliacao {
-  margin-top: 13px;
-
+.texto-avaliacao, .opcoes-contribuicao button {
   display: flex;
   align-items: center;
-
   gap: 10px;
+}
+
+.texto-avaliacao {
+  margin-top: 13px;
 }
 
 .texto-avaliacao strong {
   color: var(--cor-principal);
-
   font-size: 0.75rem;
 }
 
 .texto-avaliacao span {
   color: var(--texto-secundario);
-
   font-size: 0.67rem;
 }
 
-/* =========================================================
-   TIPOS
-========================================================= */
+/* Tipos de feedback */
 
 .grade-tipos {
-  margin-top: 25px;
-
   display: grid;
-
-  grid-template-columns:
-    repeat(4, minmax(0, 1fr));
-
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
+  margin-top: 25px;
 }
 
 .card-tipo {
-  min-height: 190px;
-
-  padding: 20px;
-
-  border: 1px solid var(--borda);
-  border-radius: 15px;
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
+  min-height: 190px;
+  padding: 20px;
+  border: 1px solid var(--borda);
+  border-radius: 15px;
   background-color: var(--fundo);
-
   color: var(--texto);
-
   text-align: left;
-
   transition:
     transform 0.2s ease,
     border-color 0.2s ease,
@@ -306,59 +222,39 @@ textarea:focus-visible {
 
 .card-tipo:hover {
   transform: translateY(-3px);
-
   border-color: var(--cor-principal);
 }
 
 .card-tipo.ativo {
   border-color: var(--cor-principal);
-
   background-color: var(--cor-principal-suave);
 }
 
 .icone-tipo {
-  width: 40px;
-  height: 40px;
-
   border-radius: 10px;
-
-  display: grid;
-  place-items: center;
-
   background-color: var(--fundo-secundario);
-
-  color: var(--cor-principal);
-
-  font-weight: 900;
 }
 
 .card-tipo strong {
   margin-top: 15px;
-
   font-size: 0.8rem;
 }
 
 .card-tipo p {
   margin: 6px 0 15px;
-
   color: var(--texto-secundario);
-
   font-size: 0.66rem;
   line-height: 1.5;
 }
 
 .selecao {
   margin-top: auto;
-
   color: var(--cor-principal);
-
   font-size: 0.62rem;
   font-weight: 900;
 }
 
-/* =========================================================
-   FORMULÁRIO
-========================================================= */
+/* Formulário */
 
 .formulario {
   margin-top: 28px;
@@ -374,124 +270,85 @@ textarea:focus-visible {
 
 .campo label {
   display: block;
-
   margin-bottom: 7px;
-
   color: var(--texto);
-
   font-size: 0.7rem;
   font-weight: 800;
 }
 
 .campo label span {
   color: var(--texto-secundario);
-
   font-weight: 500;
 }
 
-.campo input,
-.campo textarea {
+.campo input, .campo textarea {
   width: 100%;
-
   border: 1px solid var(--borda);
   border-radius: 11px;
-
   background-color: var(--fundo);
-
   color: var(--texto);
-
-  outline: none;
-
   transition: border-color 0.2s ease;
 }
 
 .campo input {
   height: 45px;
-
   padding: 0 13px;
 }
 
 .campo textarea {
   min-height: 150px;
-
   padding: 13px;
-
   resize: vertical;
 }
 
-.campo input:focus,
-.campo textarea:focus {
+.campo input:focus, .campo textarea:focus {
   border-color: var(--cor-principal);
 }
 
-.campo input::placeholder,
-.campo textarea::placeholder {
+.campo input::placeholder, .campo textarea::placeholder {
   color: var(--texto-secundario);
-
   opacity: 0.7;
 }
 
 .contador {
   display: block;
-
   margin-top: 5px;
-
   color: var(--texto-secundario);
-
   font-size: 0.61rem;
-
   text-align: right;
 }
 
-/* =========================================================
-   CONTRIBUIÇÃO
-========================================================= */
+/* Contribuição e contato */
 
 .area-contribuicao {
   margin-top: 25px;
   padding: 22px;
-
   border: 1px solid var(--borda);
   border-radius: 14px;
-
   background-color: var(--fundo);
 }
 
-.cabecalho-contribuicao p {
+.cabecalho-contribuicao p, .area-contato > div:first-child p {
   margin: 6px 0 0;
-
   color: var(--texto-secundario);
-
-  font-size: 0.68rem;
   line-height: 1.5;
+}
+
+.cabecalho-contribuicao p {
+  font-size: 0.68rem;
 }
 
 .opcoes-contribuicao {
   margin-top: 15px;
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
   gap: 9px;
 }
 
 .opcoes-contribuicao button {
   padding: 13px;
-
   border: 1px solid var(--borda);
   border-radius: 11px;
-
-  display: flex;
-  align-items: center;
-
-  gap: 10px;
-
   background-color: var(--fundo-secundario);
-
   color: var(--texto);
-
   text-align: left;
 }
 
@@ -504,14 +361,14 @@ textarea:focus-visible {
   background-color: var(--cor-principal-suave);
 }
 
-.opcoes-contribuicao button > span {
+.opcoes-contribuicao button > span,
+.erro-formulario span,
+.privacidade > span {
   color: var(--cor-principal);
-
   font-weight: 900;
 }
 
-.opcoes-contribuicao strong,
-.opcoes-contribuicao small {
+.opcoes-contribuicao strong, .opcoes-contribuicao small {
   display: block;
 }
 
@@ -521,224 +378,137 @@ textarea:focus-visible {
 
 .opcoes-contribuicao small {
   margin-top: 2px;
-
   color: var(--texto-secundario);
-
   font-size: 0.6rem;
 }
 
-/* =========================================================
-   CONTATO
-========================================================= */
-
 .area-contato {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(280px, 1fr);
+  gap: 30px;
   margin-top: 25px;
   padding-top: 22px;
-
   border-top: 1px solid var(--borda);
-
-  display: grid;
-
-  grid-template-columns:
-    minmax(0, 0.7fr)
-    minmax(280px, 1fr);
-
-  gap: 30px;
 }
 
 .area-contato > div:first-child p {
-  margin: 6px 0 0;
-
-  color: var(--texto-secundario);
-
   font-size: 0.67rem;
-  line-height: 1.5;
 }
 
-/* =========================================================
-   ERRO
-========================================================= */
+/* Erro e envio */
 
 .erro-formulario {
-  margin-top: 20px;
-  padding: 11px 13px;
-
-  border: 1px solid var(--cor-principal);
-  border-radius: 10px;
-
   display: flex;
   align-items: center;
-
   gap: 9px;
-
+  margin-top: 20px;
+  padding: 11px 13px;
+  border: 1px solid var(--cor-principal);
+  border-radius: 10px;
   background-color: var(--cor-principal-suave);
-
   color: var(--texto);
-}
-
-.erro-formulario span {
-  color: var(--cor-principal);
-
-  font-weight: 900;
 }
 
 .erro-formulario p {
   margin: 0;
-
   font-size: 0.68rem;
 }
 
-/* =========================================================
-   ENVIO
-========================================================= */
-
 .rodape-formulario {
-  margin-top: 25px;
-  padding-top: 20px;
-
-  border-top: 1px solid var(--borda);
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   gap: 25px;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid var(--borda);
 }
 
 .privacidade {
-  max-width: 500px;
-
   display: flex;
   align-items: flex-start;
-
   gap: 8px;
-
+  max-width: 500px;
   color: var(--texto-secundario);
-}
-
-.privacidade > span {
-  color: var(--cor-principal);
-
-  font-weight: 900;
 }
 
 .privacidade p {
   margin: 0;
-
   font-size: 0.63rem;
   line-height: 1.5;
 }
 
 .enviar {
   flex-shrink: 0;
-
   padding: 11px 18px;
-
   border: 0;
   border-radius: 10px;
-
   background-color: var(--cor-principal);
-
   color: white;
-
   font-size: 0.7rem;
   font-weight: 900;
-
-  transition:
-    transform 0.2s ease,
-    background-color 0.2s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 .enviar:hover {
   transform: translateY(-2px);
-
   background-color: var(--cor-principal-hover);
 }
 
-/* =========================================================
-   SUCESSO
-========================================================= */
+/* Confirmação */
 
 .sucesso {
   max-width: 780px;
-
   margin: 50px auto 0;
   padding: 50px;
-
-  border: 1px solid var(--borda);
   border-radius: 22px;
-
-  background-color: var(--fundo-secundario);
-
   box-shadow: var(--sombra);
-
   text-align: center;
 }
 
 .icone-sucesso {
-  width: 65px;
-  height: 65px;
-
-  margin: 0 auto 22px;
-
-  border-radius: 50%;
-
   display: grid;
   place-items: center;
-
+  width: 65px;
+  height: 65px;
+  margin: 0 auto 22px;
+  border-radius: 50%;
   background-color: var(--cor-principal);
-
   color: white;
-
   font-size: 1.5rem;
   font-weight: 900;
 }
 
 .sucesso h2 {
   margin: 8px 0 0;
-
   font-size: clamp(1.6rem, 4vw, 2.4rem);
-
   letter-spacing: -0.035em;
 }
 
 .sucesso > p {
   max-width: 580px;
-
   margin: 15px auto 0;
-
   color: var(--texto-secundario);
-
   font-size: 0.77rem;
   line-height: 1.65;
 }
 
 .resumo-enviado {
+  gap: 10px;
   margin-top: 30px;
   padding: 18px;
-
   border-radius: 13px;
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-  gap: 10px;
-
   background-color: var(--fundo);
 }
 
 .resumo-enviado div {
   display: flex;
   flex-direction: column;
-
   gap: 4px;
 }
 
 .resumo-enviado span {
   color: var(--texto-secundario);
-
   font-size: 0.6rem;
 }
 
@@ -747,66 +517,48 @@ textarea:focus-visible {
 }
 
 .acoes-sucesso {
-  margin-top: 25px;
-
   display: flex;
   justify-content: center;
-
   gap: 9px;
+  margin-top: 25px;
 }
 
 .acoes-sucesso button {
   padding: 10px 15px;
-
   border-radius: 9px;
-
   font-size: 0.68rem;
   font-weight: 900;
 }
 
 .novo-feedback {
   border: 1px solid var(--borda);
-
   background-color: var(--fundo);
-
   color: var(--texto);
 }
 
 .voltar {
   border: 1px solid var(--cor-principal);
-
   background-color: var(--cor-principal);
-
   color: white;
 }
 
-/* =========================================================
-   RESPONSIVO
-========================================================= */
+/* Responsividade */
 
 @media (max-width: 850px) {
   .conteudo {
     width: min(92%, 760px);
-
     padding-top: 55px;
   }
 
-  .resumo-feedback {
+  .resumo-feedback, .opcoes-contribuicao, .area-contato {
     grid-template-columns: 1fr;
   }
 
   .grade-tipos {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-  }
-
-  .opcoes-contribuicao {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .area-contato {
-    grid-template-columns: 1fr;
-
     gap: 15px;
   }
 }
@@ -814,7 +566,6 @@ textarea:focus-visible {
 @media (max-width: 600px) {
   .conteudo {
     width: 92%;
-
     padding: 45px 0 75px;
   }
 
@@ -823,19 +574,14 @@ textarea:focus-visible {
   }
 
   .resumo-feedback {
-    margin:
-      35px 0 45px;
+    margin: 35px 0 45px;
   }
 
   .bloco {
     padding: 22px 18px;
   }
 
-  .cabecalho-bloco {
-    grid-template-columns: 1fr;
-  }
-
-  .grade-tipos {
+  .cabecalho-bloco, .grade-tipos, .resumo-enviado {
     grid-template-columns: 1fr;
   }
 
@@ -848,7 +594,7 @@ textarea:focus-visible {
     align-items: stretch;
   }
 
-  .enviar {
+  .enviar, .acoes-sucesso button {
     width: 100%;
   }
 
@@ -857,16 +603,10 @@ textarea:focus-visible {
   }
 
   .resumo-enviado {
-    grid-template-columns: 1fr;
-
     gap: 18px;
   }
 
   .acoes-sucesso {
     flex-direction: column;
-  }
-
-  .acoes-sucesso button {
-    width: 100%;
   }
 }

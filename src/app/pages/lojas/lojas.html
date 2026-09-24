@@ -7,6 +7,8 @@
   [class.tema-bahia]="temaSelecionado === 'bahia'"
 >
   <main class="conteudo">
+    @let produtos = produtosFiltrados;
+
     <section class="apresentacao" aria-labelledby="titulo-lojas">
       <p class="mini-titulo">LOJAS E OFERTAS</p>
 
@@ -24,27 +26,27 @@
     <nav class="abas" aria-label="Escolher tipo de loja">
       <button
         type="button"
-        [class.ativa]="abaSelecionada === 'oficial'"
-        [attr.aria-pressed]="abaSelecionada === 'oficial'"
+        [class.ativa]="ehOficial"
+        [attr.aria-pressed]="ehOficial"
         aria-controls="conteudo-lojas"
-        (click)="selecionarAba('oficial')"
+        (click)="selecionarLoja(lojaOficial)"
       >
         Loja oficial
       </button>
 
       <button
         type="button"
-        [class.ativa]="abaSelecionada === 'parceiras'"
-        [attr.aria-pressed]="abaSelecionada === 'parceiras'"
+        [class.ativa]="!ehOficial"
+        [attr.aria-pressed]="!ehOficial"
         aria-controls="conteudo-lojas"
-        (click)="selecionarAba('parceiras')"
+        (click)="selecionarLoja(parceiraSelecionada)"
       >
         Lojas parceiras
       </button>
     </nav>
 
     <div id="conteudo-lojas">
-      @if (abaSelecionada === 'parceiras') {
+      @if (!ehOficial) {
         <section class="secao" aria-labelledby="titulo-parceiras">
           <div class="titulo-secao">
             <p class="mini-titulo">JUNTAS COM A TORCIDA</p>
@@ -54,29 +56,31 @@
 
           <p class="aviso">
             <strong>Espaço demonstrativo:</strong>
-            as três lojas abaixo são fictícias. Não representam parcerias
-            comerciais ativas.
+            as três lojas abaixo são fictícias. Não representam
+            parcerias comerciais ativas.
           </p>
 
           <div class="grade-parceiras">
-            @for (loja of lojasParceiras; track loja.id; let indice = $index) {
+            @for (loja of lojasParceiras; track loja.id) {
               <button
                 type="button"
                 class="cartao-parceira"
-                [class.selecionada]="indiceParceira === indice"
-                [attr.aria-pressed]="indiceParceira === indice"
-                (click)="selecionarParceira(indice)"
+                [class.selecionada]="parceiraSelecionada.id === loja.id"
+                [attr.aria-pressed]="parceiraSelecionada.id === loja.id"
+                (click)="selecionarLoja(loja)"
               >
                 <span class="simbolo-parceira" aria-hidden="true">
                   {{ loja.sigla }}
                 </span>
-
                 <span class="etiqueta">Loja fictícia</span>
                 <strong class="nome-parceira">{{ loja.nome }}</strong>
                 <span class="descricao-parceira">{{ loja.descricao }}</span>
-
                 <span class="acao-parceira">
-                  {{ indiceParceira === indice ? 'Loja selecionada ✓' : 'Ver produtos e cupons →' }}
+                  {{
+                    parceiraSelecionada.id === loja.id
+                      ? 'Loja selecionada ✓'
+                      : 'Ver produtos e cupons →'
+                  }}
                 </span>
               </button>
             }
@@ -87,11 +91,10 @@
       <section class="secao" aria-labelledby="titulo-loja">
         <div class="titulo-secao">
           <p class="mini-titulo">
-            {{ abaSelecionada === 'oficial' ? 'ONDE ENCONTRAR SEU MANTO' : 'VOCÊ ESTÁ EXPLORANDO' }}
+            {{ ehOficial ? 'ONDE ENCONTRAR SEU MANTO' : 'VOCÊ ESTÁ EXPLORANDO' }}
           </p>
-
           <h2 id="titulo-loja">
-            {{ abaSelecionada === 'oficial' ? 'Loja em destaque.' : lojaAtual.nome }}
+            {{ ehOficial ? 'Loja em destaque.' : lojaAtual.nome }}
           </h2>
         </div>
 
@@ -99,15 +102,14 @@
           <div class="identidade-loja" aria-hidden="true">
             <strong>{{ lojaAtual.sigla }}</strong>
             <span>
-              {{ abaSelecionada === 'oficial' ? nomeTime : 'PARCEIRA DEMONSTRATIVA' }}
+              {{ ehOficial ? nomeTime : 'PARCEIRA DEMONSTRATIVA' }}
             </span>
           </div>
 
           <div class="informacoes-loja">
             <span class="etiqueta">
-              {{ abaSelecionada === 'oficial' ? 'Loja oficial do clube' : 'Demonstração de parceria' }}
+              {{ ehOficial ? 'Loja oficial do clube' : 'Demonstração de parceria' }}
             </span>
-
             <h3>{{ lojaAtual.nome }}</h3>
             <p>{{ lojaAtual.descricao }}</p>
 
@@ -127,7 +129,6 @@
                 Visitar loja oficial ↗
                 <span class="somente-leitor"> — abre em outra aba</span>
               </a>
-
               <small class="observacao">
                 A compra acontece no site da loja. Consulte os preços,
                 o estoque e as condições de entrega por lá.
@@ -184,16 +185,14 @@
         </div>
 
         <p class="quantidade" aria-live="polite">
-          {{ produtosFiltrados.length }} produto(s) em {{ lojaAtual.nome }}
+          {{ produtos.length }} produto(s) em {{ lojaAtual.nome }}
         </p>
 
         <div class="grade-produtos">
-          @for (produto of produtosFiltrados; track produto.id) {
+          @for (produto of produtos; track produto.id) {
             <article class="cartao-produto">
               <div class="imagem-produto">
-                <span class="selo-desconto">
-                  -{{ desconto(produto.precoAnterior, produto.precoAtual) }}%
-                </span>
+                <span class="selo-desconto">-{{ produto.desconto }}%</span>
 
                 <div
                   class="ilustracao"
@@ -203,9 +202,7 @@
                   [class.casual]="produto.tipo === 'casual'"
                   aria-hidden="true"
                 >
-                  <span>
-                    {{ abaSelecionada === 'oficial' ? siglaTime : lojaAtual.sigla }}
-                  </span>
+                  <span>{{ ehOficial ? siglaTime : lojaAtual.sigla }}</span>
                 </div>
 
                 <small class="legenda-imagem">Ilustração demonstrativa</small>
@@ -219,7 +216,6 @@
                 <div class="precos">
                   <span class="somente-leitor">Preço anterior:</span>
                   <del>{{ formatarPreco(produto.precoAnterior) }}</del>
-
                   <span class="somente-leitor">Preço promocional:</span>
                   <strong>{{ formatarPreco(produto.precoAtual) }}</strong>
                 </div>
@@ -267,13 +263,11 @@
           @for (cupom of lojaAtual.cupons; track cupom.codigo) {
             <article class="cartao-cupom">
               <span class="etiqueta">Demonstrativo</span>
-
               <h3>{{ cupom.titulo }}</h3>
               <p>{{ cupom.descricao }}</p>
 
               <div class="codigo-cupom">
                 <code>{{ cupom.codigo }}</code>
-
                 <button
                   type="button"
                   class="botao"
@@ -293,9 +287,7 @@
           }
         </div>
 
-        <p class="mensagem-cupom" role="status">
-          {{ mensagemCupom() }}
-        </p>
+        <p class="mensagem-cupom" role="status">{{ mensagemCupom() }}</p>
       </section>
     </div>
   </main>
